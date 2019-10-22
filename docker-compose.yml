@@ -21,7 +21,7 @@ services:
       - db
 
   frontend:
-    image: node:10-alpine
+    image: node:alpine
     command: yarn serve
     volumes:
       - ./frontend:/code

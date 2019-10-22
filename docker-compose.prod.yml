@@ -1,0 +1,53 @@
+version: '3.3'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/code
+    command: gunicorn backend.wsgi:application --bind 0.0.0.0:8000
+    restart: on-failure
+    environment:
+      - DEBUG=0
+      - SECRET_KEY="y&x(u-n@sz#z-n_)!%hz+p7+px%i6m3g%%(t1^7h*o=yfvem(i"
+      - SQL_ENGINE=django.db.backends.postgresql
+      - SQL_USER=template_user_prod
+      - SQL_DATABASE=template_db_prod
+      - SQL_PASSWORD=123456abc
+      - SQL_HOST=db
+      - SQL_PORT=5432
+      - DATABASE=postgres
+
+  db:
+    image: postgres
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=template_user_prod
+      - POSTGRES_DB=template_db_prod
+      - POSTGRES_PASSWORD=123456abc
+    ports:
+      - 5432:5432
+
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - backend
+    volumes:
+      - ./backend/static/:/code/static/
+      - ./nginx/dh-param/dhparam-2048.pem:/etc/ssl/certs/dhparam-2048.pem
+      - /docker-volumes/etc/letsencrypt/live/totrno.com/fullchain.pem:/etc/letsencrypt/live/totrno.com/fullchain.pem
+      - /docker-volumes/etc/letsencrypt/live/totrno.com/privkey.pem:/etc/letsencrypt/live/totrno.com/privkey.pem
+
+
+volumes:
+  postgres_data: {}

@@ -1,0 +1,51 @@
+version: '3.3'
+
+services:
+  backend:
+    build: ./backend
+    volumes:
+      - ./backend:/code
+    command: python manage.py runserver 0.0.0.0:8000
+    restart: on-failure
+    environment:
+      - DEBUG=1
+      - SECRET_KEY="y&x(u-n@sz#z-n_)!%hz+p7+px%i6m3g%%(t1^7h*o=yfvem(i"
+      - SQL_ENGINE=django.db.backends.postgresql
+      - SQL_DATABASE=template_db
+      - SQL_USER=template_user
+      - SQL_PASSWORD=123456abc
+      - SQL_HOST=db
+      - SQL_PORT=5432
+      - DATABASE=postgres
+    depends_on:
+      - db
+
+  frontend:
+    image: node:10-alpine
+    command: yarn serve
+    volumes:
+      - ./frontend:/code
+    working_dir: /code
+    restart: on-failure
+
+  db:
+    image: postgres
+    volumes:
+      - postgres_data:/var/lib/postgres/data/
+    environment:
+      - POSTGRES_DB=template_db
+      - POSTGRES_USER=template_user
+      - POSTGRES_PASSWORD=123456abc
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    volumes:
+      - ./backend/static/:/code/static/
+      - ./nginx/dev.conf:/etc/nginx/nginx.conf:ro
+
+volumes:
+  postgres_data:

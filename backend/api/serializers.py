@@ -9,4 +9,4 @@ class FileSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ('id', 'email', 'pk')
+        fields = ('email', 'username', )

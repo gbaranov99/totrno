@@ -1,4 +1,4 @@
-# Totrno stands for TOdos, Time tRacking and NOtes
+# Totrno stands for TOdos, Time Tracking and NOtes
 
 Totrno's primary function is being a clean and functional way to manage how one spends their free time
 

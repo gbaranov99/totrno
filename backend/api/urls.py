@@ -4,7 +4,7 @@ from api import views
 
 router = routers.DefaultRouter()
 router.register('files', views.FileViewSet)
-router.register('users', views.UserViewSet)
+#router.register('users', views.UserViewSet)
 
 urlpatterns = [
     path('api/', include(router.urls)),

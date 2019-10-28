@@ -12,4 +12,4 @@ class CustomUser(AbstractUser):
 class File(models.Model):
     title = models.CharField(max_length = 100)
     content = models.TextField()
-    owner = models.ForeignKey('api.CustomUser', related_name='files', on_delete=models.CASCADE)
+    owner = models.ForeignKey('CustomUser', related_name='files', on_delete=models.CASCADE)

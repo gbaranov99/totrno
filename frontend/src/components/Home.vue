@@ -1,26 +1,26 @@
 <template>
   <div class="Home">
     <h1>{{ msg }}</h1>
-	<br>
+    <br>
       <div id="line1">
-  	  <h1 id="HeaderNormal1"> Quickly create </h1>
-  	  <h1 id="HeaderTO"> TO</h1>
-  	  <h1 id="HeaderNormal1">dos </h1>
-  	</div>
-  	<br>
-  	<div id="line2">
-  	   <h1 id="HeaderNormal2"> Efficiently </h1>
-  	   <h1 id="HeaderTR"> TR</h1>
-  	   <h1 id="HeaderNormal2">ack your time </h1>
-  	</div>
-  	<br>
-  	<div id="line3">
-  	  <h1 id="HeaderNormal3"> Take critical </h1>
-  	  <h1 id="HeaderNO"> NO</h1>
-  	  <h1 id="HeaderNormal3">tes </h1>
-  	</div>
-  	<br>
-  	<h1> All in one app. </h1>
+      <h1 id="HeaderNormal1"> Quickly create </h1>
+      <h1 id="HeaderTO"> TO</h1>
+      <h1 id="HeaderNormal1">dos </h1>
+    </div>
+    <br>
+    <div id="line2">
+       <h1 id="HeaderNormal2"> Efficiently </h1>
+       <h1 id="HeaderTR"> TR</h1>
+       <h1 id="HeaderNormal2">ack your time </h1>
+    </div>
+    <br>
+    <div id="line3">
+      <h1 id="HeaderNormal3"> Take critical </h1>
+      <h1 id="HeaderNO"> NO</h1>
+      <h1 id="HeaderNormal3">tes </h1>
+    </div>
+    <br>
+    <h1> All in one app. </h1>
   </div>
 </template>
 

@@ -1,9 +1,9 @@
 <template>
   <div>
     <nav>
-	  <router-link v-for="routes in links"
-	  v-bind:key="routes.id"
-	  :to="`${routes.page}`">{{routes.text}}</router-link>
+      <router-link v-for="routes in links"
+      v-bind:key="routes.id"
+      :to="`${routes.page}`">{{routes.text}}</router-link>
     </nav>
   </div>
 </template>

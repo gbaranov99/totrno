@@ -1,52 +1,44 @@
 <template>
-  <v-app>
-    <v-app-bar app>
-      <v-toolbar-title>
-        <router-link to="/" tag="span" style="cursor: pointer">
-          {{ appTitle }}
-        </router-link>
-    </v-toolbar-title>
-    <v-spacer></v-spacer>
-    <v-toolbar-items>
-      <v-btn
-        text
-        v-for="item in menuItems"
-        :key="item.title"
-        :to="item.path">
-        <v-icon left dark>{{ item.icon }}</v-icon>
-        {{ item.title }}
-      </v-btn>
-    </v-toolbar-items>
-    </v-app-bar>
-    
-    <v-content>
-      <router-view></router-view>
-    </v-content>    
+	<v-app>
+		<v-app-bar app dark color="green darken-4">
+			<v-toolbar-title>
+				<router-link to="/" tag="span" style="cursor: pointer">
+				{{ appTitle }}
+				</router-link>
+			</v-toolbar-title>
+			<v-spacer></v-spacer>
+			<v-toolbar-items>
+				<v-btn
+					text
+					v-for="item in menuItems"
+					:key="item.title"
+					:to="item.path">
+					{{ item.title }}
+				</v-btn>
+			</v-toolbar-items>
+		</v-app-bar>
 
-  </v-app>
-
-
+		<v-content>
+			<router-view></router-view>
+		</v-content>
+	</v-app>
 </template>
 
 <script>
 
 export default {
-  name: 'App',
-  components: {
-  },
-  data(){
-    return {
-    appTitle: 'Awesome App',
-	menuItems: [
-	     { title: 'Home', path: '/helloworld', icon: 'home' },
-	     { title: 'Sign Up', path: '/signup', icon: 'face' },
-	     { title: 'Sign In', path: '/signin', icon: 'lock_open' }
-	]
-	}
-  }, 
+	name: 'App',
+	components: {
+	},
+	data(){
+		return {
+		appTitle: 'Totrno',
+		menuItems: [
+			{ title: 'About', path: '/about' },
+			{ title: 'Contact', path: '/contact' },
+			{ title: 'Sign Up', path: '/signup' },
+		]
+		}
+	},
 };
 </script>
-
-<style>
-
-</style>

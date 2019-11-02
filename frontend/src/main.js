@@ -3,6 +3,7 @@ import App from '@/App.vue'
 import store from '@/store'
 import router from '@/router'
 import vuetify from './plugins/vuetify'
+//import mdiGithubCircle from '@mdi/js'
 
 Vue.config.productionTip = false
 

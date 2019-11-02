@@ -9,6 +9,7 @@ import Login from '@/components/Login'
 import SignUp from '@/components/SignUp'
 import Settings from '@/components/Settings'
 import TopNav from '@/components/TopNav'
+import HelloWorld from '@/components/HelloWorld'
 
 //import Files from '@/components/Files'
 
@@ -24,6 +25,11 @@ export default new Router({
       path: '/home',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/helloworld',
+      name: 'HelloWorld',
+      component: HelloWorld
     },
     {
       path: '/index',

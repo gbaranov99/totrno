@@ -3,9 +3,10 @@ import App from '@/App.vue'
 import store from '@/store'
 import router from '@/router'
 import vuetify from './plugins/vuetify'
-//import mdiGithubCircle from '@mdi/js'
+//import VueSession from 'vue-session'
 
 Vue.config.productionTip = false
+//Vue.use(VueSession)
 
 const vue = new Vue({
   router,

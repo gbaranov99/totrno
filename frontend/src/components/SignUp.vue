@@ -1,8 +1,7 @@
 <template>
   <v-container>
-    <v-layout text-xs-center wrap>
-	<v-flex xs2/>
-      <v-flex xs8>
+    <v-layout justify-center align-center>
+      <v-flex xs6 offset-xs2>
         <v-img
           :src="require('../assets/SignUp.png')"
           class="my-3"
@@ -19,33 +18,49 @@
 			</v-flex>
             <v-flex>
               <v-text-field
+                name="username"
+                label="Username"
+                id="username"
+                type="username"
+				color="green darken-4"
+				v-model="username"
+                required></v-text-field>
+            </v-flex>
+            <v-flex>
+              <v-text-field
                 name="email"
                 label="Email"
                 id="email"
                 type="email"
 				color="green darken-4"
+				v-model="email"
                 required></v-text-field>
             </v-flex>
             <v-flex>
               <v-text-field
-                name="password"
+                name="password1"
                 label="Password"
-                id="password"
-                type="password"
+                id="password1"
+                type="password1"
 				color="green darken-4"
+				v-model="password1"
                 required></v-text-field>
             </v-flex>
             <v-flex>
               <v-text-field
-                name="confirmPassword"
+                name="password2"
                 label="Confirm Password"
-                id="confirmPassword"
-                type="password"
+                id="password2"
+                type="password2"
 				color="green darken-4"
+				v-model="password2"
                 required></v-text-field>
             </v-flex>
             <v-flex class="text-xs-center" mt-5>
-              <v-btn dark color="green darken-4" type="submit">Sign Up</v-btn>
+              <v-btn dark color="green darken-4" 
+			  type="submit"
+			  @click="registerUser({ username: username, email: email, password1: password1, password2: password2 })"
+			  >Sign Up</v-btn>
             </v-flex>
           </v-column>
         </v-container>
@@ -54,3 +69,26 @@
 	</v-layout>
   </v-container>
 </template>
+
+<script>
+import { mapState, mapActions } from 'vuex'
+export default {
+  name: "SignUp",
+  data() {
+    return {
+      username: "",
+      email: "",
+      password1: "",
+      password2: "",
+    };
+  },
+  computed: mapState({
+    login: state => state.login.login
+  }),
+  methods: mapActions('login', [
+    'registerUser',
+    'loginUser',
+	'logoutUser'
+  ])
+};
+</script>

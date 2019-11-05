@@ -13,6 +13,7 @@ django-rest-auth = "^0.9.5"
 django-allauth = "^0.40.0"
 gunicorn = "^19.9"
 django-filter = "^2.2"
+djangorestframework_simplejwt = "^4.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.0"

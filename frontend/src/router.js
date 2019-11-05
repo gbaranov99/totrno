@@ -5,6 +5,9 @@ import About from '@/components/About'
 import Contact from '@/components/Contact'
 import SignUp from '@/components/SignUp'
 
+import Files from '@/components/Files'
+import Logout from '@/components/Logout'
+
 Vue.use(Router)
 
 export default new Router({
@@ -32,6 +35,16 @@ export default new Router({
       path: '/signUp',
       name: 'SignUp',
       component: SignUp
+    },
+    {
+      path: '/files',
+      name: 'Files',
+      component: Files
+    },
+    {
+      path: '/logout',
+      name: 'Logout',
+      component: Logout
     }
   ]
 })

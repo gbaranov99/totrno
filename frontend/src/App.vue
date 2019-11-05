@@ -37,6 +37,8 @@ export default {
 			{ title: 'About', path: '/about' },
 			{ title: 'Contact', path: '/contact' },
 			{ title: 'Sign Up', path: '/signup' },
+			{ title: 'Files', path: '/files' },
+			{ title: 'Logout', path: '/logout' },
 		]
 		}
 	},

@@ -21,11 +21,22 @@
 			</v-flex>
             <v-flex>
               <v-text-field
+                name="username"
+                label="Username"
+                id="username"
+                type="username"
+				color="green darken-4"
+				v-model="username"
+                required></v-text-field>
+            </v-flex>
+            <v-flex>
+              <v-text-field
                 name="email"
                 label="Email"
                 id="email"
                 type="email"
 				color="green darken-4"
+				v-model="email"
                 required></v-text-field>
             </v-flex>
             <v-flex>
@@ -35,10 +46,14 @@
                 id="password"
                 type="password"
 				color="green darken-4"
+				v-model="password"
                 required></v-text-field>
             </v-flex>
             <v-flex class="text-xs-center" mt-5>
-              <v-btn dark color="green darken-4" type="submit">Login</v-btn>
+              <v-btn dark color="green darken-4" 
+			  type="submit"
+			  @click="loginUser({ username: username, email: email, password: password })"
+			  >Login</v-btn>
             </v-flex>
           </v-column>
         </v-container>
@@ -46,7 +61,6 @@
 	  <v-flex xs12 mt-12 text-center>
 	    <h1 class="display-1 ">Everything you need to organize your life,</h1>
 	    <h1 class="display-1 ">All in one place.</h1>
-	    <h1 class="display-1 ">Totrno.</h1>
 	  </v-flex>
 
     </v-layout>
@@ -54,8 +68,23 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 export default {
-  data: () => ({
+  name: "SignUp",
+  data() {
+    return {
+      username: "",
+      email: "",
+      password: "",
+    };
+  },
+  computed: mapState({
+    login: state => state.login.login
   }),
+  methods: mapActions('login', [
+    'registerUser',
+    'loginUser',
+	'logoutUser'
+  ])
 };
 </script>

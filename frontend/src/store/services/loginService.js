@@ -11,5 +11,9 @@ export default {
   }, 
   postLogout() {
     return api.post(`rest-auth/logout/`)
+  },
+  getUser() {
+    return api.get(`rest-auth/user/`)
+              .then(response => response.data)
   }
 }

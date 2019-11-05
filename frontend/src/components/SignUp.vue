@@ -8,7 +8,7 @@
           contain
           height="150"
         ></v-img>
-	    <v-container>
+	    <v-container v-if="login.username !== 'admin'">
           <v-column>
 		    <v-flex>
               <h1 class="display-1" style="padding-top: 120px;">
@@ -41,7 +41,7 @@
                 name="password1"
                 label="Password"
                 id="password1"
-                type="password1"
+                type="password"
 				color="green darken-4"
 				v-model="password1"
                 required></v-text-field>
@@ -51,7 +51,7 @@
                 name="password2"
                 label="Confirm Password"
                 id="password2"
-                type="password2"
+                type="password"
 				color="green darken-4"
 				v-model="password2"
                 required></v-text-field>
@@ -88,7 +88,11 @@ export default {
   methods: mapActions('login', [
     'registerUser',
     'loginUser',
-	'logoutUser'
-  ])
+	'logoutUser',
+	'getUser'
+  ]),
+  created() {
+    this.$store.dispatch('login/getUser')
+  }
 };
 </script>

@@ -47,6 +47,10 @@
                 <v-card-title>{{file.title}}</v-card-title><v-list-item>
                   <v-list-item-content>Date: {{file.content}}</v-list-item-content>
                 </v-list-item>
+                <v-btn dark color="green darken-4" 
+			    type="submit"
+			    @click="deleteFile(file.pk)"
+			    >Delete file</v-btn>
               </v-card>
 	        </v-flex>
           </v-column>

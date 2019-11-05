@@ -1,7 +1,13 @@
 import loginService from '../services/loginService'
 
 const state = {
-  login: []
+	login: {
+		pk:'',
+		username:'',
+		email:'',
+		first_name:'',
+		last_name:''
+	}	
 }
 
 const getters = {
@@ -28,6 +34,12 @@ const actions = {
     .then(() => {
       commit('logoutUser', login)
     })
+  },
+  getUser ({ commit }) {
+    loginService.getUser()
+    .then(login => {
+      commit('getUser', login)
+    })
   }
 }
 
@@ -39,6 +51,9 @@ const mutations = {
     state.login = login
   },
   logoutUser(state, login) {
+    state.login = login
+  },
+  getUser(state, login) {
     state.login = login
   }
 }

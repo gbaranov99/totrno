@@ -45,6 +45,9 @@ export default {
     'registerUser',
     'loginUser',
 	'logoutUser'
-  ])
+  ]),
+  created() {
+    this.$store.dispatch('login/getUser')
+  }
 };
 </script>

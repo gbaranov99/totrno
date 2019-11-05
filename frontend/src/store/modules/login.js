@@ -51,7 +51,11 @@ const mutations = {
     state.login = login
   },
   logoutUser(state, login) {
-    state.login = login
+    state.login.pk = '',
+	state.login.username = ''
+	state.login.email = ''
+	state.login.first_name = ''
+	state.login.last_name = ''
   },
   getUser(state, login) {
     state.login = login

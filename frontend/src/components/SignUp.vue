@@ -8,7 +8,7 @@
           contain
           height="150"
         ></v-img>
-	    <v-container v-if="login.username !== 'admin'">
+	    <v-container v-if="login.username === ''">
           <v-column>
 		    <v-flex>
               <h1 class="display-1" style="padding-top: 120px;">

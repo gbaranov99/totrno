@@ -1,0 +1,48 @@
+Totrno is becoming more and more of a reality, so I think it is as good a time as any to plan out my next steps
+
+What I have so far:
+	Token user authentication
+	A simple file api
+	A simple front end with a basic description
+
+What I want to get:
+	Production set up
+		Making sure website actually runs in production
+		Storing user data between file upgrades
+			(Do I need to have all of my backend set before I can do that?)
+			How do db migrates work?
+		Forwarding from gbaranov to totrno contact page
+
+	Frontend	
+		Pressing enter switches from username to password to submitting form
+		Handling failed user requests, mostly login and registration
+		Router forwarding depending on user login state
+		Displaying the heirarchy of files and time logs associated
+			Files being deleted when user presses the button
+		Displaying user time tracked data: analytics
+		A much better and more interactive landing page
+		A better description and contact page
+		A better interface for account information
+			Including password changes, resets
+		User interface for search
+		User interface for calendar / dates
+		Side nav menu that shows top 5 Root, Recent and Popular directories
+
+	Backend
+		A hierarchical file system
+		Time logs attached to the file system
+		JWT user authentication
+		User email authentication
+		Checks to manage user input size and number of requests
+
+	Sending out the app into the real world
+		Post it on subreddits or hackernews
+	
+	Full device compatability
+		Make the app usable on both a desktop brower and on a phone browser
+		Enable phone notifications and maybe location data
+
+I hope I can finish most of this stuff by december, although I may need until january
+But by the start of next semester, if I don't have a product I am happy with, 
+I put up what I have and begin in earnest searching for a real internship / real experience
+Or begin a new project that I feel is more interesting

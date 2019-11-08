@@ -1,104 +1,88 @@
 <template>
-  <v-container>
-    <v-layout wrap>
-      <v-flex xs8>
-        <v-img
-          :src="require('../assets/totrnoLanding.png')"
-          class="my-3"
-          contain
-          height="600"
-        ></v-img>
-      </v-flex>
-
-      <v-flex xs1/>
-      <v-flex xs3 >
-	    <v-container v-if="login.username === ''">
-          <v-column>
-		    <v-flex>
-              <h1 class="display-1" style="padding-top: 120px;">
-		        Login
-              </h1>
+	<v-container>
+		<v-layout justify-center align-center>
+			<v-flex xs6>
+				<v-container>
+					<v-column>
+						<v-flex>
+							<h1 class="display-1" style="padding-top: 0px;">
+								You have these files stored:
+							</h1>
+							<br>
+						</v-flex>
+						<v-flex>
+							<v-text-field
+								name="title"
+								label="Title"
+								id="title"
+								type="title"
+								color="green darken-4"
+								v-model="title"
+								required
+							></v-text-field>
+						</v-flex>
+						<v-flex>
+							<v-text-field
+								name="content"
+								label="Content"
+								id="content"
+								type="content"
+								color="green darken-4"
+								v-model="content"
+								required
+							></v-text-field>
+						</v-flex>
+						<v-flex class="text-xs-center" mt-5>
+							<router-link to="/totrno" tag="span" style="cursor: pointer">
+							<v-btn dark color="green darken-4" 
+								type="submit"
+								@click="addFile({ title: title, content: content })"
+							>Add file</v-btn>
+							</router-link>
+						</v-flex>
+						<v-flex>
+							<h1 class="display-1" style="padding-top:30px" v-if="files.length === 0">
+								No Files
+							</h1>
+							<v-card mt-12 v-for="(file, index) in files" :key="index" class="mx-auto">
+								<v-card-title>{{file.title}}</v-card-title>
+								<v-list-item>
+									<v-list-item-content>{{index}}: {{file.content}}</v-list-item-content>
+								</v-list-item>
+								<router-link to="/totrno" tag="span" style="cursor: pointer">
+									<v-btn dark color="green darken-4" 
+										type="submit"
+										@click="deleteFile(file.id);"
+									>Delete file</v-btn>
+								</router-link>
+							</v-card>
+						</v-flex>
+					</v-column>
+				</v-container>
 			</v-flex>
-            <v-flex>
-              <v-text-field
-                name="username"
-                label="Username"
-                id="username"
-                type="username"
-				color="green darken-4"
-				v-model="username"
-                required></v-text-field>
-            </v-flex>
-            <v-flex>
-              <v-text-field
-                name="email"
-                label="Email"
-                id="email"
-                type="email"
-				color="green darken-4"
-				v-model="email"
-                required></v-text-field>
-            </v-flex>
-            <v-flex>
-              <v-text-field
-                name="password"
-                label="Password"
-                id="password"
-                type="password"
-				color="green darken-4"
-				v-model="password"
-                required></v-text-field>
-            </v-flex>
-            <v-flex class="text-xs-center" mt-5>
-              <v-btn dark color="green darken-4" 
-			  type="submit"
-			  @click="loginUser({ username: username, email: email, password: password })"
-			  >Login</v-btn>
-            </v-flex>
-          </v-column>
-        </v-container>
-		<v-container v-else>
-          <h1 class="display-1" style="padding-top: 200px;">
-		    Launch app:
-          </h1>
-		  <br>
-		  <br>
-          <v-btn dark color="green darken-4" 
-		  type="submit"
-		  @click="loginUser({ username: username, email: email, password: password })"
-		  >Launch</v-btn>
-		</v-container>
-	  </v-flex>
-	  <v-flex xs12 mt-12 text-center>
-	    <h1 class="display-1 ">Everything you need to organize your life,</h1>
-	    <h1 class="display-1 ">All in one place.</h1>
-	  </v-flex>
-
-    </v-layout>
-  </v-container>
+		</v-layout>
+	</v-container>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
 export default {
-  name: "Home",
-  data() {
-    return {
-      username: "",
-      email: "",
-      password: "",
-    };
-  },
-  computed: mapState({
-    login: state => state.login.login
-  }),
-  methods: mapActions('login', [
-    'registerUser',
-    'loginUser',
-	'logoutUser'
-  ]),
-  created() {
-    this.$store.dispatch('login/getUser')
-  }
+	name: "Totrno",
+	data() {
+		return {
+			title: "",
+			content: "",
+		};
+	},
+	computed: mapState({
+		files: state => state.files.files
+	}),
+	methods: mapActions('files', [
+		'addFile',
+		'deleteFile'
+	]),
+	created() {
+		this.$store.dispatch('files/getFiles')
+	}
 };
 </script>

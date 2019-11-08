@@ -1,32 +1,32 @@
 <template>
-  <v-container>
-	<v-app-bar app dark color="green darken-4">
-		<v-toolbar-title>
-			<router-link to="/" tag="span" style="cursor: pointer">
-			{{ appTitle }}
-			</router-link>
-		</v-toolbar-title>
-		<v-spacer></v-spacer>
-		<v-toolbar-items v-if="login.username === ''">
-			<v-btn
-				text
-				v-for="item in loggedOut"
-				:key="item.title"
-				:to="item.path">
-				{{ item.title }}
-			</v-btn>
-		</v-toolbar-items>
-		<v-toolbar-items v-else>
-			<v-btn
-				text
-				v-for="item in loggedIn"
-				:key="item.title"
-				:to="item.path">
-				{{ item.title }}
-			</v-btn>
-		</v-toolbar-items>
-	</v-app-bar>
-  </v-container>
+	<v-container>
+		<v-app-bar app dark color="green darken-4">
+			<v-toolbar-title>
+				<router-link to="/" tag="span" style="cursor: pointer">
+				{{ appTitle }}
+				</router-link>
+			</v-toolbar-title>
+			<v-spacer></v-spacer>
+			<v-toolbar-items v-if="login.username === ''">
+				<v-btn
+					text
+					v-for="item in loggedOut"
+					:key="item.title"
+					:to="item.path">
+					{{ item.title }}
+				</v-btn>
+			</v-toolbar-items>
+			<v-toolbar-items v-else>
+				<v-btn
+					text
+					v-for="item in loggedIn"
+					:key="item.title"
+					:to="item.path">
+					{{ item.title }}
+				</v-btn>
+			</v-toolbar-items>
+		</v-app-bar>
+	</v-container>
 </template>
 
 <script>
@@ -52,15 +52,15 @@ export default {
 		}
 	},
 	computed: mapState({
-	  login: state => state.login.login
+		login: state => state.login.login
 	}),
 	methods: mapActions('login', [
-	  'registerUser',
-	  'loginUser',
-	  'logoutUser'
+		'registerUser',
+		'loginUser',
+		'logoutUser'
 	]),
-  created() {
-    this.$store.dispatch('login/getUser')
-  }
+	created() {
+	this.$store.dispatch('login/getUser')
+	}
 };
 </script>

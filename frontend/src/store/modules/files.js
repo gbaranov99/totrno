@@ -19,9 +19,10 @@ const actions = {
   },
   addFile({ commit }, file) {
     fileService.postFile(file)
-    .then(() => {
-      commit('addFile', file)
-    })
+    .then(fileService.fetchFiles()
+		.then(files => {
+      commit('setFiles', files)
+    }))
   },
   deleteFile( { commit }, fileId) {
     fileService.deleteFile(fileId)
@@ -37,7 +38,7 @@ const mutations = {
     state.files.push(file)
   },
   deleteFile(state, fileId) {
-    state.files = state.files.filter(obj => obj.pk !== fileId)
+    state.files = state.files.filter(obj => obj.id !== fileId)
   }
 }
 

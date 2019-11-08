@@ -7,7 +7,9 @@ const state = {
 		email:'',
 		first_name:'',
 		last_name:''
-	}	
+	},
+	errors: {
+	}
 }
 
 const getters = {

@@ -1,32 +1,25 @@
 <template>
-  <v-container>
-	<v-app-bar app dark color="green darken-4">
-		<v-toolbar-title>
-			<router-link to="/" tag="span" style="cursor: pointer">
-			{{ appTitle }}
-			</router-link>
-		</v-toolbar-title>
-		<v-spacer></v-spacer>
-		<v-toolbar-items v-if="login.username === ''">
-			<v-btn
-				text
-				v-for="item in loggedOut"
-				:key="item.title"
-				:to="item.path">
-				{{ item.title }}
-			</v-btn>
-		</v-toolbar-items>
-		<v-toolbar-items v-else>
-			<v-btn
-				text
-				v-for="item in loggedIn"
-				:key="item.title"
-				:to="item.path">
-				{{ item.title }}
-			</v-btn>
-		</v-toolbar-items>
-	</v-app-bar>
-  </v-container>
+	<v-container>
+		<v-navigation-drawer 
+			v-model="drawer"
+			app dark permanent
+			width="180px"
+			color="green darken-4"
+		>
+			<v-list>
+				<v-list-item
+					text
+					v-for="item in items"
+					:key="item.title"
+					:to="item.path"
+				>
+					<v-list-item-content>
+						<v-list-item-title style="padding:10px;">{{ item.title }}</v-list-item-title>
+					</v-list-item-content>
+				</v-list-item>
+			</v-list>
+		</v-navigation-drawer>
+	</v-container>
 </template>
 
 <script>
@@ -39,28 +32,24 @@ export default {
 	data(){
 		return {
 		appTitle: 'Totrno',
-		loggedOut: [
-			{ title: 'About', path: '/about' },
-			{ title: 'Contact', path: '/contact' },
-			{ title: 'Sign Up', path: '/signup' },
-		],
-		loggedIn: [
-			{ title: 'About', path: '/about' },
-			{ title: 'Contact', path: '/contact' },
-			{ title: 'Logout', path: '/logout' },
+		items: [
+			{ title: 'Home', path: '/totrno' },
+			{ title: 'Search', path: '/about' },
+			{ title: 'Calendar', path: '/signup' },
+			{ title: 'Account', path: '/logout' },
 		]
 		}
 	},
 	computed: mapState({
-	  login: state => state.login.login
+		login: state => state.login.login
 	}),
 	methods: mapActions('login', [
-	  'registerUser',
-	  'loginUser',
-	  'logoutUser'
+		'registerUser',
+		'loginUser',
+		'logoutUser'
 	]),
-  created() {
-    this.$store.dispatch('login/getUser')
-  }
+	created() {
+		this.$store.dispatch('login/getUser')
+	}
 };
 </script>

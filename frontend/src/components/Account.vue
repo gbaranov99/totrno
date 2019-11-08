@@ -17,7 +17,7 @@
 							<br>
 						</v-flex>
 						<v-flex class="text-xs-center" mt-5>
-							<router-link to="/home" tag="span" style="cursor: pointer">
+							<router-link to="/" tag="span" style="cursor: pointer">
 								<v-btn dark color="green darken-4"
 									type="submit"
 									@click="logoutUser({})"

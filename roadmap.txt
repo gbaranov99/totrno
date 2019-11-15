@@ -34,6 +34,9 @@ What I want to get:
 		JWT user authentication
 		User email authentication
 		Checks to manage user input size and number of requests
+		Make requests not show the file number
+			Have each user have their own file number
+			At some point, create tables for each user (?)
 
 	Sending out the app into the real world
 		Post it on subreddits or hackernews

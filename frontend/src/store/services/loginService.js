@@ -4,7 +4,6 @@ export default {
 	postLogin(payload) {
 		return api.post(`rest-auth/login/`, payload)
 			.then(response => response.data)
-			//.catch(error => console.warn('woah'))
 	},
 	postRegister(payload) {
 		return api.post(`rest-auth/registration`, payload)

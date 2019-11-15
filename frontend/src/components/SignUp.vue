@@ -8,7 +8,7 @@
 					contain
 					height="150"
 				></v-img>
-				<v-container>
+				<v-container v-on:submit.prevent="onSubmit">
 					<v-form>
 						<h1 class="display-1" style="padding-top: 50px;">
 							Fill out the forms below to sign up for an account:
@@ -50,12 +50,15 @@
 							v-model="password2"
 							required
 						></v-text-field>
-						<router-link to="/totrno" tag="span" style="cursor: pointer">
-							<v-btn dark color="green darken-4" 
-								type="submit"
-								@click="registerUser({ username: username, email: email, password1: password1, password2: password2 })"
-							>Sign Up</v-btn>
-						</router-link>
+						<v-flex v-if="errors.error_msg !== ''">
+							<h1 class="headline" style="padding-top: 10px; padding-bottom: 20px;">
+								{{ errors.error_msg }}
+							</h1>
+						</v-flex>
+						<v-btn dark color="green darken-4" 
+							type="submit"
+							@click="registerUser({ username: username, email: email, password1: password1, password2: password2 })"
+						>Sign Up</v-btn>
 					</v-form>
 				</v-container>
 			</v-flex>
@@ -76,7 +79,8 @@ export default {
 		};
 	},
 	computed: mapState({
-		login: state => state.login.login
+		login: state => state.login.login,
+		errors: state => state.login.errors
 	}),
 	methods: mapActions('login', [
 		'registerUser',

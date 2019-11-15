@@ -13,7 +13,7 @@
 			<v-flex xs1/>
 			<v-flex xs3 >
 				<v-container>
-					<v-form>
+					<v-form v-on:submit.prevent="onSubmit">
 						<h1 class="display-1" style="padding-top: 120px;">
 							Login
 						</h1>
@@ -35,37 +35,17 @@
 							v-model="password"
 							required
 						></v-text-field>
-						<router-link to="/totrno" tag="span" style="cursor: pointer">
-							<v-btn dark color="green darken-4"
-								type="submit"
-								@click="loginUser({ username: username, email: email, password: password })"
-							>Login</v-btn>
-						</router-link>
-						<p> {{ errors }} </p>
-					</v-form>
-				</v-container>
-				<!--
-				<v-container v-else>
-					<h1 class="display-1" style="padding-top: 200px;">
-						Launch app:
-					</h1>
-					<br>
-					<br>
-					<router-link to="/totrno" tag="span" style="cursor: pointer">
+						<v-flex v-if="errors.error_msg !== ''">
+							<h1 class="headline" style="padding-top: 10px; padding-bottom: 20px;">
+								{{ errors.error_msg }}
+							</h1>
+						</v-flex>
 						<v-btn dark color="green darken-4"
 							type="submit"
-						>Launch</v-btn>
-					</router-link>
+							@click="loginUser({ username: username, email: email, password: password })"
+						>Login</v-btn>
+					</v-form>
 				</v-container>
-				<v-container v-if="errors && errors.length">
-					<v-card mt-12 v-for="error in errors" class="mx-auto">
-						<v-card-title>{{ error }}</v-card-title>
-						<v-list-item>
-							<v-list-item-content>Date: {{}}</v-list-item-content>
-						</v-list-item>
-					</v-card>
-				</v-container>
-				-->
 			</v-flex>
 
 			<v-flex xs12 mt-12 text-center>
@@ -88,7 +68,8 @@ export default {
 		};
 	},
 	computed: mapState({
-		login: state => state.login.login
+		login: state => state.login.login,
+		errors: state => state.login.errors
 	}),
 	methods: mapActions('login', [
 		'registerUser',

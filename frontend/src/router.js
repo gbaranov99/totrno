@@ -14,17 +14,26 @@ export default new Router({
 	routes: [
 		{
 			path: '/',
-			redirect: '/home'
+			beforeEnter: (to, from, next) => {
+				store.dispatch('login/getUser')
+					.then(() => {
+						if (store.state.login.login.username !== '') next('/totrno')
+						else next('/home')
+					})
+			}
 		},
 		{
 			path: '/home',
 			name: 'Home',
 			component: Home,
-			//beforeEnter: (to, from, next) => {
-			//	store.dispatch('login/getUser')
-			//	if (store.state.login.login.username !== '') next('/totrno')
-			//	else next()
-			//}
+			beforeEnter: (to, from, next) => {
+				store.dispatch('login/getUser')
+					.then(() => {
+						store.state.login.errors.error_msg = ''
+						if (store.state.login.login.username !== '') next('/totrno')
+						else next()
+					})
+			}
 		},
 		{
 			path: '/about',
@@ -39,17 +48,41 @@ export default new Router({
 		{
 			path: '/signUp',
 			name: 'SignUp',
-			component: SignUp
+			component: SignUp,
+			beforeEnter: (to, from, next) => {
+				store.dispatch('login/getUser')
+					.then(() => {
+						store.state.login.errors.error_msg = ''
+						if (store.state.login.login.username !== '') next('/totrno')
+						else next()
+					})
+			}
 		},
 		{
 			path: '/logout',
 			name: 'Logout',
-			component: Logout
+			component: Logout,
+			beforeEnter: (to, from, next) => {
+				store.dispatch('login/getUser')
+					.then(() => {
+						store.state.login.errors.error_msg = ''
+						if (store.state.login.login.username === '') next('/home')
+						else next()
+					})
+			}
 		},
 		{
 			path: '/totrno',
 			name: 'Totrno',
-			component: Totrno
+			component: Totrno,
+			beforeEnter: (to, from, next) => {
+				store.dispatch('login/getUser')
+					.then(() => {
+						store.state.login.errors.error_msg = ''
+						if (store.state.login.login.username === '') next('/home')
+						else next()
+					})
+			}
 		}
 	]
 })

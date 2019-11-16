@@ -19,4 +19,4 @@ class FileForm(forms.Form):
     
     class Meta:
         model = File
-        fields = ('title', 'content', 'owner')
+        fields = ('title', 'content', 'owner', 'parent',)

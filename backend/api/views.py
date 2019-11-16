@@ -15,7 +15,7 @@ class FileViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return File.objects.filter(owner=user)
+        return File.objects.filter(owner=user, parent=None)
 
 
 #class UserViewSet(viewsets.ModelViewSet):

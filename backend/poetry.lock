@@ -97,6 +97,26 @@ Django = ">=1.11"
 
 [[package]]
 category = "main"
+description = "script tag with additional attributes for django.forms.Media"
+name = "django-js-asset"
+optional = false
+python-versions = "*"
+version = "1.2.2"
+
+[[package]]
+category = "main"
+description = "Utilities for implementing Modified Preorder Tree Traversal with your Django Models and working with trees of Model instances."
+name = "django-mptt"
+optional = false
+python-versions = ">=3.5"
+version = "0.10.0"
+
+[package.dependencies]
+Django = ">=1.11"
+django-js-asset = "*"
+
+[[package]]
+category = "main"
 description = "Create a set of REST API endpoints for Authentication and Registration"
 name = "django-rest-auth"
 optional = false
@@ -313,7 +333,7 @@ version = "0.6.0"
 more-itertools = "*"
 
 [metadata]
-content-hash = "5188797a13e327efbdd36b1dc80c40f9f1697a275ab363123a1384dc90eedcf5"
+content-hash = "494bd52c1981ee892e68a35187525b55d136d8886ac0aafb3eb3908e3c409420"
 python-versions = "^3.7"
 
 [metadata.hashes]
@@ -327,6 +347,8 @@ django = ["4025317ca01f75fc79250ff7262a06d8ba97cd4f82e93394b2a0a6a4a925caeb", "a
 django-allauth = ["6a189fc4d3ee23596c3fd6e9f49c59b5b15618980118171a50675dd6a27cc589"]
 django-cors-headers = ["5762ec9c2d59f38c76828dc1d4308baca4bc0d3e1d6f217683e7a24a1c4611a3", "ee02f4b699e9b6645602a46d0adb430ee940a1bf8df64f77e516f8d7711fee60"]
 django-filter = ["558c727bce3ffa89c4a7a0b13bc8976745d63e5fd576b3a9a851650ef11c401b", "c3deb57f0dd7ff94d7dce52a047516822013e2b441bed472b722a317658cfd14"]
+django-js-asset = ["8ec12017f26eec524cab436c64ae73033368a372970af4cf42d9354fcb166bdd", "c163ae80d2e0b22d8fb598047cd0dcef31f81830e127cfecae278ad574167260"]
+django-mptt = ["6bf9eb26e54e92006ca82108a1c946c7df533ec27bddf3f795a83a32a3d1b04b", "c765c1501dd0b5c22f0ca8b948550bd294cd2db68aefa0560c6ed7fcfdf4b95e"]
 django-rest-auth = ["f11e12175dafeed772f50d740d22caeab27e99a3caca24ec65e66a8d6de16571"]
 django-rest-framework = ["47a8f496fa69e3b6bd79f68dd7a1527d907d6b77f009e9db7cf9bb21cc565e4a"]
 djangorestframework = ["5488aed8f8df5ec1d70f04b2114abc52ae6729748a176c453313834a9ee179c8", "dc81cbf9775c6898a580f6f1f387c4777d12bd87abf0f5406018d32ccae71090"]

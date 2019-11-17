@@ -10,11 +10,13 @@
 		<v-content style="padding-top: 0px;">
 			<router-view></router-view>
 		</v-content>
+		<!--
 		<tree-menu 
 		:label="tree.label" 
 		:nodes="tree.nodes"
 		:depth="0"
 		></tree-menu>
+		-->
 	</v-app>
 </template>
 

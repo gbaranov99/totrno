@@ -1,18 +1,19 @@
 <template>
-	<v-container 
-	:style="indent" 
+	<v-container
+	:style="indent"
 	class="tree-menu">
-		<p>{{ label }}</p>
-		<v-btn dark color="green darken-4" 
+		<p>{{ title }}</p>
+		<v-btn dark color="green darken-4"
 			tile
 			@click="toggleChildren"
 		>Show Children</v-btn>
-		<tree-menu 
+		<tree-menu
 			v-if="showChildren"
-			v-bind:key="node"
-			v-for="node in nodes" 
-			:nodes="node.nodes" 
-			:label="node.label"
+			v-bind:key="file"
+			v-for="file in file_set"
+			:file_set="file.file_set"
+			:id="file.id"
+			:title="file.title"
 			:depth="depth + 1"
 			>
 		</tree-menu>
@@ -20,8 +21,8 @@
 </template>
 
 <script>
-export default { 
-	props: [ 'label', 'nodes', 'depth' ],
+export default {
+	props: [ 'title', 'file_set', 'depth' ],
 	data() {
 		return { showChildren: false}
 	},

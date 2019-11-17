@@ -24,11 +24,20 @@
 				v-model="content"
 				required
 			></v-text-field>
+			<v-text-field
+				name="parent"
+				label="Parent"
+				id="parent"
+				type="parent"
+				color="green darken-4"
+				v-model="parent"
+				required
+			></v-text-field>
 			<router-link to="/totrno" tag="span" style="cursor: pointer">
-				<v-btn dark color="green darken-4" 
+				<v-btn dark color="green darken-4"
 					type="submit"
 					tile
-					@click="addFile({ title: title, content: content })"
+					@click="addFile({ title: title, content: content, parent: parent })"
 				>Add file</v-btn>
 			</router-link>
 			</v-row>
@@ -38,13 +47,24 @@
 				<v-card class="pa-2" outlined tile>
 					{{ index }}: {{ file.title }}
 				</v-card>
+				<tree-menu
+				:title="file.title"
+				:id="file.id"
+				:file_set="file.file_set"
+				:depth="0"
+				></tree-menu>
 			</v-col>
 			<v-col>
 				<v-card class="pa-2" outlined tile>
 					{{ file.content }}
 				</v-card>
 			</v-col>
-			<v-btn dark color="green darken-4" 
+			<v-col>
+				<v-card class="pa-2" outlined tile>
+					{{ file.parent }}
+				</v-card>
+			</v-col>
+			<v-btn dark color="green darken-4"
 				type="submit"
 				tile
 				@click="deleteFile(file.id)"
@@ -55,12 +75,18 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import TreeMenu from './TreeMenu'
+
 export default {
 	name: "Totrno",
+	components: {
+		'TreeMenu': TreeMenu
+	},
 	data() {
 		return {
 			title: "",
 			content: "",
+			parent: null,
 		};
 	},
 	computed: mapState({

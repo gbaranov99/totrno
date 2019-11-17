@@ -10,7 +10,7 @@ export default {
               .then(response => response.data)
   },
   deleteFile(fileId) {
-    return api.delete(`files/${fileId}`)
+    return api.delete(`allFiles/${fileId}/`)
               .then(response => response.data)
   }
 }

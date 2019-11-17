@@ -1,5 +1,5 @@
 <template>
-	<v-container fluid>
+	<v-container fluid v-on:submit.prevent="onSubmit">
 		<v-form>
 			<h1 class="headline">
 				Add a new file:
@@ -33,42 +33,21 @@
 				v-model="parent"
 				required
 			></v-text-field>
-			<router-link to="/totrno" tag="span" style="cursor: pointer">
 				<v-btn dark color="green darken-4"
 					type="submit"
 					tile
-					@click="addFile({ title: title, content: content, parent: parent })"
+					@click="addFile({ title: title, content: content, parent: parent }); forceRerender()"
 				>Add file</v-btn>
-			</router-link>
 			</v-row>
 		</v-form>
 		<v-row no-gutters v-for="(file, index) in files" :key="index" class="mx-auto">
-			<v-col>
-				<v-card class="pa-2" outlined tile>
-					{{ index }}: {{ file.title }}
-				</v-card>
-				<tree-menu
-				:title="file.title"
-				:id="file.id"
-				:file_set="file.file_set"
-				:depth="0"
-				></tree-menu>
-			</v-col>
-			<v-col>
-				<v-card class="pa-2" outlined tile>
-					{{ file.content }}
-				</v-card>
-			</v-col>
-			<v-col>
-				<v-card class="pa-2" outlined tile>
-					{{ file.parent }}
-				</v-card>
-			</v-col>
-			<v-btn dark color="green darken-4"
-				type="submit"
-				tile
-				@click="deleteFile(file.id)"
-			>Delete file</v-btn>
+			<tree-menu 
+			:title="file.title"
+			:id="file.id"
+			:content="file.content"
+			:file_set="file.file_set"
+			:depth="0"
+			></tree-menu>
 		</v-row>
 	</v-container>
 </template>
@@ -92,10 +71,15 @@ export default {
 	computed: mapState({
 		files: state => state.files.files
 	}),
-	methods: mapActions('files', [
+	methods: {
+		forceRerender() {
+			this.treeKey += 1
+		},
+		...mapActions('files', [
 		'addFile',
 		'deleteFile'
-	]),
+		]),
+	},
 	created() {
 		this.$store.dispatch('files/getFiles')
 	}

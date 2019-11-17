@@ -17,6 +17,17 @@ class FileViewSet(viewsets.ModelViewSet):
         user = self.request.user
         return File.objects.filter(owner=user, parent=None)
 
+class AllFileViewSet(viewsets.ModelViewSet):
+    queryset = File.objects.all()
+    serializer_class = FileSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def preform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+    def get_queryset(self):
+        user = self.request.user
+        return File.objects.filter(owner=user)
 
 #class UserViewSet(viewsets.ModelViewSet):
 #    queryset = CustomUser.objects.all()

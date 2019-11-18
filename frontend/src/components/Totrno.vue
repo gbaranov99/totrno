@@ -36,11 +36,12 @@
 				<v-btn dark color="green darken-4"
 					type="submit"
 					tile
-					@click="addFile({ title: title, content: content, parent: parent }); forceRerender()"
+					@click="addFile({ title: title, content: content, parent: parent })"
 				>Add file</v-btn>
 			</v-row>
 		</v-form>
-		<v-row no-gutters v-for="(file, index) in files" :key="index" class="mx-auto">
+		<br>
+		<v-row no-gutters v-for="(file, index) in files" :key="index" class="pa-0">
 			<tree-menu 
 			:title="file.title"
 			:id="file.id"
@@ -72,9 +73,9 @@ export default {
 		files: state => state.files.files
 	}),
 	methods: {
-		forceRerender() {
-			this.treeKey += 1
-		},
+		//forceRerender() {
+		//	this.treeKey += 1
+		//},
 		...mapActions('files', [
 		'addFile',
 		'deleteFile'

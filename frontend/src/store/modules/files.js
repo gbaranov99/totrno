@@ -23,9 +23,7 @@ const actions = {
 				.then(files => {
 					commit('setFiles', files)
 				}))
-			//.then(file => {
-			//		commit('addFile', file)
-			//	})
+		//commit('addFile', file)
 	},
 	deleteFile( { commit }, fileId) {
 		fileService.deleteFile(fileId)
@@ -33,7 +31,7 @@ const actions = {
 				.then(files => {
 					commit('setFiles', files)
 				}))
-		//commit('deleteFile', fileId)
+		//commit('deleteFile', file)
 	}
 }
 

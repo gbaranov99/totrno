@@ -1,10 +1,10 @@
 <template>
 	<v-container
 	:style="indent"
-	class="tree-menu">
-		<v-row no-gutters v-if="notDeleted">
+	class="pa-0">
+		<v-row no-gutters class="pa-0">
 			<v-btn
-				v-if="showChildren"
+				v-if="file_set.length !== 0 && showChildren"
 				color="green darken-4" 
 				@click="toggleChildren"
 				icon dark>
@@ -31,7 +31,7 @@
 				color="green darken-4"
 				type="submit"
 				icon dark
-				@click="forceRerender(); deleteFile(id); "
+				@click="deleteFile(id)"
 				><v-icon>delete</v-icon>
 			</v-btn>
 		</v-row>
@@ -58,8 +58,6 @@ export default {
 	data() {
 		return { 
 			showChildren: false,
-			notDeleted: true,
-			treeKey: 0,
 		}
 	},
 	computed: {
@@ -74,9 +72,6 @@ export default {
 	methods: {
 		toggleChildren() {
 			this.showChildren = !this.showChildren;
-		},
-		forceRerender() {
-			this.notDeleted = !this.notDeleted;
 		},
 		...mapActions('files', [
 		'addFile',

@@ -49,3 +49,43 @@ I hope I can finish most of this stuff by december, although I may need until ja
 But by the start of next semester, if I don't have a product I am happy with, 
 I put up what I have and begin in earnest searching for a real internship / real experience
 Or begin a new project that I feel is more interesting
+
+
+Update 11/17
+	File herirarchies are working surprisingly well
+	Current problems to fix with them however:
+		Delete only deletes on second press, which might be a problem with data transfer, but add works
+		System currently gets all files after a single delete or add, when it should not have to get data from server after first and only get
+		Indentation is a bit messed up, pushes delete off screen
+	If I can get time logs to kind of work, I will be making progress
+	But this shit is taking a fucking while
+	I might be done with something kind of good by january
+	But I am honestly not even sure
+
+	It is hard to get getFile to work just by itself
+	It works for no heirarchies
+	But when a heirarchy is introduced, it becomes less obvious where to put the file
+	I could have it find the parent and insert in the tree in vue
+	It would make it easier on the server at the cost of making it harder for me to program by a long shot
+
+
+	The ideal solution for the file thing
+	Is to import once at the start of the program, and not touch it again
+	What this means is creating a paramter to keep track of descending path
+	And for insert to insert it at the end of the path in file_set
+	And for delete to delete a file from the current file_set
+
+	I will do that after timers however
+
+	I will do timers right now, to switch it up
+
+	What is left, roughly:
+		Fix heirarchy query to work in vue through path list
+		Display error messages if user attempts to add file without contents
+		Get search to work
+		Make file layout more advanced
+		Get calendar to work
+		Get user authentication to work with tokens
+		See if I need to change file structure to something better (single root node or mptt)
+		File randomly closes if a new file is added passed a certain depth
+		General file formatting

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import File, CustomUser
+from .models import File, TimeLog, CustomUser
 
 class RecursiveField(serializers.ModelSerializer):
     def to_representation(self, value):
@@ -33,3 +33,10 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ('id', 'email', 'username', 'files',)
+
+class TimeLogSerializer(serializers.ModelSerializer):
+    owner = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
+    class Meta:
+        model = TimeLog
+        fields = ('id', 'beforeNote', 'afterNote', 'nextNote', 'startTime', 'endTime', 'owner', 'associated_file',)

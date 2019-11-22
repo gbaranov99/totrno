@@ -80,8 +80,10 @@ Update 11/17
 	I will do timers right now, to switch it up
 
 	What is left, roughly:
-		Fix heirarchy query to work in vue through path list
+		Create timers and assoicated them with files
+		Fix heirarchy query to work in vue through path list, ie only get data from api once
 		Display error messages if user attempts to add file without contents
+		Enable file editing
 		Get search to work
 		Make file layout more advanced
 		Get calendar to work
@@ -89,3 +91,41 @@ Update 11/17
 		See if I need to change file structure to something better (single root node or mptt)
 		File randomly closes if a new file is added passed a certain depth
 		General file formatting
+	
+	File and time logging format fully planned out:
+		At the top is a header type area
+			On the left is the full current directory, from top level folder
+			On the right are the files and their running timers
+			If there are more than one (later implementation), creates drop down menu of timers
+			Clicking on a file in the directory or in the timer path opens to that page
+		In the middle, at launch is just the list of all top level files, all folders closed
+			Could eventually have a state for file directories so user decides if they want to have folders preserve state through reloads
+			On the leftmost edge is a open file symbol
+				Pressing it either shows or hides sub files
+			Right of open file symbol is the title
+				Title part trails off after 30 characters
+				Pressing the title opens the current file as a new directory, showing all sub folders as top level folders
+			Right of title is the start of content section
+				Also trails off after 30 characters
+				Pressing it opens a right pane for editing the file
+			Right of content is a clock that opens time tracking options
+			Right of clock is a tag button
+				Pressing it creates a drop down list of tags and allows creating a new one
+			Right of tag is a calendar
+				Pressing it opens a mini calendar and clock to choose a due date and time
+				Eventually could also implement it 
+			On rightmost edge is an x 
+				Requires user confirmation to delete all files
+				Confirmation can be disabled for childrenless files and all files in settings
+	
+	Later:
+		Search drop down
+		Calendar screen
+		Planning ahead
+		User analytics
+		Advanced settings
+		Customizable sidebar: Commonly used files / most recently used / top level / frequent tags / next 7 days
+		Better file structure / user / api
+		Exporting data to json or xml
+		Custom color schemes
+		Mobile friendly view, sliding out sidebar and slight redesign of main format, content opens out and slide gestures

@@ -55,7 +55,7 @@
 								{{ errors.error_msg }}
 							</h1>
 						</v-flex>
-						<v-btn dark color="green darken-4" 
+						<v-btn dark color="green darken-4"
 							type="submit"
 							@click="registerUser({ username: username, email: email, password1: password1, password2: password2 })"
 						>Sign Up</v-btn>

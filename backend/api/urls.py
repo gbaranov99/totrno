@@ -6,6 +6,7 @@ from api import views
 router = routers.DefaultRouter()
 router.register('files', views.FileViewSet)
 router.register('allFiles', views.AllFileViewSet)
+router.register('allLogs', views.TimeLogViewSet)
 #router.register('users', views.UserViewSet)
 
 urlpatterns = [

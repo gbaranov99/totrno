@@ -41,13 +41,13 @@
 			</v-row>
 		</v-form>
 		<br>
-		<v-row no-gutters v-for="(file, index) in files" :key="index" class="pa-0">
+		<v-row no-gutters v-for="(file, index) in files" :key="index">
 			<tree-menu 
-			:title="file.title"
-			:id="file.id"
-			:content="file.content"
-			:file_set="file.file_set"
-			:depth="0"
+				:title="file.title"
+				:id="file.id"
+				:content="file.content"
+				:file_set="file.file_set"
+				:depth="0"
 			></tree-menu>
 		</v-row>
 	</v-container>
@@ -67,15 +67,28 @@ export default {
 			title: "",
 			content: "",
 			parent: null,
+			dialog: false,
 		};
 	},
-	computed: mapState({
-		files: state => state.files.files
-	}),
+	computed: {
+		//indent() {
+		//	return { transform: `padding-left:(${this.depth * 100})px` }
+		//},
+		...mapState({
+			timeLogs: state => state.timeLogs.timeLogs,
+		}),
+		...mapState({
+			files: state => state.files.files
+		}),
+	},
 	methods: {
 		//forceRerender() {
 		//	this.treeKey += 1
 		//},
+		...mapActions('timeLogs', [
+		'addTimeLog',
+		'deleteTimeLog'
+		]),
 		...mapActions('files', [
 		'addFile',
 		'deleteFile'

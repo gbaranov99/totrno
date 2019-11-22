@@ -26,3 +26,12 @@ class File(models.Model):
     owner = models.ForeignKey('CustomUser', related_name='files', on_delete=models.CASCADE)
     parent = models.ForeignKey('File',  related_name='file_set', on_delete=models.CASCADE, null=True, blank=True)
 
+
+class TimeLog(models.Model):
+    beforeNote = models.CharField(max_length = 50, blank=True)
+    afterNote = models.CharField(max_length = 50, blank=True)
+    nextNote = models.CharField(max_length = 50, blank=True)
+    startTime = models.DateTimeField();
+    endTime = models.DateTimeField(null=True, blank=True);
+    owner = models.ForeignKey('CustomUser', related_name='timelogs', on_delete=models.CASCADE)
+    associated_file = models.ForeignKey('File',  related_name='timelog_set', on_delete=models.CASCADE, null=True, blank=True)

@@ -1,38 +1,38 @@
 <template>
 	<v-container fluid v-on:submit.prevent="onSubmit">
 		<v-form>
-			<h1 class="headline">
-				Add a new file:
-			</h1>
 			<v-row no-gutters>
 			<br>
-			<v-text-field
-				name="title"
-				label="Title"
-				id="title"
-				type="title"
-				color="green darken-4"
-				v-model="title"
-				required
-			></v-text-field>
-			<v-text-field
-				name="content"
-				label="Content"
-				id="content"
-				type="content"
-				color="green darken-4"
-				v-model="content"
-				required
-			></v-text-field>
-			<v-text-field
-				name="parent"
-				label="Parent"
-				id="parent"
-				type="parent"
-				color="green darken-4"
-				v-model="parent"
-				required
-			></v-text-field>
+			<v-col>
+				<v-card class="pa-0" outlined tile
+					style="height:39px;"
+				>
+					<v-text-field 
+						class="pa-0 ma-0"
+						solo
+						loader-height="2"
+						v-model="title"
+						label="File title"
+						required
+					>
+					</v-text-field>
+				</v-card>
+			</v-col>
+			<v-col>
+				<v-card class="pa-0" outlined tile
+					style="height:39px;"
+				>
+					<v-text-field 
+						class="pa-0 ma-0"
+						solo
+						loader-height="2"
+						v-model="content"
+						label="File content"
+						required
+					>
+					</v-text-field>
+				</v-card>
+			</v-col>
 				<v-btn dark color="green darken-4"
 					type="submit"
 					tile
@@ -47,6 +47,7 @@
 				:id="file.id"
 				:content="file.content"
 				:file_set="file.file_set"
+				:parent="file.parent"
 				:depth="0"
 			></tree-menu>
 		</v-row>

@@ -9,6 +9,10 @@ export default {
     return api.post(`files/`, payload)
               .then(response => response.data)
   },
+  updateFile(payload, fileId) {
+    return api.patch(`allFiles/${payload.id}/`, payload)
+              .then(response => response.data)
+  },
   deleteFile(fileId) {
     return api.delete(`allFiles/${fileId}/`)
               .then(response => response.data)

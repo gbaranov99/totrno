@@ -18,19 +18,31 @@ export default {
 	},
 	data(){
 		return {
-			appTitle: 'TimeBar',
 		}
 	},
-	computed: mapState({
-		login: state => state.login.login
-	}),
-	methods: mapActions('login', [
-		'registerUser',
-		'loginUser',
-		'logoutUser'
-	]),
-	created() {
-	this.$store.dispatch('login/getUser')
-	}
+	computed: {
+		...mapState({
+			timeLogs: state => state.timeLogs.timeLogs,
+		}),
+		...mapState({
+			files: state => state.files.files
+		}),
+	},
+	methods: {
+		//toggleChildren() {
+		//	this.showChildren = !this.showChildren;
+		//},
+		//timerPressed() {
+		//	this.showTimerForm = !this.showTimerForm;
+		//},
+		...mapActions('timeLogs', [
+		'addTimeLog',
+		'deleteTimeLog'
+		]),
+		...mapActions('files', [
+		'addFile',
+		'deleteFile'
+		]),
+	},
 };
 </script>

@@ -25,6 +25,14 @@ const actions = {
 				}))
 		//commit('addTimeLog', timeLog)
 	},
+	updateTimeLog({ commit }, timeLog, timeLogId) {
+		timeLogService.postTimeLog(timeLog, timeLogId)
+			.then(timeLogService.fetchTimeLogs()
+				.then(timeLogs => {
+					commit('setTimeLogs', timeLogs)
+				}))
+		//commit('addTimeLog', timeLog)
+	},
 	deleteTimeLog( { commit }, timeLogId) {
 		timeLogService.deleteTimeLog(timeLogId)
 			.then(timeLogService.fetchTimeLogs()

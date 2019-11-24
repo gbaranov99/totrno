@@ -10,7 +10,14 @@
 		v-if="showTimerForm"
 		fluid
 		></PreTimer>
+		<v-form>
 		<v-row no-gutters xs12>
+			<v-btn
+				color="green darken-4"
+				icon dark
+				type="submit"
+				><v-icon>menu</v-icon>
+			</v-btn>
 			<v-btn
 				v-if="file_set.length !== 0 && showChildren"
 				color="green darken-4"
@@ -31,17 +38,44 @@
 				icon dark>
 				<v-icon>expand_more</v-icon>
 			</v-btn>
+			<!--
 			<v-col>
-				<v-card class="pa-2" outlined tile>
-					{{ id }}: {{ title }}
+				{{ id }}
+			</v-col>
+			-->
+			<v-col>
+				<v-card class="pa-0" outlined tile
+					style="height:39px;"
+				>
+					<v-text-field 
+						class="pa-0 ma-0"
+						solo
+						loader-height="2"
+						v-model="title"
+					>
+					</v-text-field>
 				</v-card>
 			</v-col>
-			<p> {{ path }} </p>
 			<v-col>
-				<v-card class="pa-2" outlined tile>
-					{{ content }}
+				<v-card class="pa-0" outlined tile
+					style="height:50px;"
+				>
+					<v-text-field 
+						class="pa-0 ma-0"
+						solo
+						loader-height="2"
+						v-model="content"
+					>
+					</v-text-field>
 				</v-card>
 			</v-col>
+			<v-btn
+				color="green darken-4"
+				icon dark
+				type="submit"
+				@click="updateFile({ title: title, content: content, parent:parent, id:id })"
+				><v-icon>arrow_upward</v-icon>
+			</v-btn>
 			<v-btn
 				color="green darken-4"
 				icon dark
@@ -51,7 +85,6 @@
 			<v-btn
 				color="green darken-4"
 				icon dark
-				type="submit"
 				@click="addTimeLog({})"
 				><v-icon>tag</v-icon>
 			</v-btn>
@@ -62,12 +95,12 @@
 			</v-btn>
 			<v-btn
 				color="green darken-4"
-				type="submit"
 				icon dark
 				@click="deleteFile(id)"
 				><v-icon>delete</v-icon>
 			</v-btn>
 		</v-row>
+		</v-form>
 		<tree-menu
 			v-if="showChildren"
 			v-bind:key="file"
@@ -76,6 +109,7 @@
 				:title="file.title"
 				:content="file.content"
 				:id="file.id"
+				:parent="file.parent"
 				:depth="depth + 1"
 			>
 		</tree-menu>
@@ -122,7 +156,8 @@ export default {
 		]),
 		...mapActions('files', [
 		'addFile',
-		'deleteFile'
+		'deleteFile',
+		'updateFile'
 		]),
 	},
 	//created() {

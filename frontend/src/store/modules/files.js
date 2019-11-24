@@ -25,6 +25,14 @@ const actions = {
 				}))
 		//commit('addFile', file)
 	},
+	updateFile({ commit }, file) {
+		fileService.updateFile(file)
+			.then(fileService.fetchFiles()
+				.then(files => {
+					commit('setFiles', files)
+				}))
+		//commit('addFile', file)
+	},
 	deleteFile( { commit }, fileId) {
 		fileService.deleteFile(fileId)
 			.then(fileService.fetchFiles()

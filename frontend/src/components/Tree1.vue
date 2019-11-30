@@ -2,6 +2,7 @@
 	<v-container fluid>
 		<v-layout align-start justify-center>
 			<v-flex xs4 class="elevation-1 pa-3 ma-2">
+							<!--
 				<v-list>
 					<draggable v-model="list" :options="{group:'people'}">
 						<template v-for="tab in list">
@@ -11,33 +12,32 @@
 									<v-list-item-sub-title v-html="tab.text"></v-list-item-sub-title>
 								</v-list-item-content>
 							</v-list-item>
-							<!--
-							<nestedDraggable 
-							:tabs="tab.tabs" />
-							-->
 						</template>
 					</draggable>
 				</v-list>
+							-->
+				<nestedDraggable 
+				:tabs="tabs" />
 			</v-flex>
 		</v-layout>
 		<v-flex xs4 class="grey lighten-2 pa-2">
-			<pre>{{ list }}</pre>
+			<pre>{{ tabs }}</pre>
 		</v-flex>
 	</v-container>
 </template>
 
 <script>
-import draggable from "vuedraggable";
+import nestedDraggable from "./nestedDraggable";
 
 export default {
 	name: 'Tree1',
 	display: "Nested",
 	components: {
-		draggable
+		nestedDraggable
 	},
 	data() {
 		return {
-			list: [
+			tabs: [
 				{
 					id: 1, 
 					name: "1st Tab",

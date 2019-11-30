@@ -1,7 +1,7 @@
 <template>
 	<v-container fluid>
-		<v-list>
-		<draggable v-model="active" style="min-height: 10px">
+		<v-list v-if="tabs.length > 0">
+		<draggable v-model="tabs" class="dragArea" :tabs="tabs" :group="{ name: 'g1' }">
 			<template v-for="tab in tabs">
 				<v-list-item :key="tab.id">
 				<v-list-item-content>
@@ -10,6 +10,7 @@
 					</v-list-item-content>
 				</v-list-item>
 				<nestedDraggable 
+				v-model="tab.tabs"
 				:tabs="tab.tabs" />
 			</template>
 		</draggable>
@@ -33,3 +34,10 @@ export default {
 	name: "nestedDraggable"
 };
 </script>
+<style scoped>
+.dragArea {
+  min-height: 50px;
+  outline: 1px dashed;
+}
+</style>
+

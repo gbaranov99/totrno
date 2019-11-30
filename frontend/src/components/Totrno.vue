@@ -33,6 +33,21 @@
 					</v-text-field>
 				</v-card>
 			</v-col>
+			<v-col>
+				<v-card class="pa-0" outlined tile
+					style="height:39px;"
+				>
+					<v-text-field 
+						class="pa-0 ma-0"
+						solo
+						loader-height="2"
+						v-model="parent"
+						label="Parent File"
+						required
+					>
+					</v-text-field>
+				</v-card>
+			</v-col>
 				<v-btn dark color="green darken-4"
 					type="submit"
 					tile
@@ -47,8 +62,8 @@
 				:id="file.id"
 				:content="file.content"
 				:file_set="file.file_set"
-				:parent="file.parent"
 				:depth="0"
+				:parent="id"
 			></tree-menu>
 		</v-row>
 	</v-container>
@@ -68,6 +83,7 @@ export default {
 			title: "",
 			content: "",
 			parent: null,
+			id: null,
 			dialog: false,
 		};
 	},
@@ -99,4 +115,10 @@ export default {
 		this.$store.dispatch('files/getFiles')
 	}
 };
+/*
+			path: []
+				:path="[]"
+
+*/
+
 </script>

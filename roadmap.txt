@@ -129,3 +129,24 @@ Update 11/17
 		Exporting data to json or xml
 		Custom color schemes
 		Mobile friendly view, sliding out sidebar and slight redesign of main format, content opens out and slide gestures
+
+Update 11/26:
+	Draggable files
+	Show current timer data up top
+	Expand file content when user presses on it
+		Right half of the screen
+	Expand time logs on right if user presses settings
+	Updating time log data on user submit
+	Serve icons from my computer, to make it work offline
+
+	Add file after deleting doesn't work ideally
+	sometimes
+	Idk
+
+	
+	There is so much stuff I don't know how to do yet
+	I think the first thing to figure out is vuedraggable
+	Then, the uploading
+	Then the right half of screen expansion on button click
+	Then the expanding buttons / making changes automatic without an upload button
+	

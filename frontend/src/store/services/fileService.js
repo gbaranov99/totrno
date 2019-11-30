@@ -8,6 +8,7 @@ export default {
   postFile(payload) {
     return api.post(`files/`, payload)
               .then(response => response.data)
+              //.then(response => console.log(response))
   },
   updateFile(payload, fileId) {
     return api.patch(`allFiles/${payload.id}/`, payload)

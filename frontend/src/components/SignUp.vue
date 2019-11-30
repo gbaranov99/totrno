@@ -20,7 +20,7 @@
 							id="username"
 							type="username"
 							color="green darken-4"
-							v-model="id": "username"
+							v-model="username"
 							required
 						></v-text-field>
 						<v-text-field

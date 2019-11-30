@@ -7,6 +7,7 @@ import SignUp from '@/components/SignUp'
 import Totrno from '@/components/Totrno'
 import Logout from '@/components/Logout'
 import store from '@/store'
+import Tree1 from '@/components/Tree1'
 
 Vue.use(Router)
 
@@ -83,6 +84,11 @@ export default new Router({
 						else next()
 					})
 			}
+		},
+		{
+			path: '/search',
+			name: 'Tree1',
+			component: Tree1
 		}
 	]
 })

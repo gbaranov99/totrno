@@ -38,11 +38,6 @@
 				icon dark>
 				<v-icon>expand_more</v-icon>
 			</v-btn>
-			<!--
-			<v-col>
-				{{ id }}
-			</v-col>
-			-->
 			<v-col>
 				<v-card class="pa-0" outlined tile
 					style="height:39px;"
@@ -65,6 +60,19 @@
 						solo
 						loader-height="2"
 						v-model="content"
+					>
+					</v-text-field>
+				</v-card>
+			</v-col>
+			<v-col>
+				<v-card class="pa-0" outlined tile
+					style="height:50px;"
+				>
+					<v-text-field 
+						class="pa-0 ma-0"
+						solo
+						loader-height="2"
+						v-model="id"
 					>
 					</v-text-field>
 				</v-card>
@@ -109,7 +117,7 @@
 				:title="file.title"
 				:content="file.content"
 				:id="file.id"
-				:parent="file.parent"
+				:parent="id"
 				:depth="depth + 1"
 			>
 		</tree-menu>
@@ -125,7 +133,7 @@ export default {
 	components: {
 		'PreTimer': PreTimer,
 	},
-	props: [ 'title', 'file_set', 'content', 'id', 'depth'],
+	props: [ 'title', 'file_set', 'content', 'id', 'depth', 'parent'],
 	data() {
 		return {
 			showChildren: false,
@@ -160,9 +168,17 @@ export default {
 		'updateFile'
 		]),
 	},
-	//created() {
-	//	this.path.push(this.id)
-	//	//this.path = ["asdf", "wow"]
-	//}
 }
+
+
+/*
+				:path="path"
+	props: [ 'title', 'file_set', 'content', 'id', 'depth', 'path', 'parent'],
+			path: []
+	created() {
+		this.path = Array.from(this.path)
+		this.path.push(this.parent)
+	}
+
+*/
 </script>

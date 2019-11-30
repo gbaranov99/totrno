@@ -1,7 +1,8 @@
 import timeLogService from '../services/timeLogService'
 
 const state = {
-	timeLogs: []
+	timeLogs: [],
+	activeTimers: []
 }
 
 const getters = {

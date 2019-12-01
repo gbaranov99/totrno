@@ -13,12 +13,6 @@
 		<v-form>
 		<v-row no-gutters xs12>
 			<v-btn
-				color="green darken-4"
-				icon dark
-				type="submit"
-				><v-icon>menu</v-icon>
-			</v-btn>
-			<v-btn
 				v-if="file_set.length !== 0 && showChildren"
 				color="green darken-4"
 				@click="toggleChildren"
@@ -37,6 +31,12 @@
 				v-else
 				icon dark>
 				<v-icon>expand_more</v-icon>
+			</v-btn>
+			<v-btn
+				color="green darken-4"
+				icon dark
+				type="submit"
+				><v-icon>menu</v-icon>
 			</v-btn>
 			<v-col>
 				<v-card class="pa-0" outlined tile

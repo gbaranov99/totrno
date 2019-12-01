@@ -1,42 +1,14 @@
 <template>
 	<v-container fluid>
-			<v-flex xs4 class="elevation-1 pa-3 ma-2">
-	<!--
-		<v-layout align-start justify-center>
-				<v-list>
-					<draggable v-model="tabs" :group="{ name:'g1'}">
-						<template v-for="tab in tabs">
-							<v-list-item :key="tab.id">
-								<v-list-item-content>
-									<v-list-item-title v-html="tab.name"></v-list-item-title>
-									<v-list-item-sub-title v-html="tab.text"></v-list-item-sub-title>
-								</v-list-item-content>
-
-				<v-list>
-					<draggable v-model="tab.tabs" :group="{ name:'g1'}">
-						<template v-for="tab in tab.tabs">
-							<v-list-item :key="tab.id" >
-								<v-list-item-content>
-									<v-list-item-title>
-										{{ tab.name }}	
-									</v-list-item-title>
-									<v-list-item-sub-title>
-										{{ tab.text }}
-									</v-list-item-sub-title>
-								</v-list-item-content>
-							</v-list-item>
-						</template>
-					</draggable>
-				</v-list>
-							</v-list-item>
-						</template>
-					</draggable>
-				</v-list>
-		</v-layout>
+		<v-flex justify-start align-start>
+		<!--
+		<v-row no-gutters v-for="tab in tabs" :key="tab">
+		</v-row>
 		-->
 				<nestedDraggable 
-				:tabs="tabs" />
-			</v-flex>
+				:tabs="tabs"
+				/>
+		</v-flex>
 		<v-flex xs4 class="grey lighten-2 pa-2">
 			<pre>{{ tabs }}</pre>
 		</v-flex>
@@ -44,7 +16,6 @@
 </template>
 
 <script>
-import draggable from "vuedraggable";
 import nestedDraggable from "./nestedDraggable";
 
 export default {
@@ -53,7 +24,6 @@ export default {
 	order: 15,
 	components: {
 		nestedDraggable,
-		draggable
 	},
 	data() {
 		return {
@@ -95,7 +65,7 @@ export default {
 					name: "3rd Tab",
 					text: "This is a 3rd tab",
 					tabs: []
-				}
+				},
 			]
 		}
 	}

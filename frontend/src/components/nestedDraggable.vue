@@ -17,16 +17,19 @@
 		</v-list>
 		-->
 		<v-list>
-			<draggable class="dragArea" v-model="tabs" :list="tabs" :group="{ name:'g1'}">
+			<draggable v-model="tabs" :list="tabs" handle=".handle" :group="{ name:'g1'}">
 				<template v-for="tab in tabs">
 					<v-list-item :key="tab.id">
+							<v-list-item-icon>
+								<v-icon class="handle">drag_handle</v-icon>
+							</v-list-item-icon>
 						<v-list-item-content>
 							<v-list-item-title v-html="tab.name"></v-list-item-title>
 							<v-list-item-sub-title v-html="tab.text"></v-list-item-sub-title>
 						</v-list-item-content>
-					</v-list-item>
 				<nestedDraggable 
 				:tabs="tab.tabs" />
+					</v-list-item>
 				</template>
 			</draggable>
 		</v-list>

@@ -27,7 +27,8 @@ class File(models.Model):
     owner = models.ForeignKey('CustomUser', related_name='files', on_delete=models.CASCADE)
     parent = models.ForeignKey('File',  related_name='file_set', on_delete=models.CASCADE, null=True, blank=True)
     #path = ArrayField(models.ForeignKey('File', related_name='file_path', on_delete=models.CASCADE, null=True, blank=True))
-    path = ArrayField(models.IntegerField(), default=list)
+    #path = ArrayField(models.IntegerField(), default=list)
+    closed = models.BooleanField(default=True)
 
 
 class TimeLog(models.Model):

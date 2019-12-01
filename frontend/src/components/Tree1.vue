@@ -1,13 +1,8 @@
 <template>
 	<v-container fluid>
 		<v-flex justify-start align-start>
-		<!--
-		<v-row no-gutters v-for="tab in tabs" :key="tab">
-		</v-row>
-		-->
-				<nestedDraggable 
-				:tabs="tabs"
-				/>
+			<nestedDraggable 
+			:tabs="tabs"/>
 		</v-flex>
 		<v-flex xs4 class="grey lighten-2 pa-2">
 			<pre>{{ tabs }}</pre>

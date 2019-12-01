@@ -3,6 +3,7 @@
 	class="pt-0 pr-0 pb-0"
 	fluid
 	>
+		<!--
 		<PreTimer
 		pa-0
 		:parent=id
@@ -10,19 +11,29 @@
 		v-if="showTimerForm"
 		fluid
 		></PreTimer>
+		-->
+		<draggable 
+		v-model="file_set" 
+		:list="file_set" 
+		handle=".handle" 
+		:group="{ name:'g1'}">
+		<template v-for="file in file_set">
+				<v-container 
+				class="pt-0 pr-0 pb-0"
+				no-gutters xs12 >
 		<v-form>
 		<v-row no-gutters xs12>
 			<v-btn
-				v-if="file_set.length !== 0 && showChildren"
+				v-if="file.file_set.length !== 0 && !file.closed"
 				color="green darken-4"
-				@click="toggleChildren"
+				@click="toggleChildren(file)"
 				icon dark>
 				<v-icon>expand_less</v-icon>
 			</v-btn>
 			<v-btn
-				v-else-if="file_set.length !== 0"
+				v-else-if="file.file_set.length !== 0"
 				color="green darken-4"
-				@click="toggleChildren"
+				@click="toggleChildren(file)"
 				icon dark>
 				<v-icon>expand_more</v-icon>
 			</v-btn>
@@ -32,12 +43,22 @@
 				icon dark>
 				<v-icon>expand_more</v-icon>
 			</v-btn>
+					<v-btn
+						color="green darken-4"
+						icon dark
+						class="handle"
+						type="submit"
+						><v-icon>menu</v-icon>
+					</v-btn>
+			<!--
 			<v-btn
 				color="green darken-4"
 				icon dark
 				type="submit"
 				><v-icon>menu</v-icon>
 			</v-btn>
+			style="padding-left:50px"
+			-->
 			<v-col>
 				<v-card class="pa-0" outlined tile
 					style="height:39px;"
@@ -46,7 +67,7 @@
 						class="pa-0 ma-0"
 						solo
 						loader-height="2"
-						v-model="title"
+						v-model="file.title"
 					>
 					</v-text-field>
 				</v-card>
@@ -59,7 +80,7 @@
 						class="pa-0 ma-0"
 						solo
 						loader-height="2"
-						v-model="content"
+						v-model="file.content"
 					>
 					</v-text-field>
 				</v-card>
@@ -72,7 +93,7 @@
 						class="pa-0 ma-0"
 						solo
 						loader-height="2"
-						v-model="id"
+						v-model="file.id"
 					>
 					</v-text-field>
 				</v-card>
@@ -84,6 +105,7 @@
 				@click="updateFile({ title: title, content: content, parent:parent, id:id })"
 				><v-icon>arrow_upward</v-icon>
 			</v-btn>
+			<!--
 			<v-btn
 				color="green darken-4"
 				icon dark
@@ -101,6 +123,7 @@
 				icon dark
 				><v-icon>calendar_today</v-icon>
 			</v-btn>
+			-->
 			<v-btn
 				color="green darken-4"
 				icon dark
@@ -109,6 +132,13 @@
 			</v-btn>
 		</v-row>
 		</v-form>
+		<v-row no-gutters xs12>
+		<tree-menu
+			v-if="!file.closed"
+			:file_set="file.file_set"
+			>
+		</tree-menu>
+		<!--
 		<tree-menu
 			v-if="showChildren"
 			v-bind:key="file"
@@ -121,19 +151,27 @@
 				:depth="depth + 1"
 			>
 		</tree-menu>
+		-->
+		</v-row>
+		</v-container>
+		</template>
+		</draggable>
 	</v-container>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
 import PreTimer from './PreTimer'
+import draggable from 'vuedraggable'
 
 export default {
 	name: 'tree-menu',
 	components: {
 		'PreTimer': PreTimer,
+		draggable
 	},
-	props: [ 'title', 'file_set', 'content', 'id', 'depth', 'parent'],
+	//props: [ 'title', 'file_set', 'content', 'id', 'depth', 'parent'],
+	props: [ 'file_set' ],
 	data() {
 		return {
 			showChildren: false,
@@ -152,8 +190,8 @@ export default {
 		}),
 	},
 	methods: {
-		toggleChildren() {
-			this.showChildren = !this.showChildren;
+		toggleChildren(file) {
+			file.closed = !file.closed;
 		},
 		timerPressed() {
 			this.showTimerForm = !this.showTimerForm;

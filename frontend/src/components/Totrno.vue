@@ -56,6 +56,7 @@
 			</v-row>
 		</v-form>
 		<br>
+		<!--
 		<v-row no-gutters v-for="(file, index) in files" :key="index">
 			<tree-menu 
 				:title="file.title"
@@ -66,6 +67,12 @@
 				:parent="id"
 			></tree-menu>
 		</v-row>
+		-->
+		<v-flex justify-start align-start>
+		<tree-menu 
+			:file_set="files"
+		></tree-menu>
+		</v-flex>
 	</v-container>
 </template>
 
@@ -85,6 +92,7 @@ export default {
 			parent: null,
 			id: null,
 			dialog: false,
+			file_set: files,
 		};
 	},
 	computed: {

@@ -172,3 +172,22 @@ Update 11/26:
 	I just need to get indentation set up
 	And I can say I have made a bit of progress
 
+
+	Okay I have solved many of my issues
+	
+	Indentation works pretty well and so does
+	Draggable in general
+	Now I need to integrate it with 
+
+	I wonder if the expanded value is worth it
+	idk what that meant
+	But I wonder if it is worth it to add an opened setting to each item
+
+	I definitely will need to modify my backend at some point
+	Because I can't have that much shit in my allFiles
+	allFiles cannot have any subset files, or I get O(n!) file sizes, which is pretty unreasonable
+	I think right now my system is okay other than that
+
+	I think it would be useful to have an open or closed state
+	It would make it more customizable in the future if anything
+

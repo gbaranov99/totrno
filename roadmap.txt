@@ -150,3 +150,25 @@ Update 11/26:
 	Then the right half of screen expansion on button click
 	Then the expanding buttons / making changes automatic without an upload button
 	
+
+
+	Effectively all I want for the drag and drop
+	Is to change the parent of a single file
+	Which would not change any of the sub files
+	And this is not a very hard concept
+	But it is seemingly impossible to get it to work with vue and vuetify
+
+	The only real problem I currently face is that
+	two:
+		I need a placeholder to be able to drag anything into anything's subtask
+		And the formatting is off for the drag and drop
+			Instead of being
+		I also need to decide how sorting is going to work
+
+	Okay I now kind of have a partial solution for adding items to any row
+	Now I just need to get indentation to work
+
+	I am honestly pretty close
+	I just need to get indentation set up
+	And I can say I have made a bit of progress
+

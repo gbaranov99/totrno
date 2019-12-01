@@ -1,7 +1,8 @@
 <template>
 	<v-container fluid>
-		<v-layout align-start justify-center>
 			<v-flex xs4 class="elevation-1 pa-3 ma-2">
+	<!--
+		<v-layout align-start justify-center>
 				<v-list>
 					<draggable v-model="tabs" :group="{ name:'g1'}">
 						<template v-for="tab in tabs">
@@ -14,10 +15,14 @@
 				<v-list>
 					<draggable v-model="tab.tabs" :group="{ name:'g1'}">
 						<template v-for="tab in tab.tabs">
-							<v-list-item :key="tab.id">
+							<v-list-item :key="tab.id" >
 								<v-list-item-content>
-									<v-list-item-title v-html="tab.name"></v-list-item-title>
-									<v-list-item-sub-title v-html="tab.text"></v-list-item-sub-title>
+									<v-list-item-title>
+										{{ tab.name }}	
+									</v-list-item-title>
+									<v-list-item-sub-title>
+										{{ tab.text }}
+									</v-list-item-sub-title>
 								</v-list-item-content>
 							</v-list-item>
 						</template>
@@ -27,14 +32,11 @@
 						</template>
 					</draggable>
 				</v-list>
-							<!--
-				<nestedDraggable 
-				:group="{ name: 'g1' }"
-				:v-model="tabs"
-				:tabs="tabs" />
-							-->
-			</v-flex>
 		</v-layout>
+		-->
+				<nestedDraggable 
+				:tabs="tabs" />
+			</v-flex>
 		<v-flex xs4 class="grey lighten-2 pa-2">
 			<pre>{{ tabs }}</pre>
 		</v-flex>
@@ -48,6 +50,7 @@ import nestedDraggable from "./nestedDraggable";
 export default {
 	name: 'Tree1',
 	display: "Nested",
+	order: 15,
 	components: {
 		nestedDraggable,
 		draggable
@@ -78,7 +81,14 @@ export default {
 					id: 2, 
 					name: "2nd Tab",
 					text: "This is a 2nd tab",
-					tabs: []
+					tabs: [
+						{
+							id: 6, 
+							name: "6th Tab",
+							text: "This is the 6th tab",
+							tabs: []
+						}
+					]
 				},
 				{
 					id: 3, 

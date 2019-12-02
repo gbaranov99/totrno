@@ -191,3 +191,27 @@ Update 11/26:
 	I think it would be useful to have an open or closed state
 	It would make it more customizable in the future if anything
 
+
+Update 2019_12_01:
+	Next steps:
+	
+	Get drag and drop/file moves to move the file around in api with patch method
+		Should only really change when parent is altered
+
+		Can maybe later add custom functionality to allow rearanging as a user wants
+		But this is not a problem right now
+
+	Update delete and update methods in store
+
+	Create a functioning time tracking feature
+		Create timer on front end
+		Counts up when user presses start
+		Ends when user closes it
+		Saves a time log
+	
+	Adding a file to a new file does not allow it to be opened
+
+
+
+	The parent thing works pretty well using the vuedraggable api
+	However, there are sometimes bugs where a file moved from no parent kinda fail

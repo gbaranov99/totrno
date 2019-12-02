@@ -40,10 +40,10 @@ const mutations = {
 		state.files = files
 	},
 	fileHelper(state, file) {
-		console.log(file)
+		//console.log(file)
 	},
 	addFile(state, file) {
-		console.log(file)
+		//console.log(file)
 		if (file.parent === "" || file.parent === null) {
 			state.files.push(file);
 		}
@@ -78,7 +78,34 @@ const mutations = {
 	updateFile(state, file) {
 	},
 	deleteFile(state, fileId) {
-		state.files = state.files.filter(obj => obj.id !== fileId)
+		var i
+		for (i = 0; i < state.files.length; i++) {
+			var curFile = state.files[i];
+			//console.log(fileId)
+			//console.log(curFile.id)
+			if (curFile.id === fileId) {
+				state.files = state.files.filter(obj => obj.id !== fileId)
+				break;
+			}
+			var done = false;
+			while (curFile.file_set.length > 0) {
+				for (i = 0; i < curFile.file_set.length; i++) {
+					var tempFile = curFile.file_set[i];
+					if (tempFile.id === fileId) {
+						done = true;
+						curFile.file_set = curFile.file_set.filter(obj => obj.id !== fileId)
+						break;
+					}
+					curFile = tempFile;
+				}
+				if (done) {
+					break;
+				}
+			}
+			if (done) {
+				break;
+			}
+		}
 	}
 }
 

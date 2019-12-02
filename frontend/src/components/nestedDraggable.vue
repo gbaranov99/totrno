@@ -49,6 +49,7 @@
 					</v-row>
 				<v-row no-gutters xs12>
 				<nestedDraggable
+					:parent=1
 					:tabs="tab.tabs">
 				</nestedDraggable>
 				</v-row>

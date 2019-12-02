@@ -51,7 +51,7 @@
 				<v-btn dark color="green darken-4"
 					type="submit"
 					tile
-					@click="addFile({ title: title, content: content, parent: parent })"
+					@click="addFile({ title: title, content: content, parent: parent, closed: 'true'})"
 				>Add file</v-btn>
 			</v-row>
 		</v-form>
@@ -71,7 +71,11 @@
 		<v-flex justify-start align-start>
 		<tree-menu 
 			:file_set="files"
+			:parent_file=null
 		></tree-menu>
+		</v-flex>
+		<v-flex xs4 class="grey lighten-2 pa-2">
+			<pre>{{ files }}</pre>
 		</v-flex>
 	</v-container>
 </template>
@@ -120,6 +124,9 @@ export default {
 		]),
 	},
 	created() {
+		this.title = ""
+		this.content = ""
+		this.parent = ""
 		this.$store.dispatch('files/getFiles')
 	}
 };

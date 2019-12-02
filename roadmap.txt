@@ -215,3 +215,12 @@ Update 2019_12_01:
 
 	The parent thing works pretty well using the vuedraggable api
 	However, there are sometimes bugs where a file moved from no parent kinda fail
+		The problem seems to come from moving a file without no parent to have a parent
+		If a file is moved from an above file, the parent is the next file instead of the current file
+
+		This bug makes actually no fucking sense
+		Apparently it was something with the key not working, but I think I fixed it
+	
+	Next problem is that delete doesn't work for files lower down on list
+	Works now
+	Was a problem with loops, using same variable for two different loops

@@ -68,15 +68,19 @@
 			></tree-menu>
 		</v-row>
 		-->
-		<v-flex justify-start align-start>
 		<tree-menu 
 			:file_set="files"
 			:parent_file=null
+			xs12
+			align-end
+			justify-end
+			fluid
 		></tree-menu>
-		</v-flex>
+		<!--
 		<v-flex xs4 class="grey lighten-2 pa-2">
 			<pre>{{ files }}</pre>
 		</v-flex>
+		-->
 	</v-container>
 </template>
 
@@ -96,7 +100,7 @@ export default {
 			parent: null,
 			id: null,
 			dialog: false,
-			file_set: files,
+			file_set: this.files,
 		};
 	},
 	computed: {

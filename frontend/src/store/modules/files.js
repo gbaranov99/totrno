@@ -29,9 +29,9 @@ const actions = {
 		fileService.updateFile(file)
 		commit('updateFile', file)
 	},
-	deleteFile( { commit }, fileId) {
-		fileService.deleteFile(fileId)
-		commit('deleteFile', fileId)
+	deleteFile( { commit }, file) {
+		fileService.deleteFile(file.id)
+		commit('deleteFile', file)
 	}
 }
 
@@ -57,8 +57,9 @@ const mutations = {
 				}
 				var done = false;
 				while (curFile.file_set.length > 0) {
-					for (i = 0; i < curFile.file_set.length; i++) {
-						curFile = curFile.file_set[i];
+					var j
+					for (j = 0; j < curFile.file_set.length; j++) {
+						curFile = curFile.file_set[j];
 						if (String(curFile.id) === file.parent) {
 							done = true;
 							curFile.file_set.push(file);
@@ -77,26 +78,29 @@ const mutations = {
 	},
 	updateFile(state, file) {
 	},
-	deleteFile(state, fileId) {
+	deleteFile(state, file) {
+		if (file.parent === "" || file.parent === null) {
+			state.files = state.files.filter(obj => obj.id !== file.id)
+		}
+
 		var i
 		for (i = 0; i < state.files.length; i++) {
 			var curFile = state.files[i];
-			//console.log(fileId)
-			//console.log(curFile.id)
-			if (curFile.id === fileId) {
-				state.files = state.files.filter(obj => obj.id !== fileId)
-				break;
-			}
 			var done = false;
 			while (curFile.file_set.length > 0) {
-				for (i = 0; i < curFile.file_set.length; i++) {
-					var tempFile = curFile.file_set[i];
-					if (tempFile.id === fileId) {
+				var j
+				for (j = 0; j < curFile.file_set.length; j++) {
+					var tempFile = curFile.file_set[j];
+					//console.log(tempFile.id);
+					//console.log(file.id);
+					if (tempFile.id === file.id) {
+					//console.log("wow");
 						done = true;
-						curFile.file_set = curFile.file_set.filter(obj => obj.id !== fileId)
+						curFile.file_set = curFile.file_set.filter(obj => obj.id !== file.id)
 						break;
 					}
 					curFile = tempFile;
+					//console.log(curFile);
 				}
 				if (done) {
 					break;

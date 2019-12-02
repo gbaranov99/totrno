@@ -35,9 +35,13 @@
 
 		<template v-for="file in file_set" v-else-if="true">
 		-->
-		<template v-for="file in file_set">
+		<template v-for="file in file_set"
+		>
+		<span :key="file.id">
+
 				<v-container 
 				class="pt-0 pr-0 pb-0"
+				fluid
 				no-gutters xs12 >
 		<v-form>
 		<v-row no-gutters xs12>
@@ -91,11 +95,9 @@
 					</v-text-field>
 				</v-card>
 			</v-col>
+			<!--
 			{{ file.id }}
-			{{ ":" }}
-			{{ parent_file }}
-			{{ ":" }}
-			{{ file.parent }}
+			-->
 			<v-btn
 				color="green darken-4"
 				icon dark
@@ -103,13 +105,14 @@
 				@click="updateFile({ title: file.title, content: file.content, parent: file.parent, id: file.id })"
 				><v-icon>arrow_upward</v-icon>
 			</v-btn>
-			<!--
+
 			<v-btn
 				color="green darken-4"
 				icon dark
 				@click="timerPressed"
 				><v-icon>timer</v-icon>
 			</v-btn>
+			<!--
 			<v-btn
 				color="green darken-4"
 				icon dark
@@ -125,7 +128,7 @@
 			<v-btn
 				color="green darken-4"
 				icon dark
-				@click="deleteFile(file.id)"
+				@click="deleteFile(file)"
 				><v-icon>delete</v-icon>
 			</v-btn>
 		</v-row>
@@ -153,6 +156,7 @@
 		-->
 		</v-row>
 		</v-container>
+		</span>
 		</template>
 		</draggable>
 	</v-container>
@@ -219,12 +223,13 @@ export default {
 		},
 		*/
 		onChange(evt) {
-			console.log("wow");
-			console.log(evt.added.element.parent);
-			console.log(this.parent_file);
+			//console.log("wow");
+			//console.log(evt.added.element);
+			//console.log(this.parent_file);
 			if (this.parent_file !== evt.added.element.parent) {
-				console.log("asdf");
+				//console.log("asdf");
 				evt.added.element.parent = this.parent_file;
+				this.updateFile(evt.added.element);
 			}
 		}
 	}
@@ -232,6 +237,12 @@ export default {
 
 
 /*
+
+
+			{{ ":" }}
+			{{ parent_file }}
+			{{ ":" }}
+			{{ file.parent }}
 
 		:move="checkMove"
 			var i;

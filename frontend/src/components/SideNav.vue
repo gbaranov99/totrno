@@ -34,8 +34,8 @@ export default {
 		appTitle: 'Totrno',
 		items: [
 			{ title: 'Home', path: '/totrno' },
-			{ title: 'Search', path: '/search' },
-			{ title: 'Calendar', path: '/signup' },
+			//{ title: 'Search', path: '/search' },
+			//{ title: 'Calendar', path: '/signup' },
 			{ title: 'Account', path: '/logout' },
 		]
 		}

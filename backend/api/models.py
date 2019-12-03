@@ -23,7 +23,7 @@ class CustomUser(AbstractUser):
 
 class File(models.Model):
     title = models.CharField(max_length = 100)
-    content = models.TextField()
+    content = models.TextField(blank=True)
     owner = models.ForeignKey('CustomUser', related_name='files', on_delete=models.CASCADE)
     parent = models.ForeignKey('File',  related_name='file_set', on_delete=models.CASCADE, null=True, blank=True)
     #path = ArrayField(models.ForeignKey('File', related_name='file_path', on_delete=models.CASCADE, null=True, blank=True))

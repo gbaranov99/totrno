@@ -224,3 +224,45 @@ Update 2019_12_01:
 	Next problem is that delete doesn't work for files lower down on list
 	Works now
 	Was a problem with loops, using same variable for two different loops
+	
+
+Next steps:
+	Remove username requirement from sign up
+	
+	Implement right half of screen content editing feature
+	
+	Implement time tracking data associated with files
+
+	Right click / double click on title opens it as new root, with path displayed up top
+
+
+Eventually:
+	Better about page
+
+	Better account page
+		Eventually password reset and email verification
+		Data extraction in json form
+			Likely as text file (or whatever form json uses)
+			Both todos and time data
+	
+	A useful right banner, with file shortcuts
+		Frequently used / most used
+		Most recently used
+		Top level file names
+
+	An archive option / mark off (in content section)
+
+	Todo date
+		Date and time selector
+		Calendar that shows todos by date	
+
+	Mobile view
+		Right banner expands on button press up top
+		Content is no longer on right half of screen, but takes up full screen
+		Less indentation?
+	
+	Change file structure
+		Maybe use hashed data instead of increasing numbers for file numbers
+		Make so allFiles doesn't querry recursively
+	
+	See how it functions at scale on digital ocean

@@ -48,14 +48,14 @@
 			<v-btn
 				v-if="file.file_set.length !== 0 && !file.closed"
 				color="green darken-4"
-				@click="toggleChildren(file)"
+				@click="toggleChildren(file);updateFile({ title: file.title, content: file.content, parent: file.parent, id: file.id, closed: file.closed});"
 				icon dark>
 				<v-icon>expand_less</v-icon>
 			</v-btn>
 			<v-btn
 				v-else-if="file.file_set.length !== 0"
 				color="green darken-4"
-				@click="toggleChildren(file)"
+				@click="toggleChildren(file);updateFile({ title: file.title, content: file.content, parent: file.parent, id: file.id, closed: file.closed});"
 				icon dark>
 				<v-icon>expand_more</v-icon>
 			</v-btn>
@@ -83,28 +83,44 @@
 			style="padding-left:50px"
 			-->
 			<v-col>
-				<v-card class="pa-0" outlined tile
-					style="height:50px;"
+				<v-card class="pa-0 ma-0" outlined tile
+					style="height:40px;"
+					@click="parentToggleContent(file);"
 				>
+					<v-card-text class="pt-2"> 
+					<p class="body-1 text--primary">
+					{{ file.title }} 
+					</p>
+					</v-card-text>
+				<!--
 					<v-text-field 
 						class="pa-0 ma-0"
 						solo
 						loader-height="2"
 						v-model="file.title"
 					>
+					-->
 					</v-text-field>
 				</v-card>
 			</v-col>
 			<!--
+					@click="oneClick($event)"
 			{{ file.id }}
-			-->
+			<v-btn
+				color="green darken-4"
+				icon dark
+				><v-icon>keyboard_control</v-icon>
+			</v-btn>
+			
 			<v-btn
 				color="green darken-4"
 				icon dark
 				type="submit"
-				@click="updateFile({ title: file.title, content: file.content, parent: file.parent, id: file.id })"
+				@click="updateFile({ title: file.title, content: file.content, parent: file.parent, id: file.id, closed: file.closed})"
 				><v-icon>arrow_upward</v-icon>
 			</v-btn>
+			-->
+
 
 			<v-btn
 				color="green darken-4"
@@ -136,6 +152,7 @@
 		<v-row no-gutters xs12>
 		<tree-menu
 			v-if="file.closed"
+			@parentToggleContent="parentToggleContent"
 			:file_set="file.file_set"
 			:parent_file="file.id"
 			>
@@ -180,6 +197,10 @@ export default {
 			parent: null,
 			showChildren: false,
 			showTimerForm: false,
+			
+			delay:500,
+			clicks: 0,
+			timer: null
 		}
 	},
 	computed: {
@@ -194,6 +215,24 @@ export default {
 		}),
 	},
 	methods: {
+		parentToggleContent(file) {
+			this.$emit('parentToggleContent', file);
+		},
+		oneClick: function(event) {
+			this.clicks++;
+			if (this.clicks === 1) {
+				var self = this
+				this.timer = setTimeout(function() {
+				 	console.log("Single click");
+					self.clicks = 0
+				}, this.delay);
+			} else {
+				 clearTimeout(this.timer);	
+				 console.log("Double click");
+				 this.clicks = 0;
+			}					
+		},
+			
 		toggleChildren(file) {
 			file.closed = !file.closed;
 		},

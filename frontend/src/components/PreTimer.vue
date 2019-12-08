@@ -33,7 +33,7 @@
 							@click="
 							parentTimerPressed();
 							getTime();
-							addTimeLog({beforeNote: beforeNote, startTime: currentTime, endTime: currentTime, associated_file: parent});"
+							addTimeLog({beforeNote: beforeNote, startTime: currentTime, endTime: currentTime, associated_file: associated_file, active: isActive, file_name: file_name});"
 						>Start Timer</v-btn>
 					</v-card-actions>
 				</v-card>
@@ -48,18 +48,17 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
 	name: 'PreTimer',
-	props: [ 'parent' ],
+	props: [ 'associated_file', 'file_name'],
 	data() {
 		return {
 			showChildren: false,
 			showTimerForm: true,
 			currentTime: '',
+			beforeNote: null,
+			isActive: true,
 		}
 	},
 	computed: {
-		//indent() {
-		//	return { transform: `padding-left:(${this.depth * 100})px` }
-		//},
 		...mapState({
 			timeLogs: state => state.timeLogs.timeLogs,
 		}),
@@ -89,9 +88,5 @@ export default {
 		'deleteFile'
 		]),
 	},
-	//created() {
-	//	this.path.push(this.id)
-	//	//this.path = ["asdf", "wow"]
-	//}
 }
 </script>

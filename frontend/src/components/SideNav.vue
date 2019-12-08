@@ -1,7 +1,6 @@
 <template>
 	<v-container>
 		<v-navigation-drawer 
-			v-model="drawer"
 			app dark permanent
 			width="180px"
 			color="green darken-4"

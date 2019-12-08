@@ -9,22 +9,19 @@ class RecursiveField(serializers.ModelSerializer):
 
 class FileSerializer(serializers.ModelSerializer):
     file_set = RecursiveField(many=True, read_only=True)
-    #file_set = RecursiveField(many=True, )
     owner = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = File
         fields = ('id', 'title', 'content', 'owner', 'due_date', 'closed', 'completed', 'archived', 'parent', 'file_set')
 
-    #TODO: get writeable nested serializers
-    #def create(self, validated_data):
-    #    id = validated_data.get('id', None)
-    #    content = validated_data.get('content', None)
-    #    owner = validated_data.get('owner', None)
-    #    parent = validated_data.get('parent', None)
-    #    file_set.set([])
-    #    myfile = File.objects.create(id=id, content=content, owner=owner, parent=parent,file_set=file_set)
-    #    return myfile
+
+class SingleFileSerializer(serializers.ModelSerializer):
+    owner = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
+    class Meta:
+        model = File
+        fields = ('id', 'title', 'content', 'owner', 'due_date', 'closed', 'completed', 'archived', 'parent')
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -32,11 +29,12 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ('id', 'email', 'username', 'files',)
+        fields = ('id', 'email', 'username', 'files', 'timelogs',)
+
 
 class TimeLogSerializer(serializers.ModelSerializer):
     owner = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = TimeLog
-        fields = ('id', 'beforeNote', 'afterNote', 'nextNote', 'startTime', 'endTime', 'owner', 'associated_file',)
+        fields = ('id', 'beforeNote', 'afterNote', 'nextNote', 'startTime', 'endTime', 'owner', 'associated_file', 'active', 'file_name',)

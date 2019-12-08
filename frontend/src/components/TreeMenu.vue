@@ -3,16 +3,14 @@
 	class="pt-0 pr-0 pb-0"
 	fluid
 	>
-		<!--
 		<PreTimer
 		pa-0
-		:parent=id
+		:associated_file=associated_file
+		:file_name=file_name
 		@parentTimerPressed="timerPressed"
 		v-if="showTimerForm"
 		fluid
 		></PreTimer>
-		@click="oneClick($event)"
-		-->
 		<draggable 
 		:list="file_set" 
 		handle=".handle" 
@@ -57,7 +55,10 @@
 								<v-col>
 									<v-card class="pa-0 ma-0" outlined tile
 										style="height:40px;"
-										@click="parentToggleContent(file);">
+										@click.left="parentToggleContent(file);"
+										@click.right="parentChangeFileSet(file, file.id, file.title)"
+										@contextmenu.prevent="onRightClick"
+										>
 										<v-card-text class="pt-2"> 
 											<p class="body-1 text--primary">
 												{{ file.title }} 
@@ -68,21 +69,24 @@
 								<v-btn
 									color="green darken-4"
 									icon dark
-									@click="timerPressed"
+									@click="timerPressed(file.id, file.title)"
 									><v-icon>timer</v-icon>
 								</v-btn>
+								<!--
 								<v-btn
 									color="green darken-4"
 									icon dark
 									@click="parentChangeFileSet(file, file.id, file.title)"
 									><v-icon>open_in_new</v-icon>
 								</v-btn>
+								-->
 								<v-btn
 									color="green darken-4"
 									icon dark
 									@click="removeFile(file)"
 									><v-icon>delete</v-icon>
 								</v-btn>
+								{{ file.id }}
 							</v-row>
 						</v-form>
 						<v-row no-gutters xs12>
@@ -104,12 +108,6 @@
 </template>
 
 <script>
-/*
-								{{ file.id }}
-								:parent_path="add_path(file.id)"
-	props: [ 'file_set', 'parent_file', 'parent_path' ],
-
-*/
 import { mapState, mapActions } from 'vuex'
 import PreTimer from './PreTimer'
 import draggable from 'vuedraggable'
@@ -126,10 +124,8 @@ export default {
 			parent: null,
 			showChildren: false,
 			showTimerForm: false,
-			
-			//delay:500,
-			//clicks: 0,
-			//timer: null
+			associated_file: null,
+			file_name: "",
 		}
 	},
 	computed: {
@@ -141,13 +137,6 @@ export default {
 		}),
 	},
 	methods: {
-	/*
-		add_path(item) {
-			var newPath = JSON.parse(JSON.stringify(this.parent_path))
-			newPath.push(item)
-			return newPath
-		},
-		*/
 		parentToggleContent(file) {
 			this.$emit('parentToggleContent', file);
 		},
@@ -179,7 +168,9 @@ export default {
 		toggleChildren(file) {
 			file.closed = !file.closed;
 		},
-		timerPressed() {
+		timerPressed(id, name) {
+			this.associated_file = id;
+			this.file_name = name;
 			this.showTimerForm = !this.showTimerForm;
 		},
 		...mapActions('timeLogs', [
@@ -195,12 +186,6 @@ export default {
 			if (this.parent_file !== evt.added.element.parent) {
 				var newElement = evt.added.element;
 				newElement.parent = this.parent_file;
-				//console.log(this.parent_path)
-				//newElement.path_ids = JSON.parse(JSON.stringify(this.parent_path))
-				//if (this.parent_file !== null) {
-				//	newElement.path_ids.push(this.parent_file);
-				//}
-				//console.log(newElement)
 				this.updateFile(newElement);
 
 

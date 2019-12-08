@@ -1,10 +1,18 @@
 <template>
 	<v-container fluid >
+		<PostTimer
+		pa-0
+		:timerId=timerId
+		@parentTimerPressed="timerPressed"
+		v-if="showTimerForm"
+		fluid
+		></PostTimer>
 		<TimeBar 
 			:id_path=file_set_path_id
 			:title_path=file_set_path_title
 			:curTitle=curTitle
 			@parentSwitchFileSet="switchFileSet"
+			@parentDisableTimer="disableTimer"
 		></TimeBar>
 		<v-form>
 			<v-row no-gutters>
@@ -32,6 +40,7 @@
 			</v-row>
 		</v-form>
 		<br>
+
 		<v-container fluid v-if="content_open">
 			<v-row no-gutters xs12>
 				<v-col>
@@ -110,12 +119,14 @@
 import { mapState, mapActions } from 'vuex'
 import TreeMenu from './TreeMenu'
 import TimeBar from './TimeBar'
+import PostTimer from './PostTimer'
 
 export default {
 	name: "Totrno",
 	components: {
 		'TreeMenu': TreeMenu,
 		'TimeBar': TimeBar,
+		'PostTimer': PostTimer,
 	},
 	data() {
 		return {
@@ -133,7 +144,10 @@ export default {
 
 			content_open: false,
 			current_file: null,
-			old_content: ''
+			old_content: '',
+
+			showTimerForm: false,
+			timerId: null,
 		};
 	},
 	computed: {
@@ -145,6 +159,14 @@ export default {
 		}),
 	},
 	methods: {
+		timerPressed() {
+			this.showTimerForm = !this.showTimerForm;
+		},
+		disableTimer(item) {
+			//console.log(item);
+			this.showTimerForm = !this.showTimerForm;
+			this.timerId = item;
+		},
 		toggleContent(file) {
 			this.current_file = file;
 			this.old_content = file.content;
@@ -153,13 +175,8 @@ export default {
 			}
 		},
 		createFile() {
-			//this.addFile({ title: this.title, content: '', parent: parent, closed: 'true'}); 
-			//console.log('wow')
-			//console.log(this.parent)
 			this.addFile({ title: this.title, content: '', parent: this.parent})
 				.then(newFile => {
-					//console.log(this.parent);
-					//console.log(newFile);
 					if (this.parent !== null) {
 						this.file_set.push(newFile);
 					}
@@ -167,31 +184,6 @@ export default {
 			this.title = "";
 		},
 		changeFileSet(file, path_id, path_title) {
-			/*
-			//console.log(file)
-			this.file_set_path = file.path_ids;
-			this.file_set = file.file_set;
-			this.parent = file.parent;
-			this.curTitle = file.title;
-
-			if (this.file_set_path.length > 0 && this.file_set_path[0] !== 'root') {
-				this.file_set_path.unshift('root');
-			}
-			if (this.file_set_path.length === 0) {
-			}
-			else {
-					this.file_set_path.push(file.id);
-					this.file_set = file.file_set;
-					this.parent = file.parent;
-					this.curTitle = file.title;
-			}
-			if (file.parent === null) {
-				this.refresh = 'root';
-			}
-			else {
-				this.refresh = file.parent;
-			}
-			*/
 			if (!this.file_open) {
 				this.file_open = true;
 				this.file_set_path_id = path_id;
@@ -205,16 +197,10 @@ export default {
 					this.file_set_path_id.push(path_id[i]);
 					this.file_set_path_title.push(path_title[i]);
 				}
-				//console.log(file);
-				//console.log(path);
 			}
 			this.file_set = file.file_set;
 			this.parent = file.id;
 			this.curTitle = file.title;
-			//console.log(this.file_set_path);
-			//console.log(this.parent);
-			//console.log(file);
-			//console.log(path);
 		},
 		switchFileSet(item) {
 			if ( item === "root") {
@@ -233,7 +219,6 @@ export default {
 					var j;
 					for (j = 0; j < curFileSet.length; j++) {
 						curFile = curFileSet[j];
-						//console.log(curFile.id)
 						if (curFile.id == item) {
 							this.file_set = curFile.file_set;
 							this.parent = curFile.id;
@@ -285,8 +270,6 @@ export default {
 		this.parent = null
 		this.$store.dispatch('files/getFiles')
 			.then(() => {
-				//console.log('wow');
-				//console.log(this.files)
 				this.file_set = this.files;
 				})
 	}

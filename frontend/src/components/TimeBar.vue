@@ -29,6 +29,22 @@
 			<v-toolbar-title>
 				Timers:
 			</v-toolbar-title>
+				<h2 style="padding-left:50px;">
+					{{ "-" }}
+				</h2>
+				<template v-for="item in timeLogs" >
+					<v-card  outlined tile
+						color="grey lighten-4"
+						style="height:40px;"
+						@click="parentDisableTimer(item)"
+						>
+						<v-card-text class="pt-2"> 
+							<p class="body-1 text--primary">
+								{{ item.file_name }}
+							</p>
+						</v-card-text>
+					</v-card>
+				</template>
 		</v-app-bar>
 	</v-container>
 </template>
@@ -40,7 +56,7 @@ export default {
 	name: 'TimeBar',
 	components: {
 	},
-	props: [ 'id_path', 'title_path', 'curTitle'],
+	props: [ 'id_path', 'title_path', 'curTitle', 'timer_active',],
 	data(){
 		return {
 		}
@@ -54,9 +70,13 @@ export default {
 		}),
 	},
 	methods: {
+		parentDisableTimer(item) {
+			//console.log(item)
+			//item.active = false;
+			//this.updateTimeLog(item);
+			this.$emit('parentDisableTimer', item.id);
+		},
 		parentSwitchFileSet(item) {
-			//console.log("wow");
-			//console.log(item);
 			var i, j;
 			for (i = 0; i < this.title_path.length; i++) {
 				if (this.title_path[i] === item) {
@@ -67,6 +87,7 @@ export default {
 		},
 		...mapActions('timeLogs', [
 		'addTimeLog',
+		'updateTimeLog',
 		'deleteTimeLog'
 		]),
 		...mapActions('files', [
@@ -74,5 +95,8 @@ export default {
 		'deleteFile'
 		]),
 	},
+	created() {
+		this.$store.dispatch('timeLogs/getActiveTimeLogs')
+	}
 };
 </script>

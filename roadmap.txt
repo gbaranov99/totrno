@@ -235,10 +235,8 @@ Before I make it live:
 	>> Finished basic implementation
 
 	--Change Icon to reflect new color scheme
-	
-	Implement time tracking data associated with files
 
-	Right click / double click on title opens it as new root, with path displayed up top
+	--Right click / double click on title opens it as new root, with path displayed up top
 		How it should work:
 			Ideally I would have a path variable for each item
 			maybe I'll make that happen eventually
@@ -249,6 +247,29 @@ Before I make it live:
 			Adding files requires the file id
 			So I do need to add in the store 
 			But deleting files can be done in place
+
+	--Make sure file structure is mostly correct
+		Add todo date and archieved fields
+		Make so allFiles isn't querry recursively
+
+	Implement time tracking data associated with files
+		Show time tracking data for any specific file as switch from content editing in right hand view
+			Do this with api call, because this would be a lot to always keep loaded
+			Likely will be acessed pretty rarely
+			Mostly useful for when you start tracking again, to see what you were working on last time
+		Dropdown menu with options
+			Stop timer
+			Hide counter
+		Make the path and timers be split halfway across screen
+			Limit path depth at 5
+			Limit path size to some amount of pixels
+		Make timer generally look nice
+		Allow user to choose timer type
+			Count up
+			Count down
+			Pomodoro
+			Manually entering time interval
+				Calendar/date picker or typing values
 
 	Better about page
 		Fancy changes as u scroll type deal	
@@ -261,24 +282,31 @@ Before I make it live:
 	Change env files and deploy basic website to digital ocean
 		Forward gbaranov to totrno
 		
-	Make sure file structure is mostly correct
-		Add todo date and archieved fields
-		Make so allFiles isn't querry recursively
-	
-	Problem with delete
-		Files get restored randomly, especially when pressing add file
-	
-	Sometimes expand doesn't work when a file is just created
+	Bugs
+		Files get restored randomly, especially when pressing add file after deleting
+		Sometimes expand doesn't work when a file is just created
+		Make sure there aren't too many errors and warnings in js console and in backend code
+		Fix routing problems
+		Generally don't require user get() requests / come up with better way to verify user
+		Pre timer creates whitespace, when it shouldn't
 
+	Fix update files store functions
+	Make logout image
+
+	Fix code
+		Standardize variable naming scheme (camelCase vs under_scores)
+		Adds some comments ?
 
 Eventually:
 	Better account page
+		jwt user authentication, not just token based
 		Eventually password reset and email verification
 		Data extraction in json form
 			Likely as text file (or whatever form json uses)
 			Both todos and time data
 	
 	A useful right banner, with file shortcuts
+		Powerful search function
 		Frequently used / most used
 		Most recently used
 		Top level file names
@@ -298,6 +326,13 @@ Eventually:
 	
 	Change file structure
 		Maybe use hashed data instead of increasing numbers for file numbers
+			Harder to predict user numbers and gives less exploitable data
+			Also makes it much harder to keep track of user info
+		Add tags
+		Sorting options
+			Manual
+			By name
+			By due date
 	
 	Data visualization for usage
 		Show time tracked data and completed file data
@@ -311,3 +346,9 @@ Eventually:
 		Maybe an expand left option on the content editing
 
 	See how it functions at scale on digital ocean
+
+	Optimzations for snappy preformance even with many items
+
+	Multiple item select
+		Possible uses: drag, delete, date
+	

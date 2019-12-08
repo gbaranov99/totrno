@@ -1,7 +1,8 @@
 <template>
 	<v-container fluid >
 		<TimeBar 
-			:path=file_set_path
+			:id_path=file_set_path_id
+			:title_path=file_set_path_title
 			:curTitle=curTitle
 			@parentSwitchFileSet="switchFileSet"
 		></TimeBar>
@@ -95,6 +96,7 @@
 			<tree-menu 
 				:file_set="file_set"
 				:parent_file=null
+				:parent_title=parent_title
 				:parent_path=[]
 				@parentToggleContent="toggleContent"
 				@parentChangeFileSet="changeFileSet"
@@ -123,9 +125,11 @@ export default {
 			id: null,
 			dialog: false,
 			file_set: this.files,
-			file_set_path: [],
+			file_set_path_id: [],
+			file_set_path_title: [],
 			curTitle: null,
 			file_open: false,
+			parent_title: 'root',
 
 			content_open: false,
 			current_file: null,
@@ -150,14 +154,19 @@ export default {
 		},
 		createFile() {
 			//this.addFile({ title: this.title, content: '', parent: parent, closed: 'true'}); 
-			this.addFile({ title: this.title, content: ''})
+			//console.log('wow')
+			//console.log(this.parent)
+			this.addFile({ title: this.title, content: '', parent: this.parent})
 				.then(newFile => {
+					//console.log(this.parent);
 					//console.log(newFile);
-					this.file_set.push(newFile);
+					if (this.parent !== null) {
+						this.file_set.push(newFile);
+					}
 					})
 			this.title = "";
 		},
-		changeFileSet(file, path) {
+		changeFileSet(file, path_id, path_title) {
 			/*
 			//console.log(file)
 			this.file_set_path = file.path_ids;
@@ -185,27 +194,32 @@ export default {
 			*/
 			if (!this.file_open) {
 				this.file_open = true;
-				this.file_set_path = path;
+				this.file_set_path_id = path_id;
+				this.file_set_path_title = path_title;
 			}
 			else {
 				var i
-				this.file_set_path.push(this.parent);
-				for (i = 1; i < path.length; i++) {
-					this.file_set_path.push(path[i]);
+				this.file_set_path_id.push(this.parent);
+				this.file_set_path_title.push(this.curTitle);
+				for (i = 1; i < path_id.length; i++) {
+					this.file_set_path_id.push(path_id[i]);
+					this.file_set_path_title.push(path_title[i]);
 				}
-				console.log(file);
-				console.log(path);
+				//console.log(file);
+				//console.log(path);
 			}
 			this.file_set = file.file_set;
-			this.parent = file.parent;
+			this.parent = file.id;
 			this.curTitle = file.title;
-			console.log(this.file_set_path);
+			//console.log(this.file_set_path);
+			//console.log(this.parent);
 			//console.log(file);
 			//console.log(path);
 		},
 		switchFileSet(item) {
 			if ( item === "root") {
-				this.file_set_path = [];
+				this.file_set_path_id = [];
+				this.file_set_path_title = [];
 				this.file_set = this.files;
 				this.parent = null;
 				this.file_open = false;
@@ -215,7 +229,7 @@ export default {
 				var i, curFile;
 				var done = -1;
 				var curFileSet = this.files;
-				for (i = 0; i < this.file_set_path.length; i++) {
+				for (i = 0; i < this.file_set_path_id.length; i++) {
 					var j;
 					for (j = 0; j < curFileSet.length; j++) {
 						curFile = curFileSet[j];
@@ -229,7 +243,7 @@ export default {
 						if (done !== -1) {
 							break;
 						}
-						else if (curFile.id == this.file_set_path[i + 1]) {
+						else if (curFile.id == this.file_set_path_id[i + 1]) {
 							curFileSet = curFile.file_set;
 							break;
 						}
@@ -238,8 +252,9 @@ export default {
 						break;
 					}
 				}
-				for (i = 0; i < this.file_set_path.length - done; i++) {
-					this.file_set_path.pop();
+				for (i = 0; i < this.file_set_path_id.length - done; i++) {
+					this.file_set_path_id.pop();
+					this.file_set_path_title.pop();
 				}
 			}		
 		},
@@ -267,9 +282,9 @@ export default {
 	created() {
 		this.title = ""
 		this.content = ""
-		this.parent = ""
+		this.parent = null
 		this.$store.dispatch('files/getFiles')
-			.then(asdf => {
+			.then(() => {
 				//console.log('wow');
 				//console.log(this.files)
 				this.file_set = this.files;

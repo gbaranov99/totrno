@@ -5,7 +5,7 @@
 			style="padding-right:10px;">
 				Path:
 			</v-toolbar-title>
-				<template v-for="item in path" v-if="path[0] !== null">
+				<template v-for="item in title_path" >
 					<v-card  outlined tile
 						color="grey lighten-4"
 						style="height:40px;"
@@ -16,7 +16,7 @@
 							</p>
 						</v-card-text>
 					</v-card>
-					<template v-if="item != path[path.length - 1]">
+					<template v-if="item != title_path[title_path.length - 1]">
 						-
 					</template>
 					<template v-else>
@@ -40,7 +40,7 @@ export default {
 	name: 'TimeBar',
 	components: {
 	},
-	props: [ 'path', 'curTitle'],
+	props: [ 'id_path', 'title_path', 'curTitle'],
 	data(){
 		return {
 		}
@@ -57,7 +57,13 @@ export default {
 		parentSwitchFileSet(item) {
 			//console.log("wow");
 			//console.log(item);
-			this.$emit('parentSwitchFileSet', item);
+			var i, j;
+			for (i = 0; i < this.title_path.length; i++) {
+				if (this.title_path[i] === item) {
+					j = i;
+				}
+			}
+			this.$emit('parentSwitchFileSet', this.id_path[j]);
 		},
 		...mapActions('timeLogs', [
 		'addTimeLog',

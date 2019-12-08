@@ -267,6 +267,9 @@ Before I make it live:
 	
 	Problem with delete
 		Files get restored randomly, especially when pressing add file
+	
+	Sometimes expand doesn't work when a file is just created
+
 
 Eventually:
 	Better account page

@@ -74,7 +74,7 @@
 								<v-btn
 									color="green darken-4"
 									icon dark
-									@click="parentChangeFileSet(file, file.id)"
+									@click="parentChangeFileSet(file, file.id, file.title)"
 									><v-icon>open_in_new</v-icon>
 								</v-btn>
 								<v-btn
@@ -83,7 +83,6 @@
 									@click="removeFile(file)"
 									><v-icon>delete</v-icon>
 								</v-btn>
-								{{ file.id }}
 							</v-row>
 						</v-form>
 						<v-row no-gutters xs12>
@@ -93,6 +92,7 @@
 								@parentChangeFileSet="parentChangeFileSet"
 								:file_set="file.file_set"
 								:parent_file="file.id"
+								:parent_title="file.title"
 								>
 							</tree-menu>
 						</v-row>
@@ -105,6 +105,7 @@
 
 <script>
 /*
+								{{ file.id }}
 								:parent_path="add_path(file.id)"
 	props: [ 'file_set', 'parent_file', 'parent_path' ],
 
@@ -119,7 +120,7 @@ export default {
 		'PreTimer': PreTimer,
 		draggable
 	},
-	props: [ 'file_set', 'parent_file'],
+	props: [ 'file_set', 'parent_file', 'parent_title',],
 	data() {
 		return {
 			parent: null,
@@ -154,22 +155,26 @@ export default {
 			this.deleteFile(file);
 			this.file_set = this.file_set.filter(obj => obj.id !== file.id)
 		},
-		parentChangeFileSet(file, path) {
-			if ( (this.parent_file === null) && (typeof path !== 'object')) {
-				var path = ['root',]
+		parentChangeFileSet(file, path_id, path_title) {
+			if ( (this.parent_file === null) && (typeof path_id !== 'object')) {
+				path_id = ['root',]
+				path_title = ['root',]
 			}
-			else if (typeof path === 'number') {
-				var path = [ this.parent_file ]
+			else if (typeof path_id === 'number') {
+				path_id = [ this.parent_file ]
+				path_title = [this.parent_title]
 			}
 			else {
 				if (this.parent_file === null) {
-					path.unshift('root')
+					path_id.unshift('root')
+					path_title.unshift('root')
 				}
 				else {
-					path.unshift(this.parent_file);
+					path_id.unshift(this.parent_file);
+					path_title.unshift(this.parent_title);
 				}
 			}
-			this.$emit('parentChangeFileSet', file, path);
+			this.$emit('parentChangeFileSet', file, path_id, path_title);
 		},
 		toggleChildren(file) {
 			file.closed = !file.closed;

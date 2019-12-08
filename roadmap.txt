@@ -226,19 +226,49 @@ Update 2019_12_01:
 	Was a problem with loops, using same variable for two different loops
 	
 
-Next steps:
-	Remove username requirement from sign up
+Before I make it live:
+	--Remove username requirement from sign up
+	>> Changed my mind
+	>> Is useful to get emails from at least some users, and usernames
 	
-	Implement right half of screen content editing feature
+	--Implement right half of screen content editing feature
+	>> Finished basic implementation
+
+	--Change Icon to reflect new color scheme
 	
 	Implement time tracking data associated with files
 
 	Right click / double click on title opens it as new root, with path displayed up top
+		How it should work:
+			Ideally I would have a path variable for each item
+			maybe I'll make that happen eventually
 
+			I guess I can add files in the frontend in the component, which would probably be easier
+			Deleting files could also probably work like that
+
+			Adding files requires the file id
+			So I do need to add in the store 
+			But deleting files can be done in place
+
+	Better about page
+		Fancy changes as u scroll type deal	
+
+	Display error messages
+		Incorrect sign up
+		File add not sucessfull
+		Login not valid
+
+	Change env files and deploy basic website to digital ocean
+		Forward gbaranov to totrno
+		
+	Make sure file structure is mostly correct
+		Add todo date and archieved fields
+		Make so allFiles isn't querry recursively
+	
+	Problem with delete
+		Files get restored randomly, especially when pressing add file
 
 Eventually:
-	Better about page
-
 	Better account page
 		Eventually password reset and email verification
 		Data extraction in json form
@@ -251,6 +281,8 @@ Eventually:
 		Top level file names
 
 	An archive option / mark off (in content section)
+		Keeps file, but doesn't show it
+		Allows time tracked data to persist and be attached to a file
 
 	Todo date
 		Date and time selector
@@ -263,6 +295,16 @@ Eventually:
 	
 	Change file structure
 		Maybe use hashed data instead of increasing numbers for file numbers
-		Make so allFiles doesn't querry recursively
 	
+	Data visualization for usage
+		Show time tracked data and completed file data
+		Very customizable outputs
+	
+	Make add file draggable to a location
+		May not be necessary if open file on double click works as well as I hope
+	
+	Add tiptap for content editing
+		Make it so the note taking aspect can be more serious
+		Maybe an expand left option on the content editing
+
 	See how it functions at scale on digital ocean

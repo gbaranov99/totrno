@@ -8,21 +8,67 @@
 					contain
 					height="150"
 				></v-img>
-				<br>
-				<h1 class="headline">Totrno is a planning tool that is intuitive and clean, yet has a lot of depth under the surface.</h1>
-				<br>
-				<h1 class="headline">As the landing page suggests, the primary function of Totrno is to combine the functionality of todos, time-tracking, and notes into one consolidated experience.</h1>
-				<br>
-				<h1 class="headline">Totrno can be molded into whatever you need it to be, from the layout of files to the customizable settings.</h1>
-				<br>
-				<h1 class="headline">In Totrno, there are no folders, and no text documents. Totrno files have both areas for text, and have sub-files for organization.</h1>
-				<br>
-				<h1 class="headline">Although this format may seem odd initially, it allows for every user to customize their file structure the way they want. Users can get as specific as they want for each task, and can sub-file everything infinitely!</h1>
-				<br>
-				<h1 class="headline">Every file can have a due date or a time range associated with it, which can be viewed on the calendar app. Files can also be marked as completeable or as uncompleteable</h1>
-				<br>
-				<h1 class="headline">This format also allows for easy time tracking, with data stored for how much time was tracked for each file.</h1>
+			<v-list>
+				<v-list-group
+					v-for="item in content"
+					color="green darken-4"
+					:key="item.title"
+					background_color="grey"
+				>
+					<template v-slot:activator>
+						<v-list-item-title> 
+						<h1 class="headline"> {{ item.title }}</h1>
+						</v-list-item-title>
+					</template>
+					<v-list-item-content>
+					<template v-for="subitem in item.content" >
+						<h1 class="headline" style="padding-top:10px;"> {{ subitem }}</h1>
+						<br>
+					</template>
+					</v-list-item-content>
+				</v-list-group>
+			</v-list>
+
 			</v-flex>
 		</v-layout>
 	</v-container>
 </template>
+
+<script>
+export default {
+	name: 'About',
+	data(){
+		return {
+		appTitle: 'Totrno',
+		content: [
+			{
+				title: "Introduction",
+				content: [
+					"There are plenty of time tracking and planning tools out there already. Many of them work very well for a lot of people.",
+					"So why make another one?",
+					"Part of it was that I wanted to create a web app, and this was my only real idea. So yeah, that was definitely a factor.",
+					"However, I do believe Totrno is a useful application in its own right. It does not impose any particular framework on the user. It merely provides tools that the user can use as they please.",
+					"Although I did design the framework with a specific implementation in mind, it can likely be used in a number of ways I did not envision. I will use it primarily for planning out personal projects and documenting their progress. But it can just as easily be used as a place to store recipies for food, or create detailed journal entries.",
+					"On this page, I will provide a basic introduction into the layout of Totrno in the Features section. In the My Implementation section I will go a bit more into how I plan on using this web app going forward. I will also include a list of Upcoming Features: things I will work into the platform.",
+				],
+			},
+			{
+				title: "Features",
+				content: [
+				],
+			},
+			{
+				title: "My implementation",
+				content: [
+				],
+			},
+			{
+				title: "Upcoming features",
+				content: [
+				],
+			},
+		]
+		}
+	}
+};
+</script>

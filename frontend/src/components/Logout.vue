@@ -9,7 +9,6 @@
 					height="150"
 				></v-img>
 				<v-container>
-					<v-column>
 						<v-flex>
 							<h1 class="display-1" style="padding-top: 120px;">
 								Press the logout button to logout of your account
@@ -24,7 +23,6 @@
 								>Logout</v-btn>
 							</router-link>
 						</v-flex>
-					</v-column>
 				</v-container>
 			</v-flex>
 		</v-layout>

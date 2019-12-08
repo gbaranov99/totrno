@@ -12,17 +12,21 @@ const getters = {
 
 const actions = {
 	getFiles ({ commit }) {
-		fileService.fetchFiles()
+		return fileService.fetchFiles()
 			.then(files => {
 				commit('setFiles', files)
+				return files;
 			})
+			//.then(() => {return state.files;})
+		//console.log(state.files)
 	},
 	addFile({ commit }, file) {
-		fileService.postFile(file)
+		return fileService.postFile(file)
 			.then(output => {
 				file.id = output.id
 				file.file_set = []
 				commit('addFile', file)
+				return file
 			})
 	},
 	updateFile({ commit }, file) {
@@ -60,7 +64,10 @@ const mutations = {
 					var j
 					for (j = 0; j < curFile.file_set.length; j++) {
 						curFile = curFile.file_set[j];
+						//console.log(curFile.id);
+						//console.log(file.parent);
 						if (String(curFile.id) === file.parent) {
+							//console.log("asdf")
 							done = true;
 							curFile.file_set.push(file);
 							break;

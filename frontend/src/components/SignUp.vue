@@ -15,21 +15,21 @@
 						</h1>
 						<br>
 						<v-text-field
-							name="username"
-							label="Username"
-							id="username"
-							type="username"
-							color="green darken-4"
-							v-model="username"
-							required
-						></v-text-field>
-						<v-text-field
 							name="email"
 							label="Email"
 							id="email"
 							type="email"
 							color="green darken-4"
 							v-model="email"
+							required
+						></v-text-field>
+						<v-text-field
+							name="username"
+							label="Username"
+							id="username"
+							type="username"
+							color="green darken-4"
+							v-model="username"
 							required
 						></v-text-field>
 						<v-text-field
@@ -57,7 +57,7 @@
 						</v-flex>
 						<v-btn dark color="green darken-4"
 							type="submit"
-							@click="registerUser({ username: username, email: email, password1: password1, password2: password2 })"
+							@click="registerUser({ email: email, username: username, password1: password1, password2: password2 })"
 						>Sign Up</v-btn>
 					</v-form>
 				</v-container>
@@ -72,8 +72,8 @@ export default {
 	name: "SignUp",
 	data() {
 		return {
-			username: "",
 			email: "",
+			username: "",
 			password1: "",
 			password2: "",
 		};

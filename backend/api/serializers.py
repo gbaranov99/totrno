@@ -14,7 +14,7 @@ class FileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = File
-        fields = ('id', 'title', 'content', 'owner', 'parent', 'file_set', 'closed')
+        fields = ('id', 'title', 'content', 'owner', 'path_ids', 'path_titles', 'due_date', 'closed', 'completed', 'archived', 'parent', 'file_set')
 
     #TODO: get writeable nested serializers
     #def create(self, validated_data):

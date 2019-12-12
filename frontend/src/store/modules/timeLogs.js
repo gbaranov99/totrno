@@ -2,11 +2,15 @@ import timeLogService from '../services/timeLogService'
 
 const state = {
 	timeLogs: [],
+	fileLogs: [],
 }
 
 const getters = {
 	timeLogs: state => {
 		return state.timeLogs
+	},
+	fileLogs: state => {
+		return state.fileLogs
 	}
 }
 
@@ -21,6 +25,13 @@ const actions = {
 		return timeLogService.fetchActiveTimeLogs()
 			.then(timeLogs => {
 				commit('setTimeLogs', timeLogs)
+				return timeLogs
+			})
+	},
+	getFileLogs ({ commit }, timeLogId) {
+		return timeLogService.fetchFileLogs(timeLogId)
+			.then(timeLogs => {
+				commit('setFileLogs', timeLogs)
 				return timeLogs
 			})
 	},
@@ -44,6 +55,9 @@ const actions = {
 const mutations = {
 	setTimeLogs (state, timeLogs) {
 		state.timeLogs = timeLogs
+	},
+	setFileLogs (state, timeLogs) {
+		state.fileLogs = timeLogs
 	},
 	addTimeLog(state, timeLog) {
 		state.timeLogs.push(timeLog)

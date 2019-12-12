@@ -251,15 +251,29 @@ Before I make it live:
 	--Make sure file structure is mostly correct
 		Add todo date and archieved fields
 		Make so allFiles isn't querry recursively
+	
+	--Timer doesn't work for nested files
+
+		--Dropdown menu with options
+			Stop timer
+			Hide counter
+
+	Add time elapsed to backend
 
 	Implement time tracking data associated with files
 		Show time tracking data for any specific file as switch from content editing in right hand view
 			Do this with api call, because this would be a lot to always keep loaded
 			Likely will be acessed pretty rarely
 			Mostly useful for when you start tracking again, to see what you were working on last time
-		Dropdown menu with options
-			Stop timer
-			Hide counter
+			Displayed as:
+				Start time: ... Duration:
+				Before Note:
+				After Note:
+				Next Note:
+				-----
+				Next time log data
+			Sorted with most recent time log at the top
+
 		Make the path and timers be split halfway across screen
 			Limit path depth at 5
 			Limit path size to some amount of pixels
@@ -270,6 +284,7 @@ Before I make it live:
 			Pomodoro
 			Manually entering time interval
 				Calendar/date picker or typing values
+		Eventually allow multiple timers, possible as a dropdown menu of timers
 
 	Better about page
 		Fancy changes as u scroll type deal	
@@ -289,18 +304,32 @@ Before I make it live:
 		Fix routing problems
 		Generally don't require user get() requests / come up with better way to verify user
 		Pre timer creates whitespace, when it shouldn't
+		Glitched out when submitting form after ending timer data?
+		Limit length of file path names and of time tracking names
+		Multiple countup instances running at a time, but isn't displayed?
+			Some instances continue after the stop timer is pressed
 
 	Fix update files store functions
 	Make logout image
 	Make button flip in menu for timer
+	Handle network timeouts and the fallacies of distributed computing
+	Clicking on a file again closes it
 
 	Fix code
 		Standardize variable naming scheme (camelCase vs under_scores)
 		Adds some comments ?
 		Repeat renders should be done in list (buttons in contact me)
+		Break up totrno into subcomponents
+		Rename function calls / remove everything that isn't used always
+		
 
 Eventually:
+	An undo button for most actions
+		Eventually could have a lot of all changes ever, like in totrno
+
 	Better account page
+		Add a settings class
+			Allow user to change defaults
 		jwt user authentication, not just token based
 		Eventually password reset and email verification
 		Data extraction in json form

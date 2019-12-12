@@ -84,7 +84,14 @@
 								color="green darken-4"
 								icon dark
 								type="submit"
-								@click="restoreContent();"
+								@click="viewTimeData(); getFileLogs(current_file.id);"
+								><v-icon>access_time</v-icon>
+							</v-btn>	
+							<v-btn
+								color="green darken-4"
+								icon dark
+								type="submit"
+								@click="updateFile({ title: current_file.title, content: current_file.content, parent: current_file.parent, id: current_file.id, closed: current_file.closed}); updateContent(); restoreContent();"
 								><v-icon>close</v-icon>
 							</v-btn>	
 							<v-btn
@@ -95,13 +102,33 @@
 								><v-icon>save</v-icon>
 							</v-btn>	
 					</v-row>
-					<v-row no-gutters xs12>
+					<v-row no-gutters xs12 v-if="!view_time_data">
 							<v-textarea
 								filled
 								auto-grow
 								color="black"
 								v-model="current_file.content"
 							></v-textarea>
+					</v-row>
+					<v-row no-gutters xs12 v-else
+					v-for="item in fileLogs">
+						{{ 'Start time:' }}
+						{{ item.startTime }}
+						<br />
+						{{ 'End time:' }}
+						{{ item.endTime }}
+						<br />
+						{{ 'Before Note:' }}
+						{{ item.beforeNote }}
+						<br />
+						{{ 'After Note:' }}
+						{{ item.afterNote }}
+						<br />
+						{{ 'Next Note:' }}
+						{{ item.nextNote }}
+						<br />
+						{{ '--------------' }}
+						<br />
 					</v-row>
 				</v-col>
 			</v-row>
@@ -148,6 +175,9 @@ export default {
 			file_open: false,
 			parent_title: 'root',
 
+			view_time_data: false,
+			timer_data: null,
+
 			content_open: false,
 			current_file: null,
 			old_content: '',
@@ -161,10 +191,23 @@ export default {
 			timeLogs: state => state.timeLogs.timeLogs,
 		}),
 		...mapState({
+			fileLogs: state => state.timeLogs.fileLogs,
+		}),
+		...mapState({
 			files: state => state.files.files
 		}),
 	},
 	methods: {
+		viewTimeData() {
+			this.view_time_data = !this.view_time_data;
+		},
+		getTimeData() {
+			console.log(this.fileLogs);
+			this.$store.dispatch('timeLogs/getFileLogs')
+				//.then(() => {
+				//	this.file_set = this.files;
+				//	})
+		},
 		startTimer() {
 			console.log('startTimer()');
 			this.$refs.TimeBar.resetTimer();
@@ -187,10 +230,18 @@ export default {
 			console.log('stopTimer()');
 		},
 		toggleContent(file) {
-			this.current_file = file;
-			this.old_content = file.content;
-			if (!this.content_open) {
-				this.content_open = ! this.content_open;
+			//console.log(this.current_file);
+			//console.log(file);
+			if (this.current_file === null || this.current_file.id !== file.id) {
+				this.current_file = file;
+				this.old_content = file.content;
+				this.view_time_data = false;
+				if (!this.content_open) {
+					this.content_open = ! this.content_open;
+				}
+			}
+			else {
+				this.content_open = !this.content_open;
 			}
 		},
 		createFile() {
@@ -269,11 +320,11 @@ export default {
 			this.old_content = this.current_file.content;
 		},
 		restoreContent() {
-			this.current_file.content = this.old_content;
 			this.content_open = !this.content_open;
 		},
 		...mapActions('timeLogs', [
 		'addTimeLog',
+		'getFileLogs',
 		'deleteTimeLog'
 		]),
 		...mapActions('files', [

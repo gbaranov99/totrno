@@ -9,6 +9,10 @@ export default {
     return api.get(`activeLogs/`)
               .then(response => response.data)
   },
+  fetchFileLogs(logId) {
+    return api.get(`fileLogs/?search=${logId}`)
+              .then(response => response.data)
+  },
   postTimeLog(payload) {
     return api.post(`logs/`, payload)
               .then(response => response.data)

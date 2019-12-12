@@ -8,6 +8,7 @@ router.register('files', views.FileViewSet)
 router.register('allFiles', views.AllFileViewSet)
 router.register('logs', views.TimeLogViewSet)
 router.register('activeLogs', views.ActiveTimeLogViewSet)
+router.register('fileLogs', views.FileLogViewSet)
 
 urlpatterns = [
     path('api/', include(router.urls)),

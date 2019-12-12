@@ -1,6 +1,7 @@
 from .models import File, TimeLog, CustomUser
 from .serializers import SingleFileSerializer, FileSerializer, TimeLogSerializer, UserSerializer
-from rest_framework import generics, viewsets, permissions
+from django.shortcuts import get_object_or_404
+from rest_framework import generics, viewsets, permissions, filters
 from django.shortcuts import render
 from rest_framework.response import Response
 
@@ -55,3 +56,30 @@ class ActiveTimeLogViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         return TimeLog.objects.filter(owner=user, active=True)
+
+
+class FileLogViewSet(viewsets.ModelViewSet):
+    queryset = TimeLog.objects.all()
+    serializer_class = TimeLogSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+    filter_backends = [filters.SearchFilter]
+    search_fields= ['associated_file__id']
+
+    def preform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+    ''' 
+    def retrieve(self, request, pk=None):
+        queryset = TimeLog.objects.all()
+        #timeLog = get_object_or_404(queryset, pk=pk)
+        user = self.request.user
+        timeLog = TimeLog.objects.filter(owner=user, associated_file=pk)
+        serializer = TimeLogSerializer(timeLog)
+        return Response(serializer.data)
+        #return Response(TimeLog.objects.filter(owner=user, associated_file=pk))
+    '''
+
+    def get_queryset(self):
+        user = self.request.user
+        #return TimeLog.objects.filter(owner=user, associated_file=6)
+        return TimeLog.objects.filter(owner=user)

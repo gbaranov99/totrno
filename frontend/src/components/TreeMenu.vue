@@ -95,6 +95,7 @@
 								v-if="file.closed"
 								@parentToggleContent="parentToggleContent"
 								@parentChangeFileSet="parentChangeFileSet"
+								@parentStartTimer="parentStartTimer"
 								:file_set="file.file_set"
 								:parent_file="file.id"
 								:parent_title="file.title"
@@ -175,9 +176,11 @@ export default {
 			this.showTimerForm = !this.showTimerForm;
 		},
 		startPressed() {
+			console.log('wow');
 			this.$emit('parentStartTimer');
 		},
 		parentStartTimer() {
+			console.log('wowzers');
 			this.$emit('parentStartTimer');
 		},
 		...mapActions('timeLogs', [

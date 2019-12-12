@@ -13,7 +13,6 @@
 						id="afterNote"
 						color="green darken-4"
 						v-model="afterNote"
-						required
 						>
 						</v-text-field>
 					</v-card-text>
@@ -24,7 +23,6 @@
 						id="nextNote"
 						color="green darken-4"
 						v-model="nextNote"
-						required
 						>
 						</v-text-field>
 					</v-card-text>
@@ -43,6 +41,7 @@
 							type="submit"
 							@click="
 							parentTimerPressed();
+							parentStopTimer();
 							getTime();
 							updateTimeLog({ id:timerId, afterNote:afterNote, nextNote:nextNote, endTime: currentTime,  active: isActive });"
 						>End Timer</v-btn>
@@ -83,6 +82,9 @@ export default {
 		},
 		parentTimerPressed() {
 			this.$emit('parentTimerPressed');
+		},
+		parentStopTimer() {
+			this.$emit('parentStopTimer');
 		},
 		getTime() {
 			var today = new Date();

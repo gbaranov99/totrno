@@ -8,6 +8,7 @@
 		:associated_file=associated_file
 		:file_name=file_name
 		@parentTimerPressed="timerPressed"
+		@parentStartPressed="startPressed"
 		v-if="showTimerForm"
 		fluid
 		></PreTimer>
@@ -172,6 +173,12 @@ export default {
 			this.associated_file = id;
 			this.file_name = name;
 			this.showTimerForm = !this.showTimerForm;
+		},
+		startPressed() {
+			this.$emit('parentStartTimer');
+		},
+		parentStartTimer() {
+			this.$emit('parentStartTimer');
 		},
 		...mapActions('timeLogs', [
 		'addTimeLog',

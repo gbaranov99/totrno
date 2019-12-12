@@ -18,9 +18,10 @@ const actions = {
 	//		})
 	//},
 	getActiveTimeLogs ({ commit }) {
-		timeLogService.fetchActiveTimeLogs()
+		return timeLogService.fetchActiveTimeLogs()
 			.then(timeLogs => {
 				commit('setTimeLogs', timeLogs)
+				return timeLogs
 			})
 	},
 	addTimeLog({ commit }, timeLog) {

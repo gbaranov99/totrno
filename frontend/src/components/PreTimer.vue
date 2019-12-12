@@ -13,7 +13,6 @@
 						id="beforeNote"
 						color="green darken-4"
 						v-model="beforeNote"
-						required
 						>
 						</v-text-field>
 					</v-card-text>
@@ -32,6 +31,7 @@
 							type="submit"
 							@click="
 							parentTimerPressed();
+							parentStartPressed();
 							getTime();
 							addTimeLog({beforeNote: beforeNote, startTime: currentTime, endTime: currentTime, associated_file: associated_file, active: isActive, file_name: file_name});"
 						>Start Timer</v-btn>
@@ -54,7 +54,7 @@ export default {
 			showChildren: false,
 			showTimerForm: true,
 			currentTime: '',
-			beforeNote: null,
+			beforeNote: '',
 			isActive: true,
 		}
 	},
@@ -72,6 +72,9 @@ export default {
 		},
 		parentTimerPressed() {
 			this.$emit('parentTimerPressed');
+		},
+		parentStartPressed() {
+			this.$emit('parentStartPressed');
 		},
 		getTime() {
 			var today = new Date();

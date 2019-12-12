@@ -292,10 +292,12 @@ Before I make it live:
 
 	Fix update files store functions
 	Make logout image
+	Make button flip in menu for timer
 
 	Fix code
 		Standardize variable naming scheme (camelCase vs under_scores)
 		Adds some comments ?
+		Repeat renders should be done in list (buttons in contact me)
 
 Eventually:
 	Better account page

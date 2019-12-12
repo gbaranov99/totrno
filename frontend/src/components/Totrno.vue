@@ -4,10 +4,12 @@
 		pa-0
 		:timerId=timerId
 		@parentTimerPressed="timerPressed"
+		@parentStopTimer="stopTimer"
 		v-if="showTimerForm"
 		fluid
 		></PostTimer>
 		<TimeBar 
+			ref="TimeBar"
 			:id_path=file_set_path_id
 			:title_path=file_set_path_title
 			:curTitle=curTitle
@@ -47,8 +49,11 @@
 					<tree-menu 
 						:file_set="file_set"
 						:parent_file=null
+						:parent_title=parent_title
 						:parent_path=[]
 						@parentToggleContent="toggleContent"
+						@parentChangeFileSet="changeFileSet"
+						@parentStartTimer="startTimer"
 						fluid
 					></tree-menu>
 				</v-col>
@@ -109,6 +114,7 @@
 				:parent_path=[]
 				@parentToggleContent="toggleContent"
 				@parentChangeFileSet="changeFileSet"
+				@parentStartTimer="startTimer"
 				fluid
 			></tree-menu>
 		</v-container>
@@ -159,13 +165,26 @@ export default {
 		}),
 	},
 	methods: {
+		startTimer() {
+			console.log('startTimer()');
+			this.$refs.TimeBar.resetTimer();
+			this.$refs.TimeBar.startTimer();
+		},
 		timerPressed() {
 			this.showTimerForm = !this.showTimerForm;
+			console.log('timerPressed()');
+			//this.$refs.TimeBar.resetTimer();
+			//this.$refs.TimeBar.startTimer();
 		},
 		disableTimer(item) {
 			//console.log(item);
 			this.showTimerForm = !this.showTimerForm;
 			this.timerId = item;
+			console.log('disableTimer()');
+		},
+		stopTimer() {
+			this.$refs.TimeBar.resetTimer();
+			console.log('stopTimer()');
 		},
 		toggleContent(file) {
 			this.current_file = file;

@@ -87,7 +87,9 @@
 									@click="removeFile(file)"
 									><v-icon>delete</v-icon>
 								</v-btn>
+								<!--
 								{{ file.id }}
+								-->
 							</v-row>
 						</v-form>
 						<v-row no-gutters xs12>

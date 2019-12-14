@@ -60,6 +60,7 @@ class ActiveTimeLogViewSet(viewsets.ModelViewSet):
 
 class FileLogViewSet(viewsets.ModelViewSet):
     queryset = TimeLog.objects.all()
+    #queryset = queryset.order_by('id')
     serializer_class = TimeLogSerializer
     permission_classes = (permissions.IsAuthenticated,)
     filter_backends = [filters.SearchFilter]
@@ -68,18 +69,7 @@ class FileLogViewSet(viewsets.ModelViewSet):
     def preform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-    ''' 
-    def retrieve(self, request, pk=None):
-        queryset = TimeLog.objects.all()
-        #timeLog = get_object_or_404(queryset, pk=pk)
-        user = self.request.user
-        timeLog = TimeLog.objects.filter(owner=user, associated_file=pk)
-        serializer = TimeLogSerializer(timeLog)
-        return Response(serializer.data)
-        #return Response(TimeLog.objects.filter(owner=user, associated_file=pk))
-    '''
-
     def get_queryset(self):
         user = self.request.user
         #return TimeLog.objects.filter(owner=user, associated_file=6)
-        return TimeLog.objects.filter(owner=user)
+        return TimeLog.objects.filter(owner=user).order_by('-startTime')

@@ -3,6 +3,7 @@
 		<PostTimer
 		pa-0
 		:timerId=timerId
+		:startTime=startTime
 		@parentTimerPressed="timerPressed"
 		@parentStopTimer="stopTimer"
 		v-if="showTimerForm"
@@ -115,8 +116,8 @@
 						{{ 'Start time:' }}
 						{{ item.startTime }}
 						<br />
-						{{ 'End time:' }}
-						{{ item.endTime }}
+						{{ 'Duration:' }}
+						{{ item.duration }}
 						<br />
 						{{ 'Before Note:' }}
 						{{ item.beforeNote }}
@@ -184,6 +185,7 @@ export default {
 
 			showTimerForm: false,
 			timerId: null,
+			startTime: null,
 		};
 	},
 	computed: {
@@ -219,10 +221,11 @@ export default {
 			//this.$refs.TimeBar.resetTimer();
 			//this.$refs.TimeBar.startTimer();
 		},
-		disableTimer(item) {
+		disableTimer(id, start) {
 			//console.log(item);
 			this.showTimerForm = !this.showTimerForm;
-			this.timerId = item;
+			this.timerId = id;
+			this.startTime = start;
 			console.log('disableTimer()');
 		},
 		stopTimer() {
@@ -242,6 +245,8 @@ export default {
 			}
 			else {
 				this.content_open = !this.content_open;
+				//console.log('wow')
+				this.updateFile({ title: this.current_file.title, content: this.current_file.content, parent: this.current_file.parent, id: this.current_file.id, closed: this.current_file.closed});
 			}
 		},
 		createFile() {

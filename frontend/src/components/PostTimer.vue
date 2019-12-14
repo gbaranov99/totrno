@@ -31,7 +31,6 @@
 						<v-btn
 							color="green darken-4"
 							dark tile
-							type="submit"
 							@click="
 							parentTimerPressed();"
 						>Cancel</v-btn>
@@ -39,11 +38,7 @@
 							color="green darken-4"
 							dark tile
 							type="submit"
-							@click="
-							parentTimerPressed();
-							parentStopTimer();
-							getTime();
-							updateTimeLog({ id:timerId, afterNote:afterNote, nextNote:nextNote, endTime: currentTime,  active: isActive });"
+							@click="postUpdate()"
 						>End Timer</v-btn>
 					</v-card-actions>
 				</v-card>
@@ -58,7 +53,7 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
 	name: 'PreTimer',
-	props: ['timerId'],
+	props: ['timerId', 'startTime'],
 	data() {
 		return {
 			showTimerForm: true,
@@ -77,6 +72,52 @@ export default {
 		}),
 	},
 	methods: {
+		postUpdate() {
+			var today = new Date();
+			var startHours = Number(this.timeLogs[0].startTime.substring(11, 13));
+			var startMinutes = Number(this.timeLogs[0].startTime.substring(14, 16));
+			var startSeconds = Number(this.timeLogs[0].startTime.substring(17, 19));
+
+			//var totalHours = today.getHours() - startHours;
+			//var totalMinutes = today.getMinutes() - startMinutes;
+			//var totalSeconds = today.getSeconds() - startSeconds;
+
+			//var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+			var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+			var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+			var currentTime = date+' '+time;
+			var cur = new Date(currentTime);
+
+			//console.log(cur);
+			//console.log(cur.toISOString())
+
+			//console.log(cur)
+			//console.log(old)
+			//console.log(duration);
+
+			//Date(ms).toISOString()
+			//var old = new Date(this.timeLogs[0].startTime);
+
+			var old = new Date(this.timeLogs[0].startTime.substring(0,19));
+			var duration = cur - old;
+
+			var ms = duration % 1000;
+			duration = (duration - ms) / 1000;
+			var secs = duration % 60;
+			duration = (duration - secs) / 60;
+			var mins = duration % 60;
+			var hrs = (duration - mins) / 60;
+			
+			var stringDuration = hrs + ':' + mins + ':' + secs;
+			//console.log(stringDuration);
+
+			this.parentTimerPressed();
+			this.parentStopTimer();
+			this.getTime();
+
+			//console.log({ id: this.timerId, afterNote: this.afterNote, nextNote: this.nextNote, endTime: this.currentTime, duration: duration, active: false })
+			this.updateTimeLog({ id: this.timerId, afterNote: this.afterNote, nextNote: this.nextNote, endTime: this.currentTime, duration: stringDuration, active: false });
+		},
 		toggleChildren() {
 			this.showChildren = !this.showChildren;
 		},

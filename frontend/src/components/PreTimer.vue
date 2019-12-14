@@ -21,7 +21,6 @@
 						<v-btn
 							color="green darken-4"
 							dark tile
-							type="submit"
 							@click="
 							parentTimerPressed();"
 						>Cancel</v-btn>

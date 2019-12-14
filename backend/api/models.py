@@ -27,6 +27,7 @@ class TimeLog(models.Model):
     nextNote = models.CharField(max_length = 50, blank=True)
     startTime = models.DateTimeField(null=True, blank=True)
     endTime = models.DateTimeField(null=True, blank=True)
+    duration = models.TimeField(null=True, blank=True)
     owner = models.ForeignKey('CustomUser', related_name='timelogs', on_delete=models.CASCADE)
     associated_file = models.ForeignKey('File',  related_name='timelog_set', on_delete=models.CASCADE, null=True, blank=True)
     active = models.BooleanField(default=False)

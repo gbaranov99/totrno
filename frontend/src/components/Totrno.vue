@@ -1,14 +1,5 @@
 <template>
 	<v-container fluid >
-		<PostTimer
-		pa-0
-		:timerId=timerId
-		:startTime=startTime
-		@parentTimerPressed="timerPressed"
-		@parentStopTimer="stopTimer"
-		v-if="showTimerForm"
-		fluid
-		></PostTimer>
 		<TimeBar 
 			ref="TimeBar"
 			:id_path=file_set_path_id
@@ -54,7 +45,6 @@
 						:parent_path=[]
 						@parentToggleContent="toggleContent"
 						@parentChangeFileSet="changeFileSet"
-						@parentStartTimer="startTimer"
 						fluid
 					></tree-menu>
 				</v-col>
@@ -78,7 +68,14 @@
 								color="green darken-4"
 								icon dark
 								type="submit"
-								@click="clear_content();"
+								@click="preTimerPressed()"
+								><v-icon>timer</v-icon>
+							</v-btn>	
+							<v-btn
+								color="green darken-4"
+								icon dark
+								type="submit"
+								@click="removeFile()"
 								><v-icon>delete</v-icon>
 							</v-btn>	
 							<v-btn
@@ -142,10 +139,27 @@
 				:parent_path=[]
 				@parentToggleContent="toggleContent"
 				@parentChangeFileSet="changeFileSet"
-				@parentStartTimer="startTimer"
 				fluid
 			></tree-menu>
 		</v-container>
+		<PostTimer
+		pa-0
+		:timerId=timerId
+		:startTime=startTime
+		@parentTimerPressed="postTimerPressed"
+		@parentStopTimer="stopTimer"
+		v-if="showPostTimer"
+		fluid
+		></PostTimer>
+		<PreTimer
+		pa-0
+		:associated_file=current_file.id
+		:file_name=current_file.title
+		@parentTimerPressed="preTimerPressed"
+		@parentStartPressed="startTimer"
+		v-if="showPreTimer"
+		fluid
+		></PreTimer>
 	</v-container>
 </template>
 
@@ -154,6 +168,7 @@ import { mapState, mapActions } from 'vuex'
 import TreeMenu from './TreeMenu'
 import TimeBar from './TimeBar'
 import PostTimer from './PostTimer'
+import PreTimer from './PreTimer'
 
 export default {
 	name: "Totrno",
@@ -161,6 +176,7 @@ export default {
 		'TreeMenu': TreeMenu,
 		'TimeBar': TimeBar,
 		'PostTimer': PostTimer,
+		'PreTimer': PreTimer,
 	},
 	data() {
 		return {
@@ -183,7 +199,8 @@ export default {
 			current_file: null,
 			old_content: '',
 
-			showTimerForm: false,
+			showPreTimer: false,
+			showPostTimer: false,
 			timerId: null,
 			startTime: null,
 		};
@@ -200,37 +217,48 @@ export default {
 		}),
 	},
 	methods: {
+		removeFile() {
+			this.deleteFile(this.current_file);
+			this.file_set = this.file_set.filter(obj => obj.id !== this.current_file.id)
+			this.content_open = !this.content_open;
+		},
 		viewTimeData() {
 			this.view_time_data = !this.view_time_data;
 		},
 		getTimeData() {
-			console.log(this.fileLogs);
+			//console.log(this.fileLogs);
 			this.$store.dispatch('timeLogs/getFileLogs')
 				//.then(() => {
 				//	this.file_set = this.files;
 				//	})
 		},
 		startTimer() {
-			console.log('startTimer()');
+			//console.log('startTimer()');
 			this.$refs.TimeBar.resetTimer();
 			this.$refs.TimeBar.startTimer();
 		},
-		timerPressed() {
-			this.showTimerForm = !this.showTimerForm;
-			console.log('timerPressed()');
+		preTimerPressed() {
+			this.showPreTimer = !this.showPreTimer;
+			//console.log(this.current_file.id)
+			//console.log(this.current_file.title)
+
+			//console.log('timerPressed()');
 			//this.$refs.TimeBar.resetTimer();
 			//this.$refs.TimeBar.startTimer();
 		},
+		postTimerPressed() {
+			this.showPostTimer = !this.showPostTimer;
+		},
 		disableTimer(id, start) {
 			//console.log(item);
-			this.showTimerForm = !this.showTimerForm;
+			this.showPostTimer = !this.showPostTimer;
 			this.timerId = id;
 			this.startTime = start;
-			console.log('disableTimer()');
+			//console.log('disableTimer()');
 		},
 		stopTimer() {
 			this.$refs.TimeBar.resetTimer();
-			console.log('stopTimer()');
+			//console.log('stopTimer()');
 		},
 		toggleContent(file) {
 			//console.log(this.current_file);
@@ -252,8 +280,12 @@ export default {
 		createFile() {
 			this.addFile({ title: this.title, content: '', parent: this.parent})
 				.then(newFile => {
+					console.log(this.parent)
 					if (this.parent !== null) {
 						this.file_set.push(newFile);
+					}
+					else {
+						this.file_set = this.files;
 					}
 					})
 			this.title = "";
@@ -312,7 +344,8 @@ export default {
 						break;
 					}
 				}
-				for (i = 0; i < this.file_set_path_id.length - done; i++) {
+				var length = this.file_set_path_id.length - done - 1;
+				for (i = 0; i < length; i++) {
 					this.file_set_path_id.pop();
 					this.file_set_path_title.pop();
 				}

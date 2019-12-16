@@ -283,12 +283,11 @@ Before I make it live:
 
 	--If time goes over a full day, on next time accessing the active, mark it inactive
 
-	Coming out of files nested deep messes with the order
+	--Coming out of files nested deep messes with the order
 		From depth of 7 to first depth causes duplicate items on the path
-	Limit path depth at 5
-		Remove from the start of the list (top level)
-	Limit path length to some amount of characters
-	Limit tracked title to some amount of characters
+
+	--Files get restored randomly, especially when pressing add file after deleting
+	-- Pre timer creates whitespace, when it shouldn't
 
 	Implement time tracking data associated with files
 		Allow user to choose timer type
@@ -311,17 +310,15 @@ Before I make it live:
 		Forward gbaranov to totrno
 		
 	Bugs
-		Files get restored randomly, especially when pressing add file after deleting
-		Sometimes expand doesn't work when a file is just created
 		Make sure there aren't too many errors and warnings in js console and in backend code
 		Fix routing problems
 		Generally don't require user get() requests / come up with better way to verify user
-		Pre timer creates whitespace, when it shouldn't
 		Glitched out when submitting form after ending timer data?
+		Make sure nothing is wrong with timezones
+		Sometimes expand doesn't work when a file is just created
 		Can't move file to be subfile without reload
 
 	Fix update files store functions
-	Make logout image
 	Make button flip in menu for timer
 	Handle network timeouts and the fallacies of distributed computing
 
@@ -331,7 +328,12 @@ Before I make it live:
 		Repeat renders should be done in list (buttons in contact me)
 		Break up totrno into subcomponents
 		Rename function calls / remove everything that isn't necessary
-		
+	
+	Write tests
+	Attach a license
+
+	Make Account page, basic settings like setting which type of timer to use
+
 
 Eventually:
 	An undo button for most actions
@@ -396,3 +398,7 @@ Eventually:
 	Stylistic / logic decisions
 		Maybe keep Time logs open on switching files, instead of changing to file info every time new file is selected?
 		Allow timer data to be deleted/modified from time data view
+		Limit path depth at 5
+			Remove from the start of the list (top level)
+		Limit path length to some amount of characters
+		Limit tracked title to some amount of characters

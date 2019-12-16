@@ -73,30 +73,7 @@ export default {
 	},
 	methods: {
 		postUpdate() {
-			var today = new Date();
-			var startHours = Number(this.timeLogs[0].startTime.substring(11, 13));
-			var startMinutes = Number(this.timeLogs[0].startTime.substring(14, 16));
-			var startSeconds = Number(this.timeLogs[0].startTime.substring(17, 19));
-
-			//var totalHours = today.getHours() - startHours;
-			//var totalMinutes = today.getMinutes() - startMinutes;
-			//var totalSeconds = today.getSeconds() - startSeconds;
-
-			//var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-			var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-			var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-			var currentTime = date+' '+time;
-			var cur = new Date(currentTime);
-
-			//console.log(cur);
-			//console.log(cur.toISOString())
-
-			//console.log(cur)
-			//console.log(old)
-			//console.log(duration);
-
-			//Date(ms).toISOString()
-			//var old = new Date(this.timeLogs[0].startTime);
+			var cur = Date.now();
 
 			var old = new Date(this.timeLogs[0].startTime.substring(0,19));
 			var duration = cur - old;
@@ -109,13 +86,11 @@ export default {
 			var hrs = (duration - mins) / 60;
 			
 			var stringDuration = hrs + ':' + mins + ':' + secs;
-			//console.log(stringDuration);
 
 			this.parentTimerPressed();
 			this.parentStopTimer();
 			this.getTime();
 
-			//console.log({ id: this.timerId, afterNote: this.afterNote, nextNote: this.nextNote, endTime: this.currentTime, duration: duration, active: false })
 			this.updateTimeLog({ id: this.timerId, afterNote: this.afterNote, nextNote: this.nextNote, endTime: this.currentTime, duration: stringDuration, active: false });
 		},
 		toggleChildren() {
@@ -128,10 +103,9 @@ export default {
 			this.$emit('parentStopTimer');
 		},
 		getTime() {
-			var today = new Date();
-			var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-			var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-			this.currentTime = date+' '+time;
+			var tzoffset = (new Date()).getTimezoneOffset() * 60000;
+			var cur = new Date(Date.now() - tzoffset);
+			this.currentTime = cur.toISOString().substring(0,19);
 		},
 		...mapActions('timeLogs', [
 		'addTimeLog',

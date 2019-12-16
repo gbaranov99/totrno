@@ -189,19 +189,6 @@ export default {
 			}
 		},
 		getTime() {
-			//var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-			//var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-			//this.curHours = today.getHours() - this.startHours;
-			//this.curMinutes = today.getMinutes() - this.startMinutes;
-			//this.curSeconds = today.getSeconds() - this.startSeconds;
-			//this.countUpTime = this.curSeconds + 60 * this.curMinutes + 60 * 60 * this.curHours;
-
-			//var today = new Date();
-
-			//var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-			//var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-			//var currentTime = date+' '+time;
-
 			this.startTime = this.timeLogs[0].startTime.substring(0,19);
 
 			var cur = Date.now();
@@ -209,15 +196,6 @@ export default {
 			var duration = cur - old;
 
 			this.countUpTime = Math.floor(duration / 1000);
-			//console.log(this.countUpTime)
-			//duration = (duration - ms) / 1000;
-			//var secs = duration % 60;
-			//duration = (duration - secs) / 60;
-			//var mins = duration % 60;
-			//var hrs = (duration - mins) / 60;
-			
-			//var stringDuration = hrs + ':' + mins + ':' + secs;
-			//this.runTime = date+' '+time;
 		},
 		overTime() {
 			var tzoffset = (new Date()).getTimezoneOffset() * 60000;
@@ -228,19 +206,10 @@ export default {
 			var duration = 23 + ":" + 59 + ":" + 59;
 			var isActive = false
 
-			//console.log(this.timeLogs[0].startTime.substring(0,19))
-			//console.log(today.toISOString());
-			//console.log(tomorrowISO);
-			//console.log(duration);
-
 			this.updateTimeLog({ id: this.timeLogs[0].id, endTime: tomorrowISO, duration: duration, active: isActive });
 			this.resetTimer();
 		},
 		parentDisableTimer() {
-			//console.log(item)
-			//item.active = false;
-			//this.updateTimeLog(item);
-
 			//this.resetTimer();
 			if (this.timeLogs.length > 0) {
 				var item = this.timeLogs[0]
@@ -267,7 +236,6 @@ export default {
 		]),
 	},
 	created() {
-		//console.log('wow');
 		this.$store.dispatch('timeLogs/getActiveTimeLogs')
 			.then(() => {
 				//console.log(this.timeLogs.length);
@@ -276,39 +244,11 @@ export default {
 
 					this.getTime();
 					this.startTimer();
-
-					//this.startHours = Number(this.timeLogs[0].startTime.substring(11, 13));
-					//this.startMinutes = Number(this.timeLogs[0].startTime.substring(14, 16));
-					//this.startSeconds = Number(this.timeLogs[0].startTime.substring(17, 19));
-					/*
-					if (this.curHours > 23) {
-						//this.curHours = this.startHours;
-						//this.curMinutes = this.startMinutes;
-						//this.curSeconds = this.startSeconds;
-
-						//var startDate = this.timeLogs[0].startTime;
-						var tomorrow = new Date();
-						tomorrow.setDate(new Date(this.startTime)+1);
-						console.log(tomorrow);
-						
-						var duration = 24 + ":" + 0 + ":" + 0;
-						var isActive = false
-
-						this.updateTimeLog({ id: this.timeLogs[0].id, endTime: tomorrow, duration: duration, active: isActive });
-					}
-					else {
-					*/
 				}
-			//console.log(this.startHours)
-			//console.log(this.startMinutes)
-			//console.log(this.startSeconds)
 			})
 	},
 	destroyed() {
-		//console.log('esketit');
 		this.resetTimer();
 	}
 };
-
-
 </script>

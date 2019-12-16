@@ -41,12 +41,12 @@ export default {
 		appTitle: 'Totrno',
 		loggedOut: [
 			{ title: 'About', path: '/about' },
-			{ title: 'Contact', path: '/contact' },
+			//{ title: 'Contact', path: '/contact' },
 			{ title: 'Sign Up', path: '/signup' },
 		],
 		loggedIn: [
 			{ title: 'About', path: '/about' },
-			{ title: 'Contact', path: '/contact' },
+			//{ title: 'Contact', path: '/contact' },
 			{ title: 'Logout', path: '/logout' },
 		]
 		}

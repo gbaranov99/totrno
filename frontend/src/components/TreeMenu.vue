@@ -3,15 +3,6 @@
 	class="pt-0 pr-0 pb-0"
 	fluid
 	>
-		<PreTimer
-		pa-0
-		:associated_file=associated_file
-		:file_name=file_name
-		@parentTimerPressed="timerPressed"
-		@parentStartPressed="startPressed"
-		v-if="showTimerForm"
-		fluid
-		></PreTimer>
 		<draggable 
 		:list="file_set" 
 		handle=".handle" 
@@ -67,27 +58,25 @@
 										</v-card-text>
 									</v-card>
 								</v-col>
+								<!--
 								<v-btn
 									color="green darken-4"
 									icon dark
 									@click="timerPressed(file.id, file.title)"
 									><v-icon>timer</v-icon>
 								</v-btn>
-								<!--
-								<v-btn
-									color="green darken-4"
-									icon dark
-									@click="parentChangeFileSet(file, file.id, file.title)"
-									><v-icon>open_in_new</v-icon>
-								</v-btn>
-								-->
 								<v-btn
 									color="green darken-4"
 									icon dark
 									@click="removeFile(file)"
 									><v-icon>delete</v-icon>
 								</v-btn>
-								<!--
+								<v-btn
+									color="green darken-4"
+									icon dark
+									@click="parentChangeFileSet(file, file.id, file.title)"
+									><v-icon>open_in_new</v-icon>
+								</v-btn>
 								{{ file.id }}
 								-->
 							</v-row>
@@ -97,7 +86,6 @@
 								v-if="file.closed"
 								@parentToggleContent="parentToggleContent"
 								@parentChangeFileSet="parentChangeFileSet"
-								@parentStartTimer="parentStartTimer"
 								:file_set="file.file_set"
 								:parent_file="file.id"
 								:parent_title="file.title"
@@ -170,21 +158,23 @@ export default {
 			this.$emit('parentChangeFileSet', file, path_id, path_title);
 		},
 		toggleChildren(file) {
+			//console.log(file);
 			file.closed = !file.closed;
 		},
-		timerPressed(id, name) {
-			this.associated_file = id;
-			this.file_name = name;
-			this.showTimerForm = !this.showTimerForm;
-		},
-		startPressed() {
-			console.log('wow');
-			this.$emit('parentStartTimer');
-		},
-		parentStartTimer() {
-			console.log('wowzers');
-			this.$emit('parentStartTimer');
-		},
+		//timerPressed(id, name) {
+		//	this.associated_file = id;
+		//	this.file_name = name;
+		//	this.showTimerForm = !this.showTimerForm;
+		//},
+		//@parentStartTimer="parentStartTimer"
+		//startPressed() {
+		//	//console.log('wow');
+		//	this.$emit('parentStartTimer');
+		//},
+		//parentStartTimer() {
+		//	//console.log('wowzers');
+		//	this.$emit('parentStartTimer');
+		//},
 		...mapActions('timeLogs', [
 		'addTimeLog',
 		'deleteTimeLog'

@@ -7,16 +7,8 @@ services:
       - ./backend:/code
     command: python manage.py runserver 0.0.0.0:8000
     restart: on-failure
-    environment:
-      - DEBUG=1
-      - SECRET_KEY="y&x(u-n@sz#z-n_)!%hz+p7+px%i6m3g%%(t1^7h*o=yfvem(i"
-      - SQL_ENGINE=django.db.backends.postgresql
-      - SQL_DATABASE=template_db
-      - SQL_USER=template_user
-      - SQL_PASSWORD=123456abc
-      - SQL_HOST=db
-      - SQL_PORT=5432
-      - DATABASE=postgres
+    env_file:
+      - ./.env.dev
     depends_on:
       - db
 
@@ -32,10 +24,8 @@ services:
     image: postgres
     volumes:
       - postgres_data:/var/lib/postgres/data/
-    environment:
-      - POSTGRES_DB=template_db
-      - POSTGRES_USER=template_user
-      - POSTGRES_PASSWORD=123456abc
+    env_file:
+      - ./.env.devdb
 
   nginx:
     image: nginx:alpine

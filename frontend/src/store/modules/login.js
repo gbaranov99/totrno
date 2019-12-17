@@ -9,9 +9,6 @@ const state = {
 		first_name:'',
 		last_name:''
 	},
-	errors: {
-		error_msg:''
-	}
 }
 
 const getters = {
@@ -22,21 +19,22 @@ const getters = {
 
 const actions = {
 	registerUser ({ commit }, login) {
-		loginService.postRegister(login)
+		//console.log(login)
+		return loginService.postRegister(login)
 			.then(() => {
 				commit('registerUser', login)
 			})
-			.catch(() => {
-				commit('setErrors', 'Please fill out all forms correctly');
+			.catch(errors => {
+				return errors
 			})
 	},
 	loginUser ({ commit }, login) {
-		loginService.postLogin(login)
+		return loginService.postLogin(login)
 			.then(() => {
 				commit('loginUser', login)
 			})
-			.catch(() => {
-				commit('setErrors', 'Please enter a valid login');
+			.catch(errors => {
+				return errors
 			})
 	},
 	logoutUser ({ commit }, login) {
@@ -46,15 +44,19 @@ const actions = {
 			})
 	},
 	getUser ({ commit }) {
-		loginService.getUser()
+		return loginService.getUser()
 			.then(login => {
 				commit('getUser', login)
+			})
+			.catch(errors => { 
+				return errors
 			})
 	}
 }
 
 const mutations = {
 	registerUser(state, login) {
+		router.push('/totrno')
 		state.login = login
 	},
 	loginUser(state, login) {
@@ -72,9 +74,9 @@ const mutations = {
 	getUser(state, login) {
 		state.login = login
 	},
-	setErrors(state, error_msg) {
-		state.errors.error_msg = error_msg
-	}
+	//setErrors(state, error_msg) {
+	//	state.errors.error_msg = error_msg
+	//}
 }
 
 export default {

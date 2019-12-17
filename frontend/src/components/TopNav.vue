@@ -7,6 +7,7 @@
 				</router-link>
 			</v-toolbar-title>
 			<v-spacer></v-spacer>
+			<!--
 			<v-toolbar-items v-if="login.username === ''">
 				<v-btn
 					text
@@ -16,10 +17,11 @@
 					{{ item.title }}
 				</v-btn>
 			</v-toolbar-items>
-			<v-toolbar-items v-else>
+			-->
+			<v-toolbar-items>
 				<v-btn
 					text
-					v-for="item in loggedIn"
+					v-for="item in loggedOut"
 					:key="item.title"
 					:to="item.path">
 					{{ item.title }}

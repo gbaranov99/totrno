@@ -1,5 +1,6 @@
 <template>
 	<v-container>
+		<SideNav></SideNav>
 		<v-layout justify-center align-center>
 			<v-flex xs6>
 				<v-container>
@@ -19,8 +20,12 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import SideNav from './SideNav'
 export default {
 	name: "Logout",
+	components: {
+		'SideNav': SideNav,
+	},
 	data() {
 		return {
 		};

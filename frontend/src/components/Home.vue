@@ -1,5 +1,6 @@
 <template>
 	<v-container>
+		<TopNav></TopNav>
 		<v-layout wrap>
 			<v-flex xs8>
 				<v-img
@@ -35,14 +36,26 @@
 							v-model="password"
 							required
 						></v-text-field>
-						<v-flex v-if="errors.error_msg !== ''">
-							<h1 class="headline" style="padding-top: 10px; padding-bottom: 20px;">
-								{{ errors.error_msg }}
+						<v-row v-if="errorMessage !== ''"
+						 style="padding-top: 20px;"
+						>
+							<v-btn dark color="green darken-4"
+								style="margin-top: 15px;"
+								type="submit"
+								small
+								text
+								@click="errorMessage = ''"
+								><v-icon>close</v-icon>
+							</v-btn>
+							<v-col>
+							<h1 class="headline">
+								{{ errorMessage }}
 							</h1>
-						</v-flex>
+							</v-col>
+						</v-row>
 						<v-btn dark color="green darken-4"
 							type="submit"
-							@click="loginUser({ username: username, email: email, password: password })"
+							@click="tryLogin()"
 						>Login</v-btn>
 					</v-form>
 				</v-container>
@@ -59,25 +72,60 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import TopNav from './TopNav'
+
 export default {
 	name: "Home",
+	components: {
+		'TopNav': TopNav,
+	},
 	data() {
 		return {
+			isLoggedIn: false,
+			errorMessage: "",
 			username: "",
 			password: "",
 		};
 	},
 	computed: mapState({
 		login: state => state.login.login,
-		errors: state => state.login.errors
 	}),
-	methods: mapActions('login', [
+	methods: {
+		...mapActions('login', [
 		'registerUser',
 		'loginUser',
 		'logoutUser'
-	]),
-	created() {
-		this.$store.dispatch('login/getUser')
-	}
+		]),
+		tryLogin() {
+			this.loginUser({ username: this.username,  password: this.password })
+				.then(errors => {
+					//console.log(errors)
+					if (!errors) {
+						this.isLoggedIn = !this.isLoggedIn;
+					}
+					else {
+						this.errorMessage = "Please enter a valid login";
+						this.isLoggedIn = false;
+					}
+				})
+		},
+		//refreshAppVue() {
+		//	this.$store.dispatch('login/getUser')
+		//		.then(errors => {
+		//			console.log(errors)
+		//			if (!errors) {
+		//				this.isLoggedIn = !this.isLoggedIn;
+		//			}
+		//			else {
+		//				this.errorMessage = "Please enter a valid login";
+		//				this.isLoggedIn = false;
+		//				this.loginFailed = true;
+		//			}
+		//		})
+		//},
+	},
+	//created() {
+	//	this.refreshAppVue();
+	//}
 };
 </script>

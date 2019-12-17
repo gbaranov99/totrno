@@ -1,5 +1,6 @@
 <template>
-	<v-container fluid >
+	<v-container fluid>
+		<SideNav></SideNav>
 		<TimeBar 
 			ref="TimeBar"
 			:id_path=file_set_path_id
@@ -26,6 +27,7 @@
 				</v-card>
 			</v-col>
 				<v-btn dark color="green darken-4"
+					style="margin-top:2px;"
 					type="submit"
 					large
 					tile
@@ -33,6 +35,23 @@
 				>Add file</v-btn>
 			</v-row>
 		</v-form>
+		<v-row v-if="errorMessage !== ''"
+		 style="padding-top: 20px;"
+		>
+			<v-btn dark color="green darken-4"
+				style="margin-top: 15px;"
+				type="submit"
+				small
+				text
+				@click="errorMessage = ''"
+				><v-icon>close</v-icon>
+			</v-btn>
+			<v-col>
+			<h1 class="headline">
+				{{ errorMessage }}
+			</h1>
+			</v-col>
+		</v-row>
 		<br>
 
 		<v-container fluid v-if="content_open">
@@ -165,6 +184,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import SideNav from './SideNav'
 import TreeMenu from './TreeMenu'
 import TimeBar from './TimeBar'
 import PostTimer from './PostTimer'
@@ -173,6 +193,7 @@ import PreTimer from './PreTimer'
 export default {
 	name: "Totrno",
 	components: {
+		'SideNav': SideNav,
 		'TreeMenu': TreeMenu,
 		'TimeBar': TimeBar,
 		'PostTimer': PostTimer,
@@ -203,6 +224,8 @@ export default {
 			showPostTimer: false,
 			timerId: null,
 			startTime: null,
+
+			errorMessage: "",
 		};
 	},
 	computed: {
@@ -280,12 +303,20 @@ export default {
 		createFile() {
 			this.addFile({ title: this.title, content: '', parent: this.parent})
 				.then(newFile => {
-					console.log(this.parent)
-					if (this.parent !== null) {
-						this.file_set.push(newFile);
+					//console.log(newFile)
+					if (newFile && newFile.stack && newFile.message) {
+						//console.log('thats an error');
+						this.errorMessage = "Please enter a valid file name";
 					}
 					else {
-						this.file_set = this.files;
+						this.errorMessage = "";
+						//console.log(this.parent)
+						if (this.parent !== null) {
+							this.file_set.push(newFile);
+						}
+						else {
+							this.file_set = this.files;
+						}
 					}
 					})
 			this.title = "";

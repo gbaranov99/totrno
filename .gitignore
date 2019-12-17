@@ -3,5 +3,7 @@ postgres_data
 node_modules
 dist
 migrations
-.env
-.envdb
+.env.dev
+.env.devdb
+.env.prod
+.env.proddb

@@ -1,8 +1,9 @@
 <template>
 	<v-container fluid 
 		class="fill-height"
-		style="background: linear-gradient(to bottom, #EEEEEE, #EEEEEE, #95c9a4);"
+		style="background: linear-gradient(to bottom, #fafafa, #c9ead2, #95c9a4);"
 	>
+		<TopNav></TopNav>
 		<v-layout justify-center align-start
 		style="height:4500px;"
 		v-scroll="onScroll"
@@ -292,8 +293,13 @@
 </template>
 
 <script>
+import TopNav from './TopNav'
+
 export default {
 	name: 'About',
+	components: {
+		'TopNav': TopNav,
+	},
 	data(){
 		return {
 		offsetTop: 0,

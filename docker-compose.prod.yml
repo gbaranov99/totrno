@@ -11,25 +11,15 @@ services:
       - ./backend:/code
     command: gunicorn backend.wsgi:application --bind 0.0.0.0:8000
     restart: on-failure
-    environment:
-      - DEBUG=0
-      - SECRET_KEY="y&x(u-n@sz#z-n_)!%hz+p7+px%i6m3g%%(t1^7h*o=yfvem(i"
-      - SQL_ENGINE=django.db.backends.postgresql
-      - SQL_USER=template_user_prod
-      - SQL_DATABASE=template_db_prod
-      - SQL_PASSWORD=123456abc
-      - SQL_HOST=db
-      - SQL_PORT=5432
-      - DATABASE=postgres
+    env_file:
+      - ./.env.prod
 
   db:
     image: postgres
     volumes:
       - ./postgres_data:/var/lib/postgresql/data/
-    environment:
-      - POSTGRES_USER=template_user_prod
-      - POSTGRES_DB=template_db_prod
-      - POSTGRES_PASSWORD=123456abc
+    env_file:
+      - ./.env.proddb
     ports:
       - 5432:5432
 

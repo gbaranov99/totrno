@@ -28,6 +28,9 @@ const actions = {
 				commit('addFile', file)
 				return file
 			})
+			.catch(errors => {
+				return errors
+			})
 	},
 	updateFile({ commit }, file) {
 		fileService.updateFile(file)

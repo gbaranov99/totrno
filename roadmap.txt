@@ -13,7 +13,7 @@ What I want to get:
 			How do db migrates work?
 		Forwarding from gbaranov to totrno contact page
 
-	Frontend	
+	Frontend
 		Pressing enter switches from username to password to submitting form
 		Handling failed user requests, mostly login and registration
 		Router forwarding depending on user login state
@@ -40,13 +40,13 @@ What I want to get:
 
 	Sending out the app into the real world
 		Post it on subreddits or hackernews
-	
+
 	Full device compatability
 		Make the app usable on both a desktop brower and on a phone browser
 		Enable phone notifications and maybe location data
 
 I hope I can finish most of this stuff by december, although I may need until january
-But by the start of next semester, if I don't have a product I am happy with, 
+But by the start of next semester, if I don't have a product I am happy with,
 I put up what I have and begin in earnest searching for a real internship / real experience
 Or begin a new project that I feel is more interesting
 
@@ -91,7 +91,7 @@ Update 11/17
 		See if I need to change file structure to something better (single root node or mptt)
 		File randomly closes if a new file is added passed a certain depth
 		General file formatting
-	
+
 	File and time logging format fully planned out:
 		At the top is a header type area
 			On the left is the full current directory, from top level folder
@@ -113,11 +113,11 @@ Update 11/17
 				Pressing it creates a drop down list of tags and allows creating a new one
 			Right of tag is a calendar
 				Pressing it opens a mini calendar and clock to choose a due date and time
-				Eventually could also implement it 
-			On rightmost edge is an x 
+				Eventually could also implement it
+			On rightmost edge is an x
 				Requires user confirmation to delete all files
 				Confirmation can be disabled for childrenless files and all files in settings
-	
+
 	Later:
 		Search drop down
 		Calendar screen
@@ -143,13 +143,13 @@ Update 11/26:
 	sometimes
 	Idk
 
-	
+
 	There is so much stuff I don't know how to do yet
 	I think the first thing to figure out is vuedraggable
 	Then, the uploading
 	Then the right half of screen expansion on button click
 	Then the expanding buttons / making changes automatic without an upload button
-	
+
 
 
 	Effectively all I want for the drag and drop
@@ -174,10 +174,10 @@ Update 11/26:
 
 
 	Okay I have solved many of my issues
-	
+
 	Indentation works pretty well and so does
 	Draggable in general
-	Now I need to integrate it with 
+	Now I need to integrate it with
 
 	I wonder if the expanded value is worth it
 	idk what that meant
@@ -194,7 +194,7 @@ Update 11/26:
 
 Update 2019_12_01:
 	Next steps:
-	
+
 	Get drag and drop/file moves to move the file around in api with patch method
 		Should only really change when parent is altered
 
@@ -208,7 +208,7 @@ Update 2019_12_01:
 		Counts up when user presses start
 		Ends when user closes it
 		Saves a time log
-	
+
 	Adding a file to a new file does not allow it to be opened
 
 
@@ -220,17 +220,17 @@ Update 2019_12_01:
 
 		This bug makes actually no fucking sense
 		Apparently it was something with the key not working, but I think I fixed it
-	
+
 	Next problem is that delete doesn't work for files lower down on list
 	Works now
 	Was a problem with loops, using same variable for two different loops
-	
+
 
 Before I make it live:
 	--Remove username requirement from sign up
 	>> Changed my mind
 	>> Is useful to get emails from at least some users, and usernames
-	
+
 	--Implement right half of screen content editing feature
 	>> Finished basic implementation
 
@@ -245,13 +245,13 @@ Before I make it live:
 			Deleting files could also probably work like that
 
 			Adding files requires the file id
-			So I do need to add in the store 
+			So I do need to add in the store
 			But deleting files can be done in place
 
 	--Make sure file structure is mostly correct
 		Add todo date and archieved fields
 		Make so allFiles isn't querry recursively
-	
+
 	--Timer doesn't work for nested files
 
 		--Dropdown menu with options
@@ -271,7 +271,7 @@ Before I make it live:
 			Likely will be acessed pretty rarely
 			Mostly useful for when you start tracking again, to see what you were working on last time
 		--Sorted with most recent time log at the top
-	
+
 	-- Make timer generally look nice
 	--	Clicking on a file again closes it, and save changes made
 	-- Multiple countup instances running at a time, but isn't displayed?
@@ -289,7 +289,64 @@ Before I make it live:
 	--Files get restored randomly, especially when pressing add file after deleting
 	-- Pre timer creates whitespace, when it shouldn't
 
-	Implement time tracking data associated with files
+	--Better about page
+		Fancy changes as u scroll type deal
+
+		What makes totrno Different?
+			Minimalistic style allows user to create any structure they like
+			Powerful integration between three components key to organizing your life: Todos, Time Tracking and Notes
+			Many upcoming features and integrations
+			Current features:
+
+
+		Best way to showcase features is giving a real world example of how I would use it
+		Will have a background image and scrolling will change elements
+		Showcase adding a file
+		Showcase dragging files, hiding and showing subfiles
+		Showcase clicking on a file and the content section
+			What the buttons do on content section
+			Show the timer functionality
+		Show the right click on file functionality
+
+		Upcoming features:
+			Powerful search
+			Tags/ linking files together
+			Smart navigation-bar links to top level files, most time tracked files and recently opened files
+			Visualization for time tracked
+
+	--Signing up for an account doesn't work, doesn't redirect
+
+	--Display error messages
+		Incorrect sign up
+		File add not sucessfull
+		Login not valid
+
+		-- Fix routing problems
+		-- Generally don't require user get() requests / come up with better way to verify user
+
+
+	Change env files and deploy basic website to digital ocean
+	Forward gbaranov to totrno
+	Make sure there aren't too many errors and warnings in js console and in backend code
+	Glitched out when submitting form after ending timer data?
+	Make sure nothing is wrong with timezones
+	Sometimes expand doesn't work when a file is just created
+	Can't move file to be subfile without reload
+	Fix update files store functions
+	Make button flip in menu for timer
+	Handle network timeouts and the fallacies of distributed computing
+	Standardize variable naming scheme (camelCase vs under_scores)
+	Adds some comments ?
+	Repeat renders should be done in list (buttons in contact me)
+	Break up totrno into subcomponents
+	Rename function calls / remove everything that isn't necessary
+	Write tests
+	Attach a license
+	Make Account page, basic settings like setting which type of timer to use
+
+
+Eventually:
+	Advanced timer functionality
 		Allow user to choose timer type
 			Count up
 			Count down
@@ -297,45 +354,8 @@ Before I make it live:
 			Manually entering time interval
 				Calendar/date picker or typing values
 		Eventually allow multiple timers, possible as a dropdown menu of timers
+			Or show error if more than one timer attempt to be started
 
-	Better about page
-		Fancy changes as u scroll type deal	
-
-	Display error messages
-		Incorrect sign up
-		File add not sucessfull
-		Login not valid
-
-	Change env files and deploy basic website to digital ocean
-		Forward gbaranov to totrno
-		
-	Bugs
-		Make sure there aren't too many errors and warnings in js console and in backend code
-		Fix routing problems
-		Generally don't require user get() requests / come up with better way to verify user
-		Glitched out when submitting form after ending timer data?
-		Make sure nothing is wrong with timezones
-		Sometimes expand doesn't work when a file is just created
-		Can't move file to be subfile without reload
-
-	Fix update files store functions
-	Make button flip in menu for timer
-	Handle network timeouts and the fallacies of distributed computing
-
-	Fix code
-		Standardize variable naming scheme (camelCase vs under_scores)
-		Adds some comments ?
-		Repeat renders should be done in list (buttons in contact me)
-		Break up totrno into subcomponents
-		Rename function calls / remove everything that isn't necessary
-	
-	Write tests
-	Attach a license
-
-	Make Account page, basic settings like setting which type of timer to use
-
-
-Eventually:
 	An undo button for most actions
 		Eventually could have a lot of all changes ever, like in totrno
 
@@ -347,7 +367,7 @@ Eventually:
 		Data extraction in json form
 			Likely as text file (or whatever form json uses)
 			Both todos and time data
-	
+
 	A useful right banner, with file shortcuts
 		Powerful search function
 		Frequently used / most used
@@ -360,13 +380,13 @@ Eventually:
 
 	Todo date
 		Date and time selector
-		Calendar that shows todos by date	
+		Calendar that shows todos by date
 
 	Mobile view
 		Right banner expands on button press up top
 		Content is no longer on right half of screen, but takes up full screen
 		Less indentation?
-	
+
 	Change file structure
 		Maybe use hashed data instead of increasing numbers for file numbers
 			Harder to predict user numbers and gives less exploitable data
@@ -376,14 +396,14 @@ Eventually:
 			Manual
 			By name
 			By due date
-	
+
 	Data visualization for usage
 		Show time tracked data and completed file data
 		Very customizable outputs
-	
+
 	Make add file draggable to a location
 		May not be necessary if open file on double click works as well as I hope
-	
+
 	Add tiptap for content editing
 		Make it so the note taking aspect can be more serious
 		Maybe an expand left option on the content editing
@@ -394,7 +414,7 @@ Eventually:
 
 	Multiple item select
 		Possible uses: drag, delete, date
-	
+
 	Stylistic / logic decisions
 		Maybe keep Time logs open on switching files, instead of changing to file info every time new file is selected?
 		Allow timer data to be deleted/modified from time data view

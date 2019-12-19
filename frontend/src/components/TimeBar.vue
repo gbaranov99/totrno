@@ -5,7 +5,7 @@
 			style="padding-right:10px;">
 				Path:
 			</v-toolbar-title>
-				<template v-for="item in title_path" v-if="title_path.length > 0">
+				<template v-for="(item, index) in title_path" v-if="title_path.length > 0">
 					<v-card	outlined tile
 						color="grey lighten-4"
 						style="height:40px;"
@@ -16,7 +16,7 @@
 							</p>
 						</v-card-text>
 					</v-card>
-					<template v-if="item != title_path[title_path.length - 1]">
+					<template v-if="index != title_path.length - 1">
 						-
 					</template>
 					<template v-else>

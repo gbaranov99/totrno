@@ -96,6 +96,8 @@ export default {
 		'loginUser',
 		'logoutUser'
 		]),
+		onSubmit() {
+		},
 		tryLogin() {
 			this.loginUser({ username: this.username,  password: this.password })
 				.then(errors => {

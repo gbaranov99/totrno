@@ -23,8 +23,7 @@ const actions = {
 	addFile({ commit }, file) {
 		return fileService.postFile(file)
 			.then(output => {
-				file.id = output.id
-				file.file_set = []
+				file = output
 				commit('addFile', file)
 				return file
 			})

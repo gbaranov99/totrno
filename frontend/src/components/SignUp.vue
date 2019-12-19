@@ -108,6 +108,8 @@ export default {
 		'logoutUser',
 		'getUser'
 		]),
+		onSubmit() {
+		},
 		tryRegister() {
 			//console.log(this.email)
 			//console.log(this.username)

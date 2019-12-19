@@ -58,27 +58,6 @@
 										</v-card-text>
 									</v-card>
 								</v-col>
-								<!--
-								<v-btn
-									color="green darken-4"
-									icon dark
-									@click="timerPressed(file.id, file.title)"
-									><v-icon>timer</v-icon>
-								</v-btn>
-								<v-btn
-									color="green darken-4"
-									icon dark
-									@click="removeFile(file)"
-									><v-icon>delete</v-icon>
-								</v-btn>
-								<v-btn
-									color="green darken-4"
-									icon dark
-									@click="parentChangeFileSet(file, file.id, file.title)"
-									><v-icon>open_in_new</v-icon>
-								</v-btn>
-								{{ file.id }}
-								-->
 							</v-row>
 						</v-form>
 						<v-row no-gutters xs12>
@@ -129,6 +108,8 @@ export default {
 		}),
 	},
 	methods: {
+		onRightClick() {
+		},
 		parentToggleContent(file) {
 			this.$emit('parentToggleContent', file);
 		},
@@ -158,23 +139,10 @@ export default {
 			this.$emit('parentChangeFileSet', file, path_id, path_title);
 		},
 		toggleChildren(file) {
-			//console.log(file);
+			//console.log('wtf?')
+			//console.log(file)
 			file.closed = !file.closed;
 		},
-		//timerPressed(id, name) {
-		//	this.associated_file = id;
-		//	this.file_name = name;
-		//	this.showTimerForm = !this.showTimerForm;
-		//},
-		//@parentStartTimer="parentStartTimer"
-		//startPressed() {
-		//	//console.log('wow');
-		//	this.$emit('parentStartTimer');
-		//},
-		//parentStartTimer() {
-		//	//console.log('wowzers');
-		//	this.$emit('parentStartTimer');
-		//},
 		...mapActions('timeLogs', [
 		'addTimeLog',
 		'deleteTimeLog'
@@ -185,12 +153,13 @@ export default {
 		'updateFile'
 		]),
 		onChange(evt) {
-			if (this.parent_file !== evt.added.element.parent) {
-				var newElement = evt.added.element;
-				newElement.parent = this.parent_file;
-				this.updateFile(newElement);
-
-
+			if (evt.added) {
+				if (this.parent_file !== evt.added.element.parent) {
+					//console.log('wow')
+					var newElement = evt.added.element;
+					newElement.parent = this.parent_file;
+					this.updateFile(newElement);
+				}
 			}
 		}
 	}

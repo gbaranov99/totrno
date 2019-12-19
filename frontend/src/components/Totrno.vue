@@ -108,14 +108,14 @@
 								color="green darken-4"
 								icon dark
 								type="submit"
-								@click="updateFile({ title: current_file.title, content: current_file.content, parent: current_file.parent, id: current_file.id, closed: current_file.closed}); updateContent(); restoreContent();"
+								@click="updateFile({ title: current_file.title, content: current_file.content, parent: current_file.parent, id: current_file.id, closed: current_file.closed}); restoreContent();"
 								><v-icon>close</v-icon>
 							</v-btn>	
 							<v-btn
 								color="green darken-4"
 								icon dark
 								type="submit"
-								@click="updateFile({ title: current_file.title, content: current_file.content, parent: current_file.parent, id: current_file.id, closed: current_file.closed}); updateContent();"
+								@click="updateFile({ title: current_file.title, content: current_file.content, parent: current_file.parent, id: current_file.id, closed: current_file.closed});"
 								><v-icon>save</v-icon>
 							</v-btn>	
 					</v-row>
@@ -218,7 +218,6 @@ export default {
 
 			content_open: false,
 			current_file: null,
-			old_content: '',
 
 			showPreTimer: false,
 			showPostTimer: false,
@@ -286,9 +285,9 @@ export default {
 		toggleContent(file) {
 			//console.log(this.current_file);
 			//console.log(file);
+			//console.log('wowzers')
 			if (this.current_file === null || this.current_file.id !== file.id) {
 				this.current_file = file;
-				this.old_content = file.content;
 				this.view_time_data = false;
 				if (!this.content_open) {
 					this.content_open = ! this.content_open;
@@ -322,6 +321,7 @@ export default {
 			this.title = "";
 		},
 		changeFileSet(file, path_id, path_title) {
+			this.content_open = false;
 			if (!this.file_open) {
 				this.file_open = true;
 				this.file_set_path_id = path_id;
@@ -341,6 +341,7 @@ export default {
 			this.curTitle = file.title;
 		},
 		switchFileSet(item) {
+			this.content_open = false;
 			if ( item === "root") {
 				this.file_set_path_id = [];
 				this.file_set_path_title = [];
@@ -384,9 +385,6 @@ export default {
 		},
 		clear_content() {
 			this.current_file.content = '';
-		},
-		updateContent() {
-			this.old_content = this.current_file.content;
 		},
 		restoreContent() {
 			this.content_open = !this.content_open;

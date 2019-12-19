@@ -4,8 +4,8 @@ const CSRF_COOKIE_NAME = 'csrftoken';
 const CSRF_HEADER_NAME = 'X-CSRFToken';
 
 export default axios.create({
-  baseURL: 'https://www.totrno.com/api/',
-  //baseURL: 'http://127.0.0.1/api/',
+  //baseURL: 'https://www.totrno.com/api/',
+  baseURL: 'http://127.0.0.1/api/',
   xsrfCookieName: CSRF_COOKIE_NAME,
   xsrfHeaderName: CSRF_HEADER_NAME,
   timeout: 5000,

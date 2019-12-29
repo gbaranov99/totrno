@@ -46,7 +46,7 @@ INSTALLED_APPS = [
 
     'corsheaders',
     'api',
-	'rest_framework_simplejwt',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -160,4 +160,13 @@ REST_FRAMEWORK = {
 #    'DEFAULT_FILTER_BACKENDS': (
 #        'django_filters.rest_framework.DjangoFilterBackend',
 #    )
+}
+
+#
+#REST_AUTH_SERIALIZERS = {
+#    'USER_DETAILS_SERIALIZER': '../api/',
+#}
+
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'api.serializers.UserDetailsSerializer',
 }

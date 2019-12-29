@@ -1,9 +1,11 @@
-from .models import File, TimeLog, CustomUser
-from .serializers import SingleFileSerializer, FileSerializer, TimeLogSerializer, UserSerializer
+from .models import File, TimeLog, CustomUser, UserSettings
+from .serializers import SingleFileSerializer, FileSerializer, TimeLogSerializer
+#, UserSerializer
 from django.shortcuts import get_object_or_404
 from rest_framework import generics, viewsets, permissions, filters
 from django.shortcuts import render
 from rest_framework.response import Response
+from django.contrib.auth import get_user_model
 
 
 class FileViewSet(viewsets.ModelViewSet):
@@ -11,12 +13,29 @@ class FileViewSet(viewsets.ModelViewSet):
     serializer_class = FileSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
-    def preform_create(self, serializer):
-        obj = serializer.save(owner=self.request.user)
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
     
     def get_queryset(self):
         user = self.request.user
         return File.objects.filter(owner=user, parent=None)
+
+
+#class UserViewSet(viewsets.ModelViewSet):
+#    serializer_class = UserSerializer
+#    permission_classes = (permissions.IsAuthenticated,)
+#
+#    #def perform_create(self, serializer):
+#    #    serializer.save()
+#    
+#    def get_object(self):
+#        return self.request.user
+#
+#    def get_queryset(self):
+#        #user = self.request.user
+#        #return CustomUser.objects.filter(username=user.username)
+#        return get_user_model().objects.none()
+#
 
 
 class AllFileViewSet(viewsets.ModelViewSet):
@@ -24,7 +43,7 @@ class AllFileViewSet(viewsets.ModelViewSet):
     serializer_class = SingleFileSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
-    def preform_create(self, serializer):
+    def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
     def get_queryset(self):
@@ -37,7 +56,7 @@ class TimeLogViewSet(viewsets.ModelViewSet):
     serializer_class = TimeLogSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
-    def preform_create(self, serializer):
+    def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
     def get_queryset(self):
@@ -50,7 +69,7 @@ class ActiveTimeLogViewSet(viewsets.ModelViewSet):
     serializer_class = TimeLogSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
-    def preform_create(self, serializer):
+    def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
     def get_queryset(self):
@@ -66,7 +85,7 @@ class FileLogViewSet(viewsets.ModelViewSet):
     filter_backends = [filters.SearchFilter]
     search_fields= ['associated_file__id']
 
-    def preform_create(self, serializer):
+    def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
     def get_queryset(self):

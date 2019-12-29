@@ -324,28 +324,35 @@ Before I make it live:
 		-- Fix routing problems
 		-- Generally don't require user get() requests / come up with better way to verify user
 
+	-- Forward gbaranov to totrno
+	-- Change env files and deploy basic website to digital ocean
 
-	Change env files and deploy basic website to digital ocean
-	Forward gbaranov to totrno
-	Make sure there aren't too many errors and warnings in js console and in backend code
-	Glitched out when submitting form after ending timer data?
-	Make sure nothing is wrong with timezones
-	Sometimes expand doesn't work when a file is just created
+	-- Api doesn't work for files
+	-- Icons aren't loading
+
+	-- Fix font shit with icons
+	-- Check my website against mozilla observatory
+	-- Try using wappalyzer on my website
+
+	-- Slow to load
+	-- A lot of errors in console (id 500 erros)
+	-- Only down icons I need (long time to copy frontend to code)
+
+	-- Refresh https support
+
+	-- 	Attach a license
+	
+	-- 	Fix update files store functions
+
 	Can't move file to be subfile without reload
-	Fix update files store functions
-	Make button flip in menu for timer
-	Handle network timeouts and the fallacies of distributed computing
-	Standardize variable naming scheme (camelCase vs under_scores)
-	Adds some comments ?
-	Repeat renders should be done in list (buttons in contact me)
-	Break up totrno into subcomponents
-	Rename function calls / remove everything that isn't necessary
-	Write tests
-	Attach a license
-	Make Account page, basic settings like setting which type of timer to use
+	Get rid of .added and .onsubmit errors 
+		Added functions idk
+	Problem with naming a file root
+		Iterate with index instead of by item name
+	Clear content panel if file is switched from above
+	Content security blocked js
 
-
-Eventually:
+First week of break:
 	Advanced timer functionality
 		Allow user to choose timer type
 			Count up
@@ -355,24 +362,45 @@ Eventually:
 				Calendar/date picker or typing values
 		Eventually allow multiple timers, possible as a dropdown menu of timers
 			Or show error if more than one timer attempt to be started
-
-	An undo button for most actions
-		Eventually could have a lot of all changes ever, like in totrno
-
 	Better account page
 		Add a settings class
 			Allow user to change defaults
 		jwt user authentication, not just token based
-		Eventually password reset and email verification
 		Data extraction in json form
 			Likely as text file (or whatever form json uses)
 			Both todos and time data
 
-	A useful right banner, with file shortcuts
-		Powerful search function
-		Frequently used / most used
-		Most recently used
-		Top level file names
+	Make sure there aren't too many errors and warnings in js console and in backend code
+		V-for key binding
+	Standardize variable naming scheme (camelCase vs under_scores)
+	Repeat renders should be done in list (buttons in contact me)
+	Break up totrno component into subcomponents
+	Rename function calls / remove everything that isn't necessary
+	Upgrade all python packages to latest version
+	Remove python packages I am not using
+
+	Eventually password reset and email verification
+	Adds some comments ?
+	Handle network timeouts and the fallacies of distributed computing
+	Make sure nothing is wrong with timezones
+	Make button flip in menu for timer
+	Glitched out when submitting form after ending timer data?
+	Deleting files sometimes doesn't work
+
+	
+Big picture, before I post about it on social media:
+	Allow user settings
+	Allow different time tracking modes
+	Make a nice account page
+	Allow custom ordering of items
+	Mobile view
+
+
+Second week of break (starting monday):
+	Mobile view
+		Right banner expands on button press up top
+		Content is no longer on right half of screen, but takes up full screen
+		Less indentation?
 
 	An archive option / mark off (in content section)
 		Keeps file, but doesn't show it
@@ -382,20 +410,38 @@ Eventually:
 		Date and time selector
 		Calendar that shows todos by date
 
-	Mobile view
-		Right banner expands on button press up top
-		Content is no longer on right half of screen, but takes up full screen
-		Less indentation?
+	A useful right banner, with file shortcuts
+		Powerful search function
+		Frequently used / most used
+		Most recently used
+		Top level file names
 
 	Change file structure
-		Maybe use hashed data instead of increasing numbers for file numbers
-			Harder to predict user numbers and gives less exploitable data
-			Also makes it much harder to keep track of user info
 		Add tags
 		Sorting options
 			Manual
 			By name
 			By due date
+	
+	Other 
+		Allow timer data to be deleted/modified from time data view
+		Limit path depth at 5
+			Remove from the start of the list (top level)
+		Limit path length to some amount of characters
+		Limit tracked title to some amount of characters
+	
+	Publicize the app
+		Reddit/vue
+		ShowHN
+		Reach out to vuetify to see if they want to showcase it
+		Reddit/productivity
+		Reddit/time tracking
+		Show friends
+		Mostly ask for honest feedback, and for how to make the app better
+
+Until end of break (after new Years):
+	An undo button for most actions
+		Eventually could have a list of all changes ever, like in totrno
 
 	Data visualization for usage
 		Show time tracked data and completed file data
@@ -414,11 +460,26 @@ Eventually:
 
 	Multiple item select
 		Possible uses: drag, delete, date
+	
+	View user data
+		Get user analytics, likely through logs stored
+		How often are they on
+		How many tasks do they have
+	
+	Add notifications, especially for phones
+	
+	Preventative measures
+		Don't allow users to have more than 500 tasks
+		
 
 	Stylistic / logic decisions
 		Maybe keep Time logs open on switching files, instead of changing to file info every time new file is selected?
-		Allow timer data to be deleted/modified from time data view
-		Limit path depth at 5
-			Remove from the start of the list (top level)
-		Limit path length to some amount of characters
-		Limit tracked title to some amount of characters
+		Update headers to say which font to use in nginx
+		Write tests
+		Maybe use hashed data instead of increasing numbers for file numbers
+			Harder to predict user numbers and gives less exploitable data
+			Also makes it much harder to keep track of user info
+		See how people like current font size, I use app on 110% scaling
+		Make content section hover at top of screen in case user tree goes really far down
+		Default src : self in csp header makes something not work on production server, but right now it seems to have no effect on the website
+			See if it actually is messing with something, and how to fix that if I have to

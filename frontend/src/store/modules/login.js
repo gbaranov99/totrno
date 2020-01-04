@@ -7,7 +7,12 @@ const state = {
 		username:'',
 		email:'',
 		first_name:'',
-		last_name:''
+		last_name:'',
+		timer_choice:'',
+		pomodoro_duration:'',
+		pomodoro_small_break_count:'',
+		pomodoro_small_break_duration:'',
+		pomodoro_big_break_duration:'',
 	},
 }
 
@@ -51,7 +56,18 @@ const actions = {
 			.catch(errors => { 
 				return errors
 			})
-	}
+	},
+	postUser ({ commit }, data) {
+		return loginService.postUser(data)
+			.then(output => {
+				temp = output
+				commit('loginUser', temp)
+				return temp
+			})
+			.catch(errors => {
+				return errors
+			})
+	},
 }
 
 const mutations = {

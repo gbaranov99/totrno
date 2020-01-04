@@ -352,6 +352,25 @@ Before I make it live:
 	Clear content panel if file is switched from above
 	Content security blocked js
 
+----------------------------------------------------------
+
+
+
+
+Account layout plan:
+	Top right corner has a logout page
+	In the middle are options
+		What time type to use
+		If user picks pomodoro, shows what timer lengths to use
+
+
+Mobile layout plan:
+	Top left has a button to open up the left side nav menu
+	Left hand list is full width and length
+	Clicking on a file opens up the editing panel below instead of to the right
+	Less indentation
+
+
 First week of break:
 	Advanced timer functionality
 		Allow user to choose timer type
@@ -365,10 +384,6 @@ First week of break:
 	Better account page
 		Add a settings class
 			Allow user to change defaults
-		jwt user authentication, not just token based
-		Data extraction in json form
-			Likely as text file (or whatever form json uses)
-			Both todos and time data
 
 	Make sure there aren't too many errors and warnings in js console and in backend code
 		V-for key binding
@@ -386,22 +401,20 @@ First week of break:
 	Make button flip in menu for timer
 	Glitched out when submitting form after ending timer data?
 	Deleting files sometimes doesn't work
+	Allow comments to be longer in length. Up to a couple of sentences
 
 	
 Big picture, before I post about it on social media:
-	Allow user settings
+	--Allow user settings
 	Allow different time tracking modes
 	Make a nice account page
 	Allow custom ordering of items
 	Mobile view
 
 
-Second week of break (starting monday):
-	Mobile view
-		Right banner expands on button press up top
-		Content is no longer on right half of screen, but takes up full screen
-		Less indentation?
+------------------------------------------------------------------------
 
+After I post it to social media:
 	An archive option / mark off (in content section)
 		Keeps file, but doesn't show it
 		Allows time tracked data to persist and be attached to a file
@@ -483,3 +496,8 @@ Until end of break (after new Years):
 		Make content section hover at top of screen in case user tree goes really far down
 		Default src : self in csp header makes something not work on production server, but right now it seems to have no effect on the website
 			See if it actually is messing with something, and how to fix that if I have to
+		jwt user authentication, not just token based
+		Data extraction in json form
+			Likely as text file (or whatever form json uses)
+			Both todos and time data
+		Allow dragging to be subfile even if the file is closed

@@ -35,7 +35,7 @@ export default {
 			{ title: 'Home', path: '/totrno' },
 			//{ title: 'Search', path: '/search' },
 			//{ title: 'Calendar', path: '/signup' },
-			{ title: 'Account', path: '/logout' },
+			{ title: 'Account', path: '/account' },
 		]
 		}
 	},

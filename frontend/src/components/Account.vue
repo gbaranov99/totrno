@@ -1,52 +1,91 @@
 <template>
 	<v-container>
-		<v-layout justify-center align-center>
-			<v-flex xs6>
-				<v-img
-					:src="require('../assets/SignUp.png')"
-					class="my-3"
-					contain
-					height="150"
-				></v-img>
+		<v-app-bar app color="green lighten-4">
+		<v-tabs
+          align-with-title
+          background-color="transparent"
+		  color="black"
+        >
+          <v-tab
+			v-for="item in Preferences"
+			:key="item.title"
+			@click="tempFunction(item.title)"
+		  > {{ item.title }}</v-tab>
+        </v-tabs>
+			<v-spacer />
+			<v-toolbar-items>
+				<v-btn
+					text
+					type="submit"
+					@click="logoutUser({})"
+					>
+					{{ 'Logout' }}
+				</v-btn>
+			</v-toolbar-items>
+		</v-app-bar>
+		<SideNav></SideNav>  
+		{{ login }}
+		<v-layout justify-center>
 				<v-container>
-					<v-column>
 						<v-flex>
-							<h1 class="display-1" style="padding-top: 120px;">
-								Press the logout button to logout of your account
-							</h1>
-							<br>
-						</v-flex>
-						<v-flex class="text-xs-center" mt-5>
-							<router-link to="/" tag="span" style="cursor: pointer">
+							<!--
+			<v-toolbar-items>
+				<v-btn
+					text
+					v-for="item in Preferences"
+					:key="item.title"
+					>
+					{{ item.title }}
+				</v-btn>
+			</v-toolbar-items>
+							<v-img
+								:src="require('../assets/Account.png')"
+								contain
+								height="150"
+							></v-img>
+							<router-link to="/home" tag="span" style="cursor: pointer">
 								<v-btn dark color="green darken-4"
 									type="submit"
 									@click="logoutUser({})"
 								>Logout</v-btn>
 							</router-link>
+							-->
 						</v-flex>
-					</v-column>
 				</v-container>
-			</v-flex>
 		</v-layout>
 	</v-container>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import SideNav from './SideNav'
 export default {
 	name: "Logout",
+	components: {
+		'SideNav': SideNav,
+	},
 	data() {
 		return {
+			Preferences: [
+				{ title: 'Account Info' },
+				{ title: 'Timer Settings' },
+				{ title: 'Aesthetics' },
+			],
 		};
 	},
 	computed: mapState({
 		login: state => state.login.login
 	}),
-	methods: mapActions('login', [
-		'registerUser',
-		'loginUser',
-		'logoutUser'
-	]),
+	methods: {
+		tempFunction(temp) {
+			//console.log(temp)
+		},
+		...mapActions('login', [
+			'registerUser',
+			'loginUser',
+			'logoutUser'
+		]),
+	},
 	created() {
 		this.$store.dispatch('login/getUser')
 	}

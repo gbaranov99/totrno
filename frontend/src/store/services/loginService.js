@@ -18,7 +18,7 @@ export default {
 			.then(response => response.data)
 	},
 	postUser(payload) {
-		return api.post(`rest-auth/user/`, payload)
+		return api.put(`rest-auth/user/`, payload)
 			.then(response => response.data)
 	}
 }

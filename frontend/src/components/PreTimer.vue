@@ -3,8 +3,11 @@
 		<v-dialog v-model="showTimerForm" persistent max-width="500px" >
 			<v-form>
 				<v-card>
-					<v-card-title>
-						<span class="headline">Enter a pre-timer note:</span>
+						<v-card-title
+							class="headline green lighten-4"
+							primary-title
+						>
+						Enter a pre-timer note:
 					</v-card-title>
 					<v-card-text>
 						<v-text-field
@@ -20,13 +23,13 @@
 						<v-spacer></v-spacer>
 						<v-btn
 							color="green darken-4"
-							dark tile
+							text
 							@click="
 							parentTimerPressed();"
 						>Cancel</v-btn>
 						<v-btn
 							color="green darken-4"
-							dark tile
+							text
 							type="submit"
 							@click="
 							parentTimerPressed();

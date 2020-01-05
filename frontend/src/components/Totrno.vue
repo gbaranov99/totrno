@@ -68,6 +68,43 @@
 					></tree-menu>
 				</v-col>
 				<v-col>
+					<v-row no-gutters xs12 class="justify-start align-end">
+						<v-btn
+							color="green darken-4"
+							icon dark
+							type="submit"
+							@click="preTimerPressed()"
+							><v-icon>timer</v-icon>
+						</v-btn>	
+						<v-btn
+							color="green darken-4"
+							icon dark
+							type="submit"
+							@click="removeFile()"
+							><v-icon>delete</v-icon>
+						</v-btn>	
+						<v-btn
+							color="green darken-4"
+							icon dark
+							type="submit"
+							@click="viewTimeData(); getFileLogs(current_file.id);"
+							><v-icon>access_time</v-icon>
+						</v-btn>	
+						<v-btn
+							color="green darken-4"
+							icon dark
+							type="submit"
+							@click="updateFile({ title: current_file.title, content: current_file.content, parent: current_file.parent, id: current_file.id, closed: current_file.closed}); restoreContent();"
+							><v-icon>close</v-icon>
+						</v-btn>	
+						<v-btn
+							color="green darken-4"
+							icon dark
+							type="submit"
+							@click="updateFile({ title: current_file.title, content: current_file.content, parent: current_file.parent, id: current_file.id, closed: current_file.closed});"
+							><v-icon>save</v-icon>
+						</v-btn>	
+					</v-row>
 					<v-row no-gutters xs12 class="justify-end align-end">
 						<v-col>
 						<v-card class="pa-0" outlined tile
@@ -83,41 +120,6 @@
 							</v-text-field>
 						</v-card>
 						</v-col>
-							<v-btn
-								color="green darken-4"
-								icon dark
-								type="submit"
-								@click="preTimerPressed()"
-								><v-icon>timer</v-icon>
-							</v-btn>	
-							<v-btn
-								color="green darken-4"
-								icon dark
-								type="submit"
-								@click="removeFile()"
-								><v-icon>delete</v-icon>
-							</v-btn>	
-							<v-btn
-								color="green darken-4"
-								icon dark
-								type="submit"
-								@click="viewTimeData(); getFileLogs(current_file.id);"
-								><v-icon>access_time</v-icon>
-							</v-btn>	
-							<v-btn
-								color="green darken-4"
-								icon dark
-								type="submit"
-								@click="updateFile({ title: current_file.title, content: current_file.content, parent: current_file.parent, id: current_file.id, closed: current_file.closed}); restoreContent();"
-								><v-icon>close</v-icon>
-							</v-btn>	
-							<v-btn
-								color="green darken-4"
-								icon dark
-								type="submit"
-								@click="updateFile({ title: current_file.title, content: current_file.content, parent: current_file.parent, id: current_file.id, closed: current_file.closed});"
-								><v-icon>save</v-icon>
-							</v-btn>	
 					</v-row>
 					<v-row no-gutters xs12 v-if="!view_time_data">
 							<v-textarea

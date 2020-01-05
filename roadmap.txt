@@ -352,16 +352,22 @@ Before I make it live:
 	Clear content panel if file is switched from above
 	Content security blocked js
 
-----------------------------------------------------------
-
-
-
 
 Account layout plan:
 	Top right corner has a logout page
+	Banner shows what options are being selected
 	In the middle are options
 		What time type to use
 		If user picks pomodoro, shows what timer lengths to use
+
+	Better account page
+		Add a settings class
+			Allow user to change defaults
+
+	--Allow user settings
+	Make a nice account page
+
+----------------------------------------------------------
 
 
 Mobile layout plan:
@@ -381,9 +387,6 @@ First week of break:
 				Calendar/date picker or typing values
 		Eventually allow multiple timers, possible as a dropdown menu of timers
 			Or show error if more than one timer attempt to be started
-	Better account page
-		Add a settings class
-			Allow user to change defaults
 
 	Make sure there aren't too many errors and warnings in js console and in backend code
 		V-for key binding
@@ -402,12 +405,19 @@ First week of break:
 	Glitched out when submitting form after ending timer data?
 	Deleting files sometimes doesn't work
 	Allow comments to be longer in length. Up to a couple of sentences
+	Standardize quotes in function calls, and function calls in general ('' on outside, "" on inside, always in js)
+	Change some dialog formatting to be done better in totrno (?)
+
+	Backend naming (python)
+		lowercase_underscore for functions and variables
+		UpperCase for classes
+	Frontend naming (js)
+		lowerUpperCase for variables and functions
+		replace tabs with 2 spaces
 
 	
 Big picture, before I post about it on social media:
-	--Allow user settings
 	Allow different time tracking modes
-	Make a nice account page
 	Allow custom ordering of items
 	Mobile view
 

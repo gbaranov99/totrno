@@ -1,4 +1,4 @@
-from .models import File, TimeLog, CustomUser, UserSettings
+from .models import File, TimeLog, CustomUser
 from .serializers import SingleFileSerializer, FileSerializer, TimeLogSerializer
 #, UserSerializer
 from django.shortcuts import get_object_or_404

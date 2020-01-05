@@ -10,9 +10,9 @@ const state = {
 		last_name:'',
 		timer_choice:'',
 		pomodoro_duration:'',
-		pomodoro_small_break_count:'',
-		pomodoro_small_break_duration:'',
-		pomodoro_big_break_duration:'',
+		pomodoro_short_break_count:'',
+		pomodoro_short_break_duration:'',
+		pomodoro_long_break_duration:'',
 	},
 }
 
@@ -65,6 +65,7 @@ const actions = {
 				return temp
 			})
 			.catch(errors => {
+				//console.log(errors)
 				return errors
 			})
 	},

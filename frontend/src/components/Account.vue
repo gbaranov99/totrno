@@ -22,7 +22,9 @@
 			</v-toolbar-items>
 		</v-app-bar>
 		<SideNav></SideNav>	
+		<!--
 		{{ login }}
+		-->
 		<v-container justify-center v-if="selectedPage==='Account Info'">
 			<v-row no-gutters>
 				<v-btn dark color="green darken-4"
@@ -104,14 +106,6 @@
 			</v-row>
 			<v-container justify-center v-if="login.timer_choice==='pomodoro'">
 			<v-row no-gutters>
-				<!--
-				<v-btn dark color="green darken-4"
-					style="margin-top:2px;margin-top: 30px;margin-right:20px;margin-left:50px;"
-					type="submit"
-					tile
-					@click=""
-				>Change</v-btn>
-				-->
 				<v-dialog
 					v-model="pomodoroTimerDuration"
 					max-width="500"
@@ -133,14 +127,6 @@
 						>
 							Enter a number of minutes:
 						</v-card-title>
-
-						<!--
-						<v-time-picker v-model="picker"
-						color="green darken-4"
-						format="24hr"
-						></v-time-picker>
-						-->
-
 						<v-card-text>
 							<v-text-field
 							color="green darken-4"
@@ -172,38 +158,232 @@
 					Pomodoro timer duration: {{ login.pomodoro_duration }}
 				</h1>
 			</v-row>
-			<v-row no-gutters>
+			<v-row v-if="errorDuration !== ''"
+			 style="padding-top: 20px;"
+			>
 				<v-btn dark color="green darken-4"
-					style="margin-top:2px;margin-top: 30px;margin-right:20px;margin-left:50px;"
+					style="margin-top: 15px;"
 					type="submit"
-					tile
-					@click=""
-				>Change</v-btn>
-				<h1 class="headline" style="padding-top: 30px;">
-					Number of pomodoros to long break: {{ login.pomodoro_short_break_count }}
+					small
+					text
+					@click="errorDuration = ''"
+					><v-icon>close</v-icon>
+				</v-btn>
+				<v-col>
+				<h1 class="headline">
+					{{ errorDuration }}
 				</h1>
+				</v-col>
 			</v-row>
 			<v-row no-gutters>
-				<v-btn dark color="green darken-4"
-					style="margin-top:2px;margin-top: 30px;margin-right:20px;margin-left:50px;"
-					type="submit"
-					tile
-					@click=""
-				>Change</v-btn>
+				<v-dialog
+					v-model="pomodoroShortDuration"
+					max-width="500"
+				>
+					<template v-slot:activator="{ on }">
+						<v-btn dark color="green darken-4"
+							style="margin-top:2px;margin-top: 30px;margin-right:20px;margin-left:50px;"
+							type="submit"
+							tile
+							v-on="on"
+						>Change</v-btn>
+					</template>
+
+					<v-form>
+					<v-card >
+						<v-card-title
+							class="headline green lighten-4"
+							primary-title
+						>
+							Enter a number of minutes:
+						</v-card-title>
+						<v-card-text>
+							<v-text-field
+							color="green darken-4"
+							v-model="shortDurationVal"
+							>
+							</v-text-field>
+						</v-card-text>
+						<v-divider></v-divider>
+						<v-card-actions>
+							<v-spacer></v-spacer>
+							<v-btn
+								color="green darken-4"
+								text
+								@click="pomodoroTimerDuration = false"
+							> Cancel
+							</v-btn>
+							<v-btn
+								color="green darken-4"
+								text
+								type="submit"
+								@click="updateShortDuration"
+							> Accept
+							</v-btn>
+						</v-card-actions>
+					</v-card>
+					</v-form>
+				</v-dialog>
 				<h1 class="headline" style="padding-top: 30px;">
 					Short break duration: {{ login.pomodoro_short_break_duration }}
 				</h1>
 			</v-row>
-			<v-row no-gutters>
+			<v-row v-if="errorShort !== ''"
+			 style="padding-top: 20px;"
+			>
 				<v-btn dark color="green darken-4"
-					style="margin-top:2px;margin-top: 30px;margin-right:20px;margin-left:50px;"
+					style="margin-top: 15px;"
 					type="submit"
-					tile
-					@click=""
-				>Change</v-btn>
+					small
+					text
+					@click="errorShort = ''"
+					><v-icon>close</v-icon>
+				</v-btn>
+				<v-col>
+				<h1 class="headline">
+					{{ errorShort }}
+				</h1>
+				</v-col>
+			</v-row>
+			<v-row no-gutters>
+				<v-dialog
+					v-model="pomodoroLongDuration"
+					max-width="500"
+				>
+					<template v-slot:activator="{ on }">
+						<v-btn dark color="green darken-4"
+							style="margin-top:2px;margin-top: 30px;margin-right:20px;margin-left:50px;"
+							type="submit"
+							tile
+							v-on="on"
+						>Change</v-btn>
+					</template>
+
+					<v-form>
+					<v-card >
+						<v-card-title
+							class="headline green lighten-4"
+							primary-title
+						>
+							Enter a number of minutes:
+						</v-card-title>
+						<v-card-text>
+							<v-text-field
+							color="green darken-4"
+							v-model="longDurationVal"
+							>
+							</v-text-field>
+						</v-card-text>
+						<v-divider></v-divider>
+						<v-card-actions>
+							<v-spacer></v-spacer>
+							<v-btn
+								color="green darken-4"
+								text
+								@click="pomodoroTimerDuration = false"
+							> Cancel
+							</v-btn>
+							<v-btn
+								color="green darken-4"
+								text
+								type="submit"
+								@click="updateLongDuration"
+							> Accept
+							</v-btn>
+						</v-card-actions>
+					</v-card>
+					</v-form>
+				</v-dialog>
 				<h1 class="headline" style="padding-top: 30px;">
 					Long break duration: {{ login.pomodoro_long_break_duration }}
 				</h1>
+			</v-row>
+			<v-row v-if="errorLong !== ''"
+			 style="padding-top: 20px;"
+			>
+				<v-btn dark color="green darken-4"
+					style="margin-top: 15px;"
+					type="submit"
+					small
+					text
+					@click="errorLong = ''"
+					><v-icon>close</v-icon>
+				</v-btn>
+				<v-col>
+				<h1 class="headline">
+					{{ errorLong }}
+				</h1>
+				</v-col>
+			</v-row>
+			<v-row no-gutters>
+				<v-dialog
+					v-model="pomodoroShortCount"
+					max-width="500"
+				>
+					<template v-slot:activator="{ on }">
+						<v-btn dark color="green darken-4"
+							style="margin-top:2px;margin-top: 30px;margin-right:20px;margin-left:50px;"
+							type="submit"
+							tile
+							v-on="on"
+						>Change</v-btn>
+					</template>
+
+					<v-form>
+					<v-card >
+						<v-card-title
+							class="headline green lighten-4"
+							primary-title
+						>
+							How many pomdoros to get long break:
+						</v-card-title>
+						<v-card-text>
+							<v-text-field
+							color="green darken-4"
+							v-model="shortBreakCount"
+							>
+							</v-text-field>
+						</v-card-text>
+						<v-divider></v-divider>
+						<v-card-actions>
+							<v-spacer></v-spacer>
+							<v-btn
+								color="green darken-4"
+								text
+								@click="pomodoroTimerDuration = false"
+							> Cancel
+							</v-btn>
+							<v-btn
+								color="green darken-4"
+								text
+								type="submit"
+								@click="updateShortCount"
+							> Accept
+							</v-btn>
+						</v-card-actions>
+					</v-card>
+					</v-form>
+				</v-dialog>
+				<h1 class="headline" style="padding-top: 30px;">
+					Number of pomodoros to long break: {{ login.pomodoro_short_break_count }}
+				</h1>
+			</v-row>
+			<v-row v-if="errorCount !== ''"
+			 style="padding-top: 20px;"
+			>
+				<v-btn dark color="green darken-4"
+					style="margin-top: 15px;"
+					type="submit"
+					small
+					text
+					@click="errorCount = ''"
+					><v-icon>close</v-icon>
+				</v-btn>
+				<v-col>
+				<h1 class="headline">
+					{{ errorCount }}
+				</h1>
+				</v-col>
 			</v-row>
 			</v-container>
 		</v-container>
@@ -233,13 +413,30 @@ export default {
 			pomodoroShortDuration: false,
 			pomodoroLongDuration: false,
 
-			durationVal: 25,
+			durationVal: 0,
+			shortDurationVal: 0,
+			longDurationVal: 0,
+			shortBreakCount: 0,
+
+			errorDuration: '',
+			errorShort: '',
+			errorLong: '',
+			errorCount: '',
 		};
 	},
 	computed: mapState({
 		login: state => state.login.login
 	}),
 	methods: {
+		fixDurationValue() {	
+			var durationHours = Number(this.login.pomodoro_duration.substring(0, 2))
+			var durationMinutes = Number(this.login.pomodoro_duration.substring(3, 5))
+			this.durationVal = durationHours * 60 + durationMinutes
+
+			this.shortDurationVal = Number(this.login.pomodoro_short_break_duration.substring(3, 5))
+			this.longDurationVal = Number(this.login.pomodoro_long_break_duration.substring(3, 5))
+			this.shortBreakCount = this.login.pomodoro_short_break_count
+		},
 		changeSettingsPage(newPage) {
 			this.selectedPage = newPage;
 		},
@@ -250,12 +447,53 @@ export default {
 			this.login.timer_choice = newTimer
 		},
 		updateTimerDuration() {
-			//TODO: check if newDuration is a valid amount of minutes (1 - 24 hours worth)
-			// Then convert it to a valid django time amount
-			console.log(this.durationVal)
 			this.pomodoroTimerDuration = false
-			this.postUser({ username: this.login.username,  pomodoro_duration: this.durationVal })
-			this.login.pomodoro_duration = this.durationVal
+			if (this.durationVal >= 0 && this.durationVal <= 1440) {
+				var hours = Math.floor(this.durationVal / 60)
+				var minutes = Math.floor(this.durationVal % 60)
+				this.durationVal = hours * 60 + minutes
+				if (hours == 0) {
+					hours = '00'
+				}
+				var duration = hours + ":" + minutes + ":00"
+				this.postUser({ username: this.login.username,  pomodoro_duration: duration })
+				this.login.pomodoro_duration = duration
+			}
+			else {
+				this.errorDuration = 'Please enter a number of minutes between 1 and 1440'
+			}
+		},
+		updateShortDuration() {
+			this.pomodoroShortDuration = false
+			if (this.shortDurationVal >= 1 && this.shortDurationVal <= 60) {
+				var duration = "00:" + this.shortDurationVal + ":00"
+				this.postUser({ username: this.login.username, pomodoro_short_break_duration: duration })
+				this.login.pomodoro_short_break_duration = duration
+			}
+			else {
+				this.errorShort = 'Please enter a number of minutes between 1 and 60'
+			}
+		},
+		updateLongDuration() {
+			this.pomodoroLongDuration = false
+			if (this.longDurationVal >= 1 && this.longDurationVal <= 60) {
+				var duration = "00:" + this.longDurationVal + ":00"
+				this.postUser({ username: this.login.username, pomodoro_long_break_duration: duration })
+				this.login.pomodoro_long_break_duration = duration
+			}
+			else {
+				this.errorLong = 'Please enter a number of minutes between 1 and 60'
+			}
+		},
+		updateShortCount() {
+			this.pomodoroShortCount = false
+			if (this.shortBreakCount >= 1 && this.shortBreakCount <= 10) {
+				this.postUser({ username: this.login.username,  pomodoro_short_break_count: this.shortBreakCount })
+				this.login.pomodoro_short_break_count = this.shortBreakCount
+			}
+			else {
+				this.errorCount = 'Please enter a number of breaks between 1 and 10'
+			}
 		},
 		...mapActions('login', [
 			'registerUser',
@@ -266,6 +504,9 @@ export default {
 	},
 	created() {
 		this.$store.dispatch('login/getUser')
+			.then(() => {
+				this.fixDurationValue()
+				})
 	}
 };
 

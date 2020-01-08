@@ -69,9 +69,6 @@ export default {
 		}),
 	},
 	methods: {
-		toggleChildren() {
-			this.showChildren = !this.showChildren;
-		},
 		parentTimerPressed() {
 			this.$emit('parentTimerPressed');
 		},

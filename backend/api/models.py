@@ -37,6 +37,7 @@ class CustomUser(AbstractUser):
         (pomodoro, 'pomodoro'),
     ]
     timer_choice = models.CharField( max_length=9, choices=timer_option_choices, default=countup)
+    countdown_duration = models.TimeField(default='00:30:00')
     pomodoro_duration = models.TimeField(default='00:25:00')
     pomodoro_short_break_count = models.IntegerField(default=4)
     pomodoro_short_break_duration = models.TimeField(default='00:05:00')

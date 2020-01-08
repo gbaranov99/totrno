@@ -234,6 +234,12 @@ export default {
 		'addFile',
 		'deleteFile'
 		]),
+		...mapActions('login', [
+			'registerUser',
+			'loginUser',
+			'logoutUser',
+			'postUser'
+		]),
 	},
 	created() {
 		this.$store.dispatch('timeLogs/getActiveTimeLogs')
@@ -246,6 +252,9 @@ export default {
 					this.startTimer();
 				}
 			})
+		this.$store.dispatch('login/getUser')
+			.then(() => {
+				})
 	},
 	destroyed() {
 		this.resetTimer();

@@ -43,6 +43,6 @@ class TimeLogSerializer(serializers.ModelSerializer):
 class UserDetailsSerializer(UserDetailsSerializer):
 
     class Meta(UserDetailsSerializer.Meta):
-        fields = UserDetailsSerializer.Meta.fields + ('timer_choice', 'pomodoro_duration', 'pomodoro_short_break_count', 'pomodoro_short_break_duration', 'pomodoro_long_break_duration',)
+        fields = UserDetailsSerializer.Meta.fields + ('timer_choice', 'countdown_duration', 'pomodoro_duration', 'pomodoro_short_break_count', 'pomodoro_short_break_duration', 'pomodoro_long_break_duration',)
 
         read_only_fields = ('',)

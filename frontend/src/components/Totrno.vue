@@ -68,7 +68,25 @@
 					></tree-menu>
 				</v-col>
 				<v-col>
+					<!--
 					<v-row no-gutters xs12 class="justify-start align-end">
+					</v-row>
+					-->
+					<v-row no-gutters xs12 class="justify-end align-end">
+						<v-col>
+						<v-card class="pa-0" outlined tile
+							style="height:50px;"
+						>
+							<v-text-field 
+								@click="oneClick($event)"
+								class="pa-0 ma-0"
+								solo
+								loader-height="2"
+								v-model="current_file.title"
+							>
+							</v-text-field>
+						</v-card>
+						</v-col>
 						<v-btn
 							color="green darken-4"
 							icon dark
@@ -104,22 +122,6 @@
 							@click="updateFile({ title: current_file.title, content: current_file.content, parent: current_file.parent, id: current_file.id, closed: current_file.closed});"
 							><v-icon>save</v-icon>
 						</v-btn>	
-					</v-row>
-					<v-row no-gutters xs12 class="justify-end align-end">
-						<v-col>
-						<v-card class="pa-0" outlined tile
-							style="height:50px;"
-						>
-							<v-text-field 
-								@click="oneClick($event)"
-								class="pa-0 ma-0"
-								solo
-								loader-height="2"
-								v-model="current_file.title"
-							>
-							</v-text-field>
-						</v-card>
-						</v-col>
 					</v-row>
 					<v-row no-gutters xs12 v-if="!view_time_data">
 							<v-textarea

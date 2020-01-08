@@ -210,7 +210,7 @@
 							<v-btn
 								color="green darken-4"
 								text
-								@click="pomodoroTimerDuration = false"
+								@click="pomodoroShortDuration = false"
 							> Cancel
 							</v-btn>
 							<v-btn
@@ -280,7 +280,7 @@
 							<v-btn
 								color="green darken-4"
 								text
-								@click="pomodoroTimerDuration = false"
+								@click="pomodoroLongDuration = false"
 							> Cancel
 							</v-btn>
 							<v-btn
@@ -350,7 +350,7 @@
 							<v-btn
 								color="green darken-4"
 								text
-								@click="pomodoroTimerDuration = false"
+								@click="pomodoroShortCount = false"
 							> Cancel
 							</v-btn>
 							<v-btn
@@ -386,6 +386,89 @@
 				</v-col>
 			</v-row>
 			</v-container>
+			<v-container justify-center v-if="login.timer_choice==='countdown'">
+			<v-row no-gutters>
+				<v-dialog
+					v-model="countdownDuration"
+					max-width="290"
+					align="center"
+				>
+					<template v-slot:activator="{ on }">
+						<v-btn dark color="green darken-4"
+							style="margin-top:2px;margin-top: 30px;margin-right:20px;margin-left:50px;"
+							type="submit"
+							tile
+							v-on="on"
+						>Change</v-btn>
+					</template>
+
+					<v-form>
+					<v-card >
+						<v-card-title
+							class="headline green lighten-4"
+							primary-title
+						>
+							Enter countdown hours and minutes:
+						</v-card-title>
+						<!--
+						<v-card-text>
+							<v-text-field
+							color="green darken-4"
+							v-model="countdownVal"
+							>
+							</v-text-field>
+						</v-card-text>
+						-->
+							<v-time-picker 
+								v-model="countdownVal" 
+								format="24hr"
+								color="green darken-4"
+							></v-time-picker>
+						<v-divider></v-divider>
+						<v-card-actions>
+							<v-spacer></v-spacer>
+							<v-btn
+								color="green darken-4"
+								text
+								@click="countdownDuration = false"
+							> Cancel
+							</v-btn>
+							<v-btn
+								color="green darken-4"
+								text
+								type="submit"
+								@click="updateCountdown"
+							> Accept
+							</v-btn>
+						</v-card-actions>
+					</v-card>
+					</v-form>
+				</v-dialog>
+				<h1 class="headline" style="padding-top: 30px;">
+					Length of countdown timer: {{ login.countdown_duration }}
+				</h1>
+			</v-row>
+			<!--
+			<v-row v-if="errorCountdown !== ''"
+			 style="padding-top: 20px;"
+			>
+				<v-btn dark color="green darken-4"
+					style="margin-top: 15px;"
+					type="submit"
+					small
+					text
+					@click="errorCountdown = ''"
+					><v-icon>close</v-icon>
+				</v-btn>
+				<v-col>
+				<h1 class="headline">
+					{{ errorCountdown }}
+				</h1>
+				</v-col>
+			</v-row>
+			errorCountdown: '',
+			-->
+		</v-container>
 		</v-container>
 		<v-container justify-center v-if="selectedPage==='Aesthetics'">
 		</v-container>
@@ -422,6 +505,9 @@ export default {
 			errorShort: '',
 			errorLong: '',
 			errorCount: '',
+
+			countdownDuration: false,
+			countdownVal: null,
 		};
 	},
 	computed: mapState({
@@ -436,6 +522,8 @@ export default {
 			this.shortDurationVal = Number(this.login.pomodoro_short_break_duration.substring(3, 5))
 			this.longDurationVal = Number(this.login.pomodoro_long_break_duration.substring(3, 5))
 			this.shortBreakCount = this.login.pomodoro_short_break_count
+
+			//this.countdownVal = Number(this.login.
 		},
 		changeSettingsPage(newPage) {
 			this.selectedPage = newPage;
@@ -494,6 +582,29 @@ export default {
 			else {
 				this.errorCount = 'Please enter a number of breaks between 1 and 10'
 			}
+		},
+		updateCountdown() {
+			//console.log(this.countdownVal)
+			this.countdownDuration = false
+			var full_time = this.countdownVal + ":00"
+			this.postUser({ username: this.login.username,  countdown_duration: full_time })
+			this.login.countdown_duration = full_time
+			/*
+			if (this.durationVal >= 0 && this.durationVal <= 1440) {
+				var hours = Math.floor(this.durationVal / 60)
+				var minutes = Math.floor(this.durationVal % 60)
+				this.durationVal = hours * 60 + minutes
+				if (hours == 0) {
+					hours = '00'
+				}
+				var duration = hours + ":" + minutes + ":00"
+				this.postUser({ username: this.login.username,  pomodoro_duration: duration })
+				this.login.pomodoro_duration = duration
+			}
+			else {
+				this.errorDuration = 'Please enter a number of minutes between 1 and 1440'
+			}
+			*/
 		},
 		...mapActions('login', [
 			'registerUser',

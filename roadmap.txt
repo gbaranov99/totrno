@@ -369,6 +369,34 @@ Account layout plan:
 
 ----------------------------------------------------------
 
+Advanced timer functionality
+	Allow user to choose timer type
+		Count up
+		Count down
+		Pomodoro
+		Manually entering time interval
+			Calendar/date picker or typing values
+
+	When user starts a timer, there is an if statement checking the timer type
+		If it is a range, user is allowed to pick the times (and dates if desired for the range)
+		Countup needs no options
+		Countdown setting can be defaulted to a value entered in the account page
+		And pomdoro settings can be specified in account
+		So only range would need any additional options, or rather it would basically replace pre timer with just inputting information
+		
+		Countdown considerations:
+			How will I handle the alarm aspect?
+			Probably just play a slowly ramping up alarm in the browser
+			Then the user will be asked to enter post and next timer notes
+
+		Pomodoro considerations:
+			Will post and next be prompted after every pomodoro?
+			That makes the most sense
+
+
+
+	Eventually allow multiple timers, possible as a dropdown menu of timers
+		Or show error if more than one timer attempt to be started
 
 Mobile layout plan:
 	Top left has a button to open up the left side nav menu
@@ -378,15 +406,6 @@ Mobile layout plan:
 
 
 First week of break:
-	Advanced timer functionality
-		Allow user to choose timer type
-			Count up
-			Count down
-			Pomodoro
-			Manually entering time interval
-				Calendar/date picker or typing values
-		Eventually allow multiple timers, possible as a dropdown menu of timers
-			Or show error if more than one timer attempt to be started
 
 	Make sure there aren't too many errors and warnings in js console and in backend code
 		V-for key binding
@@ -415,12 +434,19 @@ First week of break:
 		lowerUpperCase for variables and functions
 		replace tabs with 2 spaces
 
+	Add functionality for timer to go ahead or not automatically (between pomodoro timers)
+	And allow user to decide after 4 breaks to continue to next break
+	Range options (start of range be current time, end of range be  current time, certain amount of time ahead??)
+	Allow user to disable or enable any of the pre, post and next timer notes
+	Allow user to quickly check the current pre timer note in drop down?
+
+	gbaranov currently does not redirect to totrno
+		Seems to only be a problem on my pc, with the https certificates being old
 	
 Big picture, before I post about it on social media:
 	Allow different time tracking modes
 	Allow custom ordering of items
 	Mobile view
-
 
 ------------------------------------------------------------------------
 

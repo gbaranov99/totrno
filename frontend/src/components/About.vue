@@ -29,6 +29,8 @@
 			<v-card
 					style="margin-top:100px;"
 					v-show="offsetTop > 100"
+					color="rgb(255, 0, 0, 0)"
+					outlined
 			>
 				<v-card-text>
 					<p class="display-1 text--primary"
@@ -58,6 +60,8 @@
 			<v-card
 					style="margin-top:100px;"
 					v-show="offsetTop > 500"
+					color="rgb(255, 0, 0, 0)"
+					outlined
 			>
 				<v-card-text>
 					<p class="display-1 text--primary"
@@ -80,6 +84,8 @@
 			<v-card
 					style="margin-top:100px;"
 					v-show="offsetTop > 1200"
+					color="rgb(255, 0, 0, 0)"
+					outlined
 			>
 				<v-card-text>
 					<p class="display-1 text--primary"
@@ -101,7 +107,16 @@
 			<v-card
 					style="margin-top:100px;"
 					v-show="offsetTop > 1900"
+					color="rgb(255, 0, 0, 0)"
+					outlined
 			>
+				<v-card-text>
+					<p class="display-1 text--primary"
+					style="text-align:center;"
+					>
+						Advanced features include...
+					</p>
+				</v-card-text>
 				<v-card-text>
 					<p class="headline text--primary"
 					>
@@ -130,6 +145,8 @@
 			<v-card
 					style="margin-top:100px;"
 					v-show="offsetTop > 2400"
+					color="rgb(255, 0, 0, 0)"
+					outlined
 			>
 				<v-card-text>
 					<p class="display-1 text--primary"
@@ -156,9 +173,12 @@
 			<v-card
 					style="margin-top:100px;"
 					v-show="offsetTop > 3000"
+					color="rgb(255, 0, 0, 0)"
+					outlined
 			>
 				<v-card-text>
 					<p class="display-1 text--primary"
+					style="text-align:center;"
 					>
 						There are many more features planned for the future, including:
 					</p>
@@ -192,6 +212,8 @@
 			<v-card
 					style="margin-top:100px;"
 					v-show="offsetTop > 3400"
+					color="rgb(255, 0, 0, 0)"
+					outlined
 			>
 				<v-card-text>
 					<p class="display-2 text--primary"
@@ -335,7 +357,7 @@ export default {
 		}
 	},
 	methods: {
-		onScroll (e) {
+		onScroll () {
 			//console.log(e.target.scrollTop)
 			this.offsetTop = window.pageYOffset || document.documentElement.scrollTop
 		}

@@ -9,8 +9,7 @@
 					<v-card-text>
 						<v-text-field
 						class="text--primary"
-						name="afterNote"
-						id="afterNote"
+						label="Post-timer note"
 						color="green darken-4"
 						v-model="afterNote"
 						>
@@ -19,8 +18,7 @@
 					<v-card-text>
 						<v-text-field
 						class="text--primary"
-						name="nextNote"
-						id="nextNote"
+						label="Next timer note"
 						color="green darken-4"
 						v-model="nextNote"
 						>
@@ -30,13 +28,13 @@
 						<v-spacer></v-spacer>
 						<v-btn
 							color="green darken-4"
-							dark tile
+							text
 							@click="
 							parentTimerPressed();"
 						>Cancel</v-btn>
 						<v-btn
 							color="green darken-4"
-							dark tile
+							text
 							type="submit"
 							@click="postUpdate()"
 						>End Timer</v-btn>
@@ -53,7 +51,7 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
 	name: 'PreTimer',
-	props: ['timerId', 'startTime'],
+	props: ['isCountdown'],
 	data() {
 		return {
 			showTimerForm: true,
@@ -73,25 +71,32 @@ export default {
 	},
 	methods: {
 		postUpdate() {
-			var cur = Date.now();
+			if (this.isCountdown) {
+				this.updateTimeLog({ id: this.timeLogs[0].id, afterNote: this.afterNote, nextNote: this.nextNote, active: false });
+				this.parentTimerPressed();
+				this.parentStopTimer();
+			}
+			else {
+				var cur = Date.now();
 
-			var old = new Date(this.timeLogs[0].startTime.substring(0,19));
-			var duration = cur - old;
+				var old = new Date(this.timeLogs[0].startTime.substring(0,19));
+				var duration = cur - old;
 
-			var ms = duration % 1000;
-			duration = (duration - ms) / 1000;
-			var secs = duration % 60;
-			duration = (duration - secs) / 60;
-			var mins = duration % 60;
-			var hrs = (duration - mins) / 60;
-			
-			var stringDuration = hrs + ':' + mins + ':' + secs;
+				var ms = duration % 1000;
+				duration = (duration - ms) / 1000;
+				var secs = duration % 60;
+				duration = (duration - secs) / 60;
+				var mins = duration % 60;
+				var hrs = (duration - mins) / 60;
 
-			this.parentTimerPressed();
-			this.parentStopTimer();
-			this.getTime();
+				var stringDuration = hrs + ':' + mins + ':' + secs;
 
-			this.updateTimeLog({ id: this.timerId, afterNote: this.afterNote, nextNote: this.nextNote, endTime: this.currentTime, duration: stringDuration, active: false });
+				this.parentTimerPressed();
+				this.parentStopTimer();
+				this.getTime();
+
+				this.updateTimeLog({ id: this.timeLogs[0].id, afterNote: this.afterNote, nextNote: this.nextNote, endTime: this.currentTime, duration: stringDuration, active: false });
+			}
 		},
 		toggleChildren() {
 			this.showChildren = !this.showChildren;

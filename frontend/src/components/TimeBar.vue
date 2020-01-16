@@ -5,27 +5,34 @@
 			style="padding-right:10px;">
 				Path:
 			</v-toolbar-title>
-				<template v-for="(item, index) in title_path" v-if="title_path.length > 0">
-					<v-card	outlined tile
-						color="grey lighten-4"
-						style="height:40px;"
-						@click="parentSwitchFileSet(item)">
-						<v-card-text class="pt-2"> 
-							<p class="body-1 text--primary">
-								{{ item }}
-							</p>
-						</v-card-text>
-					</v-card>
-					<template v-if="index != title_path.length - 1">
-						-
-					</template>
-					<template v-else>
-						<v-toolbar-title>
-							{{ "-" }}
-							{{ curTitle }}
-						</v-toolbar-title>
-					</template>
+			<v-container 
+				v-if="title_path.length > 0"
+			>
+				<template v-for="(item, index) in title_path" 
+				>
+					<v-span :key="item.id">
+						<v-card	outlined tile
+							color="grey lighten-4"
+							style="height:40px;"
+							@click="parentSwitchFileSet(item)">
+							<v-card-text class="pt-2"> 
+								<p class="body-1 text--primary">
+									{{ item }}
+								</p>
+							</v-card-text>
+						</v-card>
+						<template v-if="index != title_path.length - 1">
+							-
+						</template>
+						<template v-else>
+							<v-toolbar-title>
+								{{ "-" }}
+								{{ curTitle }}
+							</v-toolbar-title>
+						</template>
+					</v-span>
 				</template>
+			</v-container>
 				<v-spacer/>
 			<v-toolbar-title v-if="timeLogs.length > 0">
 				Running Timers:
@@ -46,24 +53,6 @@
 				</span>
 				</span>
 			</v-toolbar-title>
-			<!--
-				<template v-for="item in timeLogs" >
-					<v-card	outlined tile
-						color="grey lighten-4"
-						style="height:40px;"
-						@click="parentDisableTimer(item)"
-						>
-						<v-card-text class="pt-2"> 
-							<p class="body-1 text/-/-primary">
-								{{ item.file_name }}
-								{{ '' }}
-								{{ minutes }}
-								{{ seconds }}
-							</p>
-						</v-card-text>
-					</v-card>
-				</template>
-			-->
 		<v-menu 
 			v-if="timeLogs.length > 0"
 			transition="slide-y-transition"
@@ -121,8 +110,7 @@ export default {
 	data(){
 		return {
 			timer: null,
-			countDownTime: (25 * 60),
-			countUpTime: 0,
+			timeCounter: 0,
 			showTimer: true,
 
 			startTime: null,
@@ -135,58 +123,25 @@ export default {
 		...mapState({
 			files: state => state.files.files
 		}),
+		...mapState({
+			login: state => state.login.login
+		}),
 		hours: function() {
-			const hours = Math.floor(this.countUpTime / 3600);
+			const hours = Math.floor(this.timeCounter / 3600);
 			return this.padTime(hours);
 		},
 		minutes: function() {
-			const minutes = Math.floor((this.countUpTime - (this.hours * 3600))/60);
+			const minutes = Math.floor((this.timeCounter - (this.hours * 3600))/60);
 			return this.padTime(minutes);
 		},
 		seconds: function() {
-			const seconds = this.countUpTime - (this.hours * 3600) - (this.minutes * 60);
+			const seconds = this.timeCounter - (this.hours * 3600) - (this.minutes * 60);
 			return this.padTime(seconds);
 		}
 	},
 	methods: {
 		changeTimerVisibility() {
 			this.showTimer = !this.showTimer;
-		},
-		startTimer() {
-			//console.log('TimebarStartTimer');
-			this.timer = setInterval(() => this.countup(), 1000);
-		},
-		stopTimer() {
-			clearInterval(this.timer);
-			this.timer = null;
-		},
-		resetTimer() {
-			//console.log('resetTimer');
-			this.countDownTime = (25 * 60);
-			this.countUpTime = 0;
-			clearInterval(this.timer);
-			this.timer = null;
-		},
-		padTime: function(time) {
-			return (time < 10 ? '0' : '') + time;
-		},
-		countdown: function() {
-			//console.log('Countdown');
-			if(this.countDownTime >= 1){
-				this.countDownTime--;
-			} else{
-				this.countDownTime = 0;
-				this.resetTimer()
-			}
-		},
-		countup: function() {
-			//console.log('countup');
-			if(this.countUpTime <= 86400){
-				this.countUpTime++;
-			} else{
-				this.countUpTime = 0;
-				this.overTime()
-			}
 		},
 		getTime() {
 			this.startTime = this.timeLogs[0].startTime.substring(0,19);
@@ -195,7 +150,63 @@ export default {
 			var old = new Date(this.startTime);
 			var duration = cur - old;
 
-			this.countUpTime = Math.floor(duration / 1000);
+			this.timeCounter = Math.floor(duration / 1000);
+		},
+		startTimer() {
+			//console.log('TimebarStartTimer');
+			if (this.login.timer_choice === "countup") {
+				this.timer = setInterval(() => this.countup(), 1000);
+			}
+			else if (this.login.timer_choice === "countdown") {
+				if (this.timeLogs[0]) {
+					var end = new Date(this.timeLogs[0].endTime.substring(0,19))
+					var cur = Date.now()
+					this.timeCounter = Math.floor((end - cur )/ 1000)
+				}
+				else {
+					var hours = Number(this.login.countdown_duration.substring(0, 2)) * 3600
+					var minutes = Number(this.login.countdown_duration.substring(3, 5)) * 60
+					this.timeCounter = hours + minutes
+				}
+				this.timer = setInterval(() => this.countdown(), 1000);
+			}
+			else if (this.login.timer_choice === "pomodoro") {
+				//console.log('in production');
+			}
+		},
+		stopTimer() {
+			clearInterval(this.timer);
+			this.timer = null;
+		},
+		resetTimer() {
+			//console.log('resetTimer');
+			this.timeCounter = 0;
+			clearInterval(this.timer);
+			this.timer = null;
+		},
+		padTime: function(time) {
+			return (time < 10 ? '0' : '') + time;
+		},
+		countdown: function() {
+			//console.log('Countdown');
+			if (this.timeCounter > 0) {
+				this.timeCounter--;
+			} else {
+				this.timeCounter = 0;
+				this.resetTimer()
+				var audio = new Audio("./alarm1.mp3")
+				audio.play()
+				this.$emit('parentCountdownDone')
+			}
+		},
+		countup: function() {
+			//console.log('countup');
+			if (this.timeCounter <= 86400) {
+				this.timeCounter++;
+			} else{
+				this.timeCounter = 0;
+				this.overTime()
+			}
 		},
 		overTime() {
 			var tzoffset = (new Date()).getTimezoneOffset() * 60000;
@@ -210,11 +221,7 @@ export default {
 			this.resetTimer();
 		},
 		parentDisableTimer() {
-			//this.resetTimer();
-			if (this.timeLogs.length > 0) {
-				var item = this.timeLogs[0]
-				this.$emit('parentDisableTimer', item.id, item.startTime);
-			}
+			this.$emit('parentDisableTimer');
 		},
 		parentSwitchFileSet(item) {
 			var i, j;
@@ -242,19 +249,19 @@ export default {
 		]),
 	},
 	created() {
-		this.$store.dispatch('timeLogs/getActiveTimeLogs')
-			.then(() => {
-				//console.log(this.timeLogs.length);
-				if (this.timeLogs.length > 0) {
-					this.resetTimer()
-
-					this.getTime();
-					this.startTimer();
-				}
-			})
 		this.$store.dispatch('login/getUser')
 			.then(() => {
+			this.$store.dispatch('timeLogs/getActiveTimeLogs')
+				.then(() => {
+					//console.log(this.timeLogs.length);
+					if (this.timeLogs.length > 0) {
+						this.resetTimer()
+
+						this.getTime();
+						this.startTimer();
+					}
 				})
+			})
 	},
 	destroyed() {
 		this.resetTimer();

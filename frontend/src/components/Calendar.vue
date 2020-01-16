@@ -1,0 +1,38 @@
+<template>
+	<v-container>
+		<SideNav></SideNav>	
+	</v-container>
+</template>
+
+<script>
+require('howler');
+
+import { mapState, mapActions } from 'vuex'
+import SideNav from './SideNav'
+export default {
+	name: "Calendar",
+	components: {
+		'SideNav': SideNav,
+	},
+	data() {
+		return {
+		};
+	},
+	computed: mapState({
+		login: state => state.login.login
+	}),
+	methods: {
+		...mapActions('login', [
+			'registerUser',
+			'loginUser',
+			'logoutUser',
+			'postUser'
+		]),
+	},
+	created() {
+		this.$store.dispatch('login/getUser')
+			.then(() => {
+				})
+	}
+};
+</script>

@@ -21,45 +21,51 @@
 				</v-btn>
 			</v-toolbar-items>
 		</v-app-bar>
-		<SideNav></SideNav>	
+		<SideNav></SideNav>
 		<!--
 		{{ login }}
 		-->
 		<v-container justify-center v-if="selectedPage==='Account Info'">
 			<v-row no-gutters>
+				<!--
 				<v-btn dark color="green darken-4"
 					style="margin-top:2px;margin-top: 30px;margin-right:20px;"
 					type="submit"
 					tile
 					@click=""
 				>Change</v-btn>
+				-->
 				<h1 class="headline" style="padding-top: 30px;">
 					Username: {{ login.username }}
 				</h1>
 			</v-row>
 			<v-row no-gutters>
+				<!--
 				<v-btn dark color="green darken-4"
 					style="margin-top:2px;margin-top: 30px;margin-right:20px;"
 					type="submit"
 					tile
 					@click=""
 				>Change</v-btn>
+				-->
 				<h1 class="headline" style="padding-top: 30px;">
 					Email: {{ login.email }}
 				</h1>
 			</v-row>
 			<v-row no-gutters>
+				<!--
 				<v-btn dark color="green darken-4"
 					style="margin-top:2px;margin-top: 30px;margin-right:20px;"
 					type="submit"
 					tile
 					@click=""
 				>Change password</v-btn>
+				-->
 			</v-row>
 		</v-container>
 		<v-container justify-center v-if="selectedPage==='Timer Settings'">
 			<v-row no-gutters>
-				<v-menu 
+				<v-menu
 					transition="slide-y-transition"
 					bottom
 					offset-y
@@ -159,7 +165,7 @@
 				</h1>
 			</v-row>
 			<v-row v-if="errorDuration !== ''"
-			 style="padding-top: 20px;"
+				style="padding-top: 20px;"
 			>
 				<v-btn dark color="green darken-4"
 					style="margin-top: 15px;"
@@ -229,7 +235,7 @@
 				</h1>
 			</v-row>
 			<v-row v-if="errorShort !== ''"
-			 style="padding-top: 20px;"
+				style="padding-top: 20px;"
 			>
 				<v-btn dark color="green darken-4"
 					style="margin-top: 15px;"
@@ -299,7 +305,7 @@
 				</h1>
 			</v-row>
 			<v-row v-if="errorLong !== ''"
-			 style="padding-top: 20px;"
+				style="padding-top: 20px;"
 			>
 				<v-btn dark color="green darken-4"
 					style="margin-top: 15px;"
@@ -369,7 +375,7 @@
 				</h1>
 			</v-row>
 			<v-row v-if="errorCount !== ''"
-			 style="padding-top: 20px;"
+				style="padding-top: 20px;"
 			>
 				<v-btn dark color="green darken-4"
 					style="margin-top: 15px;"
@@ -419,8 +425,8 @@
 							</v-text-field>
 						</v-card-text>
 						-->
-							<v-time-picker 
-								v-model="countdownVal" 
+							<v-time-picker
+								v-model="countdownVal"
 								format="24hr"
 								color="green darken-4"
 							></v-time-picker>
@@ -448,34 +454,18 @@
 					Length of countdown timer: {{ login.countdown_duration }}
 				</h1>
 			</v-row>
-			<!--
-			<v-row v-if="errorCountdown !== ''"
-			 style="padding-top: 20px;"
-			>
-				<v-btn dark color="green darken-4"
-					style="margin-top: 15px;"
-					type="submit"
-					small
-					text
-					@click="errorCountdown = ''"
-					><v-icon>close</v-icon>
-				</v-btn>
-				<v-col>
-				<h1 class="headline">
-					{{ errorCountdown }}
-				</h1>
-				</v-col>
-			</v-row>
-			errorCountdown: '',
-			-->
 		</v-container>
 		</v-container>
+		<!--
 		<v-container justify-center v-if="selectedPage==='Aesthetics'">
 		</v-container>
+		-->
 	</v-container>
 </template>
 
 <script>
+require('howler');
+
 import { mapState, mapActions } from 'vuex'
 import SideNav from './SideNav'
 export default {
@@ -489,7 +479,7 @@ export default {
 			Preferences: [
 				{ title: 'Account Info' },
 				{ title: 'Timer Settings' },
-				{ title: 'Aesthetics' },
+				//{ title: 'Aesthetics' },
 			],
 			pomodoroTimerDuration: false,
 			pomodoroShortCount: false,
@@ -514,7 +504,7 @@ export default {
 		login: state => state.login.login
 	}),
 	methods: {
-		fixDurationValue() {	
+		fixDurationValue() {
 			var durationHours = Number(this.login.pomodoro_duration.substring(0, 2))
 			var durationMinutes = Number(this.login.pomodoro_duration.substring(3, 5))
 			this.durationVal = durationHours * 60 + durationMinutes
@@ -584,27 +574,10 @@ export default {
 			}
 		},
 		updateCountdown() {
-			//console.log(this.countdownVal)
 			this.countdownDuration = false
 			var full_time = this.countdownVal + ":00"
 			this.postUser({ username: this.login.username,  countdown_duration: full_time })
 			this.login.countdown_duration = full_time
-			/*
-			if (this.durationVal >= 0 && this.durationVal <= 1440) {
-				var hours = Math.floor(this.durationVal / 60)
-				var minutes = Math.floor(this.durationVal % 60)
-				this.durationVal = hours * 60 + minutes
-				if (hours == 0) {
-					hours = '00'
-				}
-				var duration = hours + ":" + minutes + ":00"
-				this.postUser({ username: this.login.username,  pomodoro_duration: duration })
-				this.login.pomodoro_duration = duration
-			}
-			else {
-				this.errorDuration = 'Please enter a number of minutes between 1 and 1440'
-			}
-			*/
 		},
 		...mapActions('login', [
 			'registerUser',
@@ -617,35 +590,17 @@ export default {
 		this.$store.dispatch('login/getUser')
 			.then(() => {
 				this.fixDurationValue()
+				//const sound = ( new Audio( require('../assets/alarm1.mp3') )).play();
+				//var audio = new Audio(src="../assets/alarm1.mp3")
+				//this.audio = new Howl({
+					//src: "http://www.noiseaddicts.com/samples_1w72b820/3720.mp3",
+					//src: require('../assets/alarm1.mp3'),
+					//src: "https://freesound.org/people/kwahmah_02/sounds/250629/download/250629__kwahmah-02__alarm1.mp3",
+					//volume: 1.0,
+				//});
+				//console.log(this.audio)
+				//this.audio.play();
 				})
 	}
 };
-
-
-/*
-
-		{{ selectedPage }}
-							<!--
-			<v-toolbar-items>
-				<v-btn
-					text
-					v-for="item in Preferences"
-					:key="item.title"
-					>
-					{{ item.title }}
-				</v-btn>
-			</v-toolbar-items>
-							<v-img
-								:src="require('../assets/Account.png')"
-								contain
-								height="150"
-							></v-img>
-							<router-link to="/home" tag="span" style="cursor: pointer">
-								<v-btn dark color="green darken-4"
-									type="submit"
-									@click="logoutUser({})"
-								>Logout</v-btn>
-							</router-link>
-							-->
-							*/
 </script>

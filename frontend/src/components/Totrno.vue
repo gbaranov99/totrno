@@ -8,6 +8,7 @@
 			:curTitle=curTitle
 			@parentSwitchFileSet="switchFileSet"
 			@parentDisableTimer="disableTimer"
+			@parentCountdownDone="countDownDone"
 		></TimeBar>
 		<v-form>
 			<v-row no-gutters>
@@ -36,8 +37,9 @@
 			</v-row>
 		</v-form>
 		<v-row v-if="errorMessage !== ''"
-		 style="padding-top: 20px;"
+			style="padding-top: 20px;"
 		>
+			<v-spacer> </v-spacer>
 			<v-btn dark color="green darken-4"
 				style="margin-top: 15px;"
 				type="submit"
@@ -46,11 +48,9 @@
 				@click="errorMessage = ''"
 				><v-icon>close</v-icon>
 			</v-btn>
-			<v-col>
-			<h1 class="headline">
+			<h1 class="headline" style="padding-top:10px;padding-right:10px;">
 				{{ errorMessage }}
 			</h1>
-			</v-col>
 		</v-row>
 		<br>
 
@@ -87,13 +87,18 @@
 							</v-text-field>
 						</v-card>
 						</v-col>
-						<v-btn
-							color="green darken-4"
-							icon dark
-							type="submit"
-							@click="preTimerPressed()"
-							><v-icon>timer</v-icon>
-						</v-btn>	
+						<v-hover
+							v-slot:default="{ hover }"
+							disabled
+						>
+							<v-btn
+								color="green darken-4"
+								icon dark
+								type="submit"
+								@click="preTimerPressed()"
+								><v-icon>timer</v-icon>
+							</v-btn>	
+						</v-hover>
 						<v-btn
 							color="green darken-4"
 							icon dark
@@ -132,7 +137,9 @@
 							></v-textarea>
 					</v-row>
 					<v-row no-gutters xs12 v-else
-					v-for="item in fileLogs">
+					v-for="item in fileLogs"
+					:key="item.id"
+					>
 						{{ 'Start time:' }}
 						{{ item.startTime }}
 						<br />
@@ -167,8 +174,7 @@
 		</v-container>
 		<PostTimer
 		pa-0
-		:timerId=timerId
-		:startTime=startTime
+		:isCountdown=isCountdown
 		@parentTimerPressed="postTimerPressed"
 		@parentStopTimer="stopTimer"
 		v-if="showPostTimer"
@@ -225,8 +231,7 @@ export default {
 
 			showPreTimer: false,
 			showPostTimer: false,
-			timerId: null,
-			startTime: null,
+			isCountdown: false,
 
 			errorMessage: "",
 		};
@@ -275,12 +280,13 @@ export default {
 		postTimerPressed() {
 			this.showPostTimer = !this.showPostTimer;
 		},
-		disableTimer(id, start) {
-			//console.log(item);
+		disableTimer() {
+			this.isCountdown = false;
 			this.showPostTimer = !this.showPostTimer;
-			this.timerId = id;
-			this.startTime = start;
-			//console.log('disableTimer()');
+		},
+		countDownDone() {
+			this.isCountdown = true
+			this.showPostTimer = !this.showPostTimer;
 		},
 		stopTimer() {
 			this.$refs.TimeBar.resetTimer();

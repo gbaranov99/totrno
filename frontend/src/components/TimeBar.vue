@@ -5,35 +5,33 @@
 			style="padding-right:10px;">
 				Path:
 			</v-toolbar-title>
-			<v-container 
-				v-if="title_path.length > 0"
-			>
+				
+			<template v-if="title_path.length > 0" >
 				<template v-for="(item, index) in title_path" 
 				>
-					<v-span :key="item.id">
-						<v-card	outlined tile
-							color="grey lighten-4"
-							style="height:40px;"
-							@click="parentSwitchFileSet(item)">
-							<v-card-text class="pt-2"> 
-								<p class="body-1 text--primary">
-									{{ item }}
-								</p>
-							</v-card-text>
-						</v-card>
-						<template v-if="index != title_path.length - 1">
-							-
-						</template>
-						<template v-else>
-							<v-toolbar-title>
-								{{ "-" }}
-								{{ curTitle }}
-							</v-toolbar-title>
-						</template>
-					</v-span>
+					<v-card	outlined tile
+						color="grey lighten-4"
+						style="height:40px;"
+						:key="item.id"
+						@click="parentSwitchFileSet(item)">
+						<v-card-text class="pt-2"> 
+							<p class="body-1 text--primary">
+								{{ item }}
+							</p>
+						</v-card-text>
+					</v-card>
+					<template v-if="index != title_path.length - 1">
+						-
+					</template>
+					<template v-else>
+						<v-toolbar-title :key="item.id">
+							{{ "-" }}
+							{{ curTitle }}
+						</v-toolbar-title>
+					</template>
 				</template>
-			</v-container>
-				<v-spacer/>
+			</template>
+			<v-spacer/>
 			<v-toolbar-title v-if="timeLogs.length > 0">
 				Running Timers:
 				<span style="padding-right:25px;" v-if="!showTimer">
@@ -50,6 +48,12 @@
 				{{ minutes }}
 				{{ ':' }}
 				{{ seconds }}
+				</span>
+				<span style="padding-right:25px;" v-if="pomodoroShortBreakRunning">
+				{{ '(Short Break)' }}
+				</span>
+				<span style="padding-right:25px;" v-if="pomodoroLongBreakRunning">
+				{{ '(Long Break)' }}
 				</span>
 				</span>
 			</v-toolbar-title>
@@ -114,6 +118,15 @@ export default {
 			showTimer: true,
 
 			startTime: null,
+
+			pomodoroCounter: 0,
+			pomodoroShortBreakRunning: false,
+			pomodoroLongBreakRunning: false,
+
+			pomodoroDuration: 0,
+			pomodoroShortDuration: 0,
+			pomodoroLongDuration: 0,
+			pomodoroShortCount: 0,
 		}
 	},
 	computed: {
@@ -143,35 +156,101 @@ export default {
 		changeTimerVisibility() {
 			this.showTimer = !this.showTimer;
 		},
-		getTime() {
-			this.startTime = this.timeLogs[0].startTime.substring(0,19);
-
-			var cur = Date.now();
-			var old = new Date(this.startTime);
-			var duration = cur - old;
-
-			this.timeCounter = Math.floor(duration / 1000);
-		},
 		startTimer() {
 			//console.log('TimebarStartTimer');
+			var cur = Date.now();
 			if (this.login.timer_choice === "countup") {
+				if (this.timeLogs.length > 0) {
+					var old = new Date(this.timeLogs[0].startTime.substring(0,19));
+					var duration = cur - old;
+
+					this.timeCounter = Math.floor(duration / 1000);
+				}
 				this.timer = setInterval(() => this.countup(), 1000);
 			}
 			else if (this.login.timer_choice === "countdown") {
 				if (this.timeLogs[0]) {
 					var end = new Date(this.timeLogs[0].endTime.substring(0,19))
-					var cur = Date.now()
 					this.timeCounter = Math.floor((end - cur )/ 1000)
 				}
 				else {
-					var hours = Number(this.login.countdown_duration.substring(0, 2)) * 3600
-					var minutes = Number(this.login.countdown_duration.substring(3, 5)) * 60
-					this.timeCounter = hours + minutes
+					var hoursCountdown = Number(this.login.countdown_duration.substring(0, 2)) * 3600
+					var minutesCountdown = Number(this.login.countdown_duration.substring(3, 5)) * 60
+					this.timeCounter = hoursCountdown + minutesCountdown
 				}
 				this.timer = setInterval(() => this.countdown(), 1000);
 			}
 			else if (this.login.timer_choice === "pomodoro") {
-				//console.log('in production');
+				var hoursPomodoro = Number(this.login.pomodoro_duration.substring(0, 2)) * 3600
+				var minutesPomodoro = Number(this.login.pomodoro_duration.substring(3, 5)) * 60
+				this.pomodoroDuration = hoursPomodoro + minutesPomodoro
+
+				//hours = Number(this.login.pomodoro_short_break_duration.substring(0, 2)) * 3600
+				this.pomodoroShortDuration = Number(this.login.pomodoro_short_break_duration.substring(3, 5)) * 60
+				//this.pomodoroShortDuration = hours + minutes
+
+				//hours = Number(this.login.pomodoro_long_break_duration.substring(0, 2)) * 3600
+				this.pomodoroLongDuration = Number(this.login.pomodoro_long_break_duration.substring(3, 5)) * 60
+				//this.pomodoroLongDuration = hours + minutes
+				
+				this.pomodoroShortCount = Number(this.login.pomodoro_short_break_count)
+
+				if (this.timeLogs[0]) {
+					// Loop through pomodoro timers until you hit the current timer
+					//console.log('testadsf')
+					//var tzoffset = (new Date()).getTimezoneOffset() * 60000;
+					var start = new Date(this.timeLogs[0].startTime.substring(0,19))
+					var timeLeft = Math.floor((cur - start )/ 1000)
+					//console.log(this.pomodoroLongDuration + (this.pomodoroDuration * this.pomodoroShortCount) + (this.pomodoroShortDuration * (this.pomodoroShortCount - 1)))
+					timeLeft = timeLeft % (this.pomodoroLongDuration + (this.pomodoroDuration * this.pomodoroShortCount) + (this.pomodoroShortDuration * (this.pomodoroShortCount - 1)));
+					var previousTime = timeLeft;
+					//console.log(cur)
+					//console.log(start)
+					//console.log(cur)
+					//console.log(start)
+					//console.log(timeLeft)
+					//console.log(timeLeft)
+					for (var i = 0; i < this.pomodoroShortCount; i++) {
+						timeLeft -= this.pomodoroDuration;
+						this.pomodoroCounter ++;
+						if (timeLeft <= 0) {
+							this.timeCounter = this.pomodoroDuration - previousTime
+							this.pomodoroShortBreakRunning = false
+							this.pomodoroLongBreakRunning = false
+							//console.log(previousTime)
+							break;
+						}
+						else {
+							previousTime = timeLeft
+						}
+						if (i === (this.pomodoroShortCount - 1)) {
+							this.timeCounter = this.pomodoroLongDuration - previousTime
+							this.pomodoroLongBreakRunning = true
+							this.pomodoroShortBreakRunning = false
+							this.pomodoroCounter = 0
+							break;
+						}
+						timeLeft -= this.pomodoroShortDuration
+						if (timeLeft <= 0) {
+							this.timeCounter = this.pomodoroShortDuration - previousTime
+							this.pomodoroShortBreakRunning = true
+							this.pomodoroLongBreakRunning = false
+							break;
+						}
+						else {
+							previousTime = timeLeft
+						}
+					}
+					//console.log(this.pomodoroCounter)
+				}
+				else {
+					//console.log(this.timeCounter)
+					this.timeCounter = this.pomodoroDuration
+					this.pomodoroShortBreakRunning = false
+					this.pomodoroLongBreakRunning = false
+					this.pomodoroCounter = 1
+				}
+				this.timer = setInterval(() => this.countdown(), 1000);
 			}
 		},
 		stopTimer() {
@@ -196,7 +275,12 @@ export default {
 				this.resetTimer()
 				var audio = new Audio("./alarm1.mp3")
 				audio.play()
-				this.$emit('parentCountdownDone')
+				if (this.login.timer_choice === "countdown") {
+					this.$emit('parentCountdownDone')
+				}
+				else if (this.login.timer_choice === "pomodoro") {
+					this.pomodoroDone()
+				}
 			}
 		},
 		countup: function() {
@@ -232,6 +316,41 @@ export default {
 			}
 			this.$emit('parentSwitchFileSet', this.id_path[j]);
 		},
+		pomodoroDone() {
+			this.resetTimer();
+			//console.log(this.pomodoroCounter)
+			if (this.pomodoroCounter === 0) {
+				//console.log('test1')
+				this.timeCounter = this.pomodoroDuration
+				this.pomodoroShortBreakRunning = false
+				this.pomodoroLongBreakRunning = false
+				this.pomodoroCounter ++;
+			}
+			else if (this.pomodoroCounter < this.login.pomodoro_short_break_count) {
+				if (this.pomodoroShortBreakRunning || this.pomodoroLongBreakRunning) {
+					//console.log('test3')
+					this.timeCounter = this.pomodoroDuration
+					this.pomodoroShortBreakRunning = false
+					this.pomodoroLongBreakRunning = false
+					this.pomodoroCounter ++;
+				}
+				else {
+					//console.log('test4')
+					this.pomodoroShortBreakRunning = true
+					this.pomodoroLongBreakRunning = false
+					this.timeCounter = this.pomodoroShortDuration
+				}
+			}
+			else if (this.pomodoroCounter === this.login.pomodoro_short_break_count) {
+				//console.log('test5')
+				this.pomodoroLongBreakRunning = true
+				this.pomodoroShortBreakRunning = false
+				this.timeCounter = this.pomodoroLongDuration
+				this.pomodoroCounter = 0;
+			}
+			//console.log('wow')
+			this.timer = setInterval(() => this.countdown(), 1000);
+		},
 		...mapActions('timeLogs', [
 		'addTimeLog',
 		'updateTimeLog',
@@ -257,7 +376,6 @@ export default {
 					if (this.timeLogs.length > 0) {
 						this.resetTimer()
 
-						this.getTime();
 						this.startTimer();
 					}
 				})

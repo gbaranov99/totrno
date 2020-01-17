@@ -78,7 +78,6 @@
 							style="height:50px;"
 						>
 							<v-text-field 
-								@click="oneClick($event)"
 								class="pa-0 ma-0"
 								solo
 								loader-height="2"
@@ -87,46 +86,71 @@
 							</v-text-field>
 						</v-card>
 						</v-col>
-						<v-hover
-							v-slot:default="{ hover }"
-							disabled
-						>
-							<v-btn
-								color="green darken-4"
-								icon dark
-								type="submit"
-								@click="preTimerPressed()"
-								><v-icon>timer</v-icon>
-							</v-btn>	
-						</v-hover>
-						<v-btn
-							color="green darken-4"
-							icon dark
-							type="submit"
-							@click="removeFile()"
-							><v-icon>delete</v-icon>
-						</v-btn>	
-						<v-btn
-							color="green darken-4"
-							icon dark
-							type="submit"
-							@click="viewTimeData(); getFileLogs(current_file.id);"
-							><v-icon>access_time</v-icon>
-						</v-btn>	
-						<v-btn
-							color="green darken-4"
-							icon dark
-							type="submit"
-							@click="updateFile({ title: current_file.title, content: current_file.content, parent: current_file.parent, id: current_file.id, closed: current_file.closed}); restoreContent();"
-							><v-icon>close</v-icon>
-						</v-btn>	
-						<v-btn
-							color="green darken-4"
-							icon dark
-							type="submit"
-							@click="updateFile({ title: current_file.title, content: current_file.content, parent: current_file.parent, id: current_file.id, closed: current_file.closed});"
-							><v-icon>save</v-icon>
-						</v-btn>	
+						<v-tooltip bottom>
+							<template v-slot:activator="{ on }">
+								<v-btn
+									color="green darken-4"
+									icon dark
+									type="submit"
+									v-on="on"
+									@click="preTimerPressed()"
+									><v-icon>timer</v-icon>
+								</v-btn>	
+							</template>
+							<span>Start a time tracking</span>
+						</v-tooltip>
+						<v-tooltip bottom>
+							<template v-slot:activator="{ on }">
+								<v-btn
+									color="green darken-4"
+									icon dark
+									type="submit"
+									v-on="on"
+									@click="removeFile()"
+									><v-icon>delete</v-icon>
+								</v-btn>	
+							</template>
+							<span>Delete file</span>
+						</v-tooltip>
+						<v-tooltip bottom>
+							<template v-slot:activator="{ on }">
+								<v-btn
+									color="green darken-4"
+									icon dark
+									type="submit"
+									v-on="on"
+									@click="viewTimeData(); getFileLogs(current_file.id);"
+									><v-icon>access_time</v-icon>
+								</v-btn>	
+							</template>
+							<span>View previous time track data</span>
+						</v-tooltip>
+						<v-tooltip bottom>
+							<template v-slot:activator="{ on }">
+								<v-btn
+									color="green darken-4"
+									icon dark
+									type="submit"
+									v-on="on"
+									@click="updateFile({ title: current_file.title, content: current_file.content, parent: current_file.parent, id: current_file.id, closed: current_file.closed}); restoreContent();"
+									><v-icon>close</v-icon>
+								</v-btn>	
+							</template>
+							<span>Close file</span>
+						</v-tooltip>
+						<v-tooltip bottom>
+							<template v-slot:activator="{ on }">
+								<v-btn
+									color="green darken-4"
+									icon dark
+									type="submit"
+									v-on="on"
+									@click="updateFile({ title: current_file.title, content: current_file.content, parent: current_file.parent, id: current_file.id, closed: current_file.closed});"
+									><v-icon>save</v-icon>
+								</v-btn>	
+							</template>
+							<span>Save changes</span>
+						</v-tooltip>
 					</v-row>
 					<v-row no-gutters xs12 v-if="!view_time_data">
 							<v-textarea

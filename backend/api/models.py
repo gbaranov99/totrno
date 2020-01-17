@@ -59,13 +59,13 @@ class File(models.Model):
 
 
 class TimeLog(models.Model):
-    beforeNote = models.CharField(max_length = 50, blank=True)
-    afterNote = models.CharField(max_length = 50, blank=True)
-    nextNote = models.CharField(max_length = 50, blank=True)
+    beforeNote = models.CharField(max_length = 300, blank=True)
+    afterNote = models.CharField(max_length = 300, blank=True)
+    nextNote = models.CharField(max_length = 300, blank=True)
     startTime = models.DateTimeField(null=True, blank=True)
     endTime = models.DateTimeField(null=True, blank=True)
     duration = models.TimeField(null=True, blank=True)
     owner = models.ForeignKey('CustomUser', related_name='timelogs', on_delete=models.CASCADE)
     associated_file = models.ForeignKey('File',  related_name='timelog_set', on_delete=models.CASCADE, null=True, blank=True)
     active = models.BooleanField(default=False)
-    file_name = models.CharField(max_length = 100, blank=True)
+    file_name = models.CharField(max_length = 300, blank=True)

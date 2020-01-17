@@ -22,9 +22,7 @@
 			</v-toolbar-items>
 		</v-app-bar>
 		<SideNav></SideNav>
-		<!--
 		{{ login }}
-		-->
 		<v-container justify-center v-if="selectedPage==='Account Info'">
 			<v-row no-gutters>
 				<!--
@@ -141,6 +139,22 @@
 							</v-text-field>
 						</v-card-text>
 						<v-divider></v-divider>
+						<v-row v-if="errorDuration !== ''"
+							style="padding-top: 20px;"
+						>
+							<v-spacer> </v-spacer>
+							<v-btn dark color="green darken-4"
+								style="margin-top: 15px;"
+								type="submit"
+								small
+								text
+								@click="errorDuration = ''"
+								><v-icon>close</v-icon>
+							</v-btn>
+							<h1 class="body-1" style="text-align:end;padding-top:15px;padding-right:30px;">
+								{{ errorDuration }}
+							</h1>
+						</v-row>
 						<v-card-actions>
 							<v-spacer></v-spacer>
 							<v-btn
@@ -163,23 +177,6 @@
 				<h1 class="headline" style="padding-top: 30px;">
 					Pomodoro timer duration: {{ login.pomodoro_duration }}
 				</h1>
-			</v-row>
-			<v-row v-if="errorDuration !== ''"
-				style="padding-top: 20px;"
-			>
-				<v-btn dark color="green darken-4"
-					style="margin-top: 15px;"
-					type="submit"
-					small
-					text
-					@click="errorDuration = ''"
-					><v-icon>close</v-icon>
-				</v-btn>
-				<v-col>
-				<h1 class="headline">
-					{{ errorDuration }}
-				</h1>
-				</v-col>
 			</v-row>
 			<v-row no-gutters>
 				<v-dialog
@@ -211,6 +208,22 @@
 							</v-text-field>
 						</v-card-text>
 						<v-divider></v-divider>
+						<v-row v-if="errorShort !== ''"
+							style="padding-top: 20px;"
+						>
+							<v-spacer> </v-spacer>
+							<v-btn dark color="green darken-4"
+								style="margin-top: 15px;"
+								type="submit"
+								small
+								text
+								@click="errorShort = ''"
+								><v-icon>close</v-icon>
+							</v-btn>
+							<h1 class="body-1" style="text-align:end;padding-top:15px;padding-right:30px;">
+								{{ errorShort }}
+							</h1>
+						</v-row>
 						<v-card-actions>
 							<v-spacer></v-spacer>
 							<v-btn
@@ -233,23 +246,6 @@
 				<h1 class="headline" style="padding-top: 30px;">
 					Short break duration: {{ login.pomodoro_short_break_duration }}
 				</h1>
-			</v-row>
-			<v-row v-if="errorShort !== ''"
-				style="padding-top: 20px;"
-			>
-				<v-btn dark color="green darken-4"
-					style="margin-top: 15px;"
-					type="submit"
-					small
-					text
-					@click="errorShort = ''"
-					><v-icon>close</v-icon>
-				</v-btn>
-				<v-col>
-				<h1 class="headline">
-					{{ errorShort }}
-				</h1>
-				</v-col>
 			</v-row>
 			<v-row no-gutters>
 				<v-dialog
@@ -281,6 +277,22 @@
 							</v-text-field>
 						</v-card-text>
 						<v-divider></v-divider>
+						<v-row v-if="errorLong !== ''"
+							style="padding-top: 20px;"
+						>
+							<v-spacer> </v-spacer>
+							<v-btn dark color="green darken-4"
+								style="margin-top: 15px;"
+								type="submit"
+								small
+								text
+								@click="errorLong = ''"
+								><v-icon>close</v-icon>
+							</v-btn>
+							<h1 class="body-1" style="text-align:end;padding-top:15px;padding-right:30px;">
+								{{ errorLong }}
+							</h1>
+						</v-row>
 						<v-card-actions>
 							<v-spacer></v-spacer>
 							<v-btn
@@ -303,23 +315,6 @@
 				<h1 class="headline" style="padding-top: 30px;">
 					Long break duration: {{ login.pomodoro_long_break_duration }}
 				</h1>
-			</v-row>
-			<v-row v-if="errorLong !== ''"
-				style="padding-top: 20px;"
-			>
-				<v-btn dark color="green darken-4"
-					style="margin-top: 15px;"
-					type="submit"
-					small
-					text
-					@click="errorLong = ''"
-					><v-icon>close</v-icon>
-				</v-btn>
-				<v-col>
-				<h1 class="headline">
-					{{ errorLong }}
-				</h1>
-				</v-col>
 			</v-row>
 			<v-row no-gutters>
 				<v-dialog
@@ -351,6 +346,22 @@
 							</v-text-field>
 						</v-card-text>
 						<v-divider></v-divider>
+						<v-row v-if="errorCount !== ''"
+							style="padding-top: 20px;"
+						>
+							<v-spacer> </v-spacer>
+							<v-btn dark color="green darken-4"
+								style="margin-top: 15px;"
+								type="submit"
+								small
+								text
+								@click="errorCount = ''"
+								><v-icon>close</v-icon>
+							</v-btn>
+							<h1 class="body-1" style="text-align:end;padding-top:15px;padding-right:30px;">
+								{{ errorCount }}
+							</h1>
+						</v-row>
 						<v-card-actions>
 							<v-spacer></v-spacer>
 							<v-btn
@@ -373,23 +384,6 @@
 				<h1 class="headline" style="padding-top: 30px;">
 					Number of pomodoros to long break: {{ login.pomodoro_short_break_count }}
 				</h1>
-			</v-row>
-			<v-row v-if="errorCount !== ''"
-				style="padding-top: 20px;"
-			>
-				<v-btn dark color="green darken-4"
-					style="margin-top: 15px;"
-					type="submit"
-					small
-					text
-					@click="errorCount = ''"
-					><v-icon>close</v-icon>
-				</v-btn>
-				<v-col>
-				<h1 class="headline">
-					{{ errorCount }}
-				</h1>
-				</v-col>
 			</v-row>
 			</v-container>
 			<v-container justify-center v-if="login.timer_choice==='countdown'">
@@ -431,6 +425,22 @@
 								color="green darken-4"
 							></v-time-picker>
 						<v-divider></v-divider>
+						<v-row v-if="errorCountdown !== ''"
+							style="padding-top: 20px;"
+						>
+							<v-spacer> </v-spacer>
+							<v-btn dark color="green darken-4"
+								style="margin-top: 15px;"
+								type="submit"
+								small
+								text
+								@click="errorCountdown = ''"
+								><v-icon>close</v-icon>
+							</v-btn>
+							<h1 class="headline" style="text-align:end;padding-top:10px;padding-right:30px;">
+								{{ errorCountdown }}
+							</h1>
+						</v-row>
 						<v-card-actions>
 							<v-spacer></v-spacer>
 							<v-btn
@@ -498,6 +508,7 @@ export default {
 
 			countdownDuration: false,
 			countdownVal: null,
+			errorCountdown: '',
 		};
 	},
 	computed: mapState({
@@ -513,7 +524,7 @@ export default {
 			this.longDurationVal = Number(this.login.pomodoro_long_break_duration.substring(3, 5))
 			this.shortBreakCount = this.login.pomodoro_short_break_count
 
-			//this.countdownVal = Number(this.login.
+			this.countdownVal = this.login.countdown_duration.substring(0,5)
 		},
 		changeSettingsPage(newPage) {
 			this.selectedPage = newPage;
@@ -525,8 +536,8 @@ export default {
 			this.login.timer_choice = newTimer
 		},
 		updateTimerDuration() {
-			this.pomodoroTimerDuration = false
 			if (this.durationVal >= 0 && this.durationVal <= 1440) {
+				this.pomodoroTimerDuration = false
 				var hours = Math.floor(this.durationVal / 60)
 				var minutes = Math.floor(this.durationVal % 60)
 				this.durationVal = hours * 60 + minutes
@@ -536,48 +547,60 @@ export default {
 				var duration = hours + ":" + minutes + ":00"
 				this.postUser({ username: this.login.username,  pomodoro_duration: duration })
 				this.login.pomodoro_duration = duration
+				this.errorDuration = ''
 			}
 			else {
 				this.errorDuration = 'Please enter a number of minutes between 1 and 1440'
 			}
 		},
 		updateShortDuration() {
-			this.pomodoroShortDuration = false
 			if (this.shortDurationVal >= 1 && this.shortDurationVal <= 60) {
 				var duration = "00:" + this.shortDurationVal + ":00"
 				this.postUser({ username: this.login.username, pomodoro_short_break_duration: duration })
 				this.login.pomodoro_short_break_duration = duration
+				this.pomodoroShortDuration = false
+				this.errorShort = ''
 			}
 			else {
 				this.errorShort = 'Please enter a number of minutes between 1 and 60'
 			}
 		},
 		updateLongDuration() {
-			this.pomodoroLongDuration = false
 			if (this.longDurationVal >= 1 && this.longDurationVal <= 60) {
 				var duration = "00:" + this.longDurationVal + ":00"
 				this.postUser({ username: this.login.username, pomodoro_long_break_duration: duration })
 				this.login.pomodoro_long_break_duration = duration
+				this.pomodoroLongDuration = false
+				this.errorLong = ''
 			}
 			else {
 				this.errorLong = 'Please enter a number of minutes between 1 and 60'
 			}
 		},
 		updateShortCount() {
-			this.pomodoroShortCount = false
 			if (this.shortBreakCount >= 1 && this.shortBreakCount <= 10) {
 				this.postUser({ username: this.login.username,  pomodoro_short_break_count: this.shortBreakCount })
 				this.login.pomodoro_short_break_count = this.shortBreakCount
+				this.pomodoroShortCount = false
+				this.erroCount = ''
 			}
 			else {
 				this.errorCount = 'Please enter a number of breaks between 1 and 10'
 			}
 		},
 		updateCountdown() {
-			this.countdownDuration = false
-			var full_time = this.countdownVal + ":00"
-			this.postUser({ username: this.login.username,  countdown_duration: full_time })
-			this.login.countdown_duration = full_time
+			//console.log(this.countdownVal)
+			if ( !(this.countdownVal)){
+				this.errorCountdown = "Please enter a valid number of hours and minutes"
+				//console.log('wow')
+			}
+			else {
+				this.countdownDuration = false
+				var full_time = this.countdownVal + ":00"
+				this.postUser({ username: this.login.username,  countdown_duration: full_time })
+				this.login.countdown_duration = full_time
+				this.errorCountdown = ''
+			}
 		},
 		...mapActions('login', [
 			'registerUser',

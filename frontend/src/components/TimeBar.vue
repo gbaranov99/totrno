@@ -240,6 +240,8 @@ export default {
 			pomodoroShortDuration: 0,
 			pomodoroLongDuration: 0,
 			pomodoroShortCount: 0,
+
+			audioPlaying: false,
 		}
 	},
 	computed: {
@@ -278,7 +280,7 @@ export default {
 			var cur = Date.now();
 			if (this.login.timer_choice === "countup") {
 				if (this.timeLogs.length > 0) {
-					var old = new Date(this.timeLogs[0].startTime.substring(0,19));
+					var old = new Date(this.timeLogs[0].start_time.substring(0,19));
 					var duration = cur - old;
 
 					this.timeCounter = Math.floor(duration / 1000);
@@ -287,7 +289,7 @@ export default {
 			}
 			else if (this.login.timer_choice === "countdown") {
 				if (this.timeLogs[0]) {
-					var end = new Date(this.timeLogs[0].endTime.substring(0,19))
+					var end = new Date(this.timeLogs[0].end_time.substring(0,19))
 					this.timeCounter = Math.floor((end - cur )/ 1000)
 				}
 				else {
@@ -316,7 +318,7 @@ export default {
 					// Loop through pomodoro timers until you hit the current timer
 					//console.log('testadsf')
 					//var tzoffset = (new Date()).getTimezoneOffset() * 60000;
-					var start = new Date(this.timeLogs[0].startTime.substring(0,19))
+					var start = new Date(this.timeLogs[0].start_time.substring(0,19))
 					var timeLeft = Math.floor((cur - start )/ 1000)
 					//console.log(this.pomodoroLongDuration + (this.pomodoroDuration * this.pomodoroShortCount) + (this.pomodoroShortDuration * (this.pomodoroShortCount - 1)))
 					timeLeft = timeLeft % (this.pomodoroLongDuration + (this.pomodoroDuration * this.pomodoroShortCount) + (this.pomodoroShortDuration * (this.pomodoroShortCount - 1)));
@@ -390,8 +392,11 @@ export default {
 			} else {
 				this.timeCounter = 0;
 				this.resetTimer()
-				var audio = new Audio("./alarm1.mp3")
-				audio.play()
+				if (!this.audioPlaying) {
+					var audio = new Audio("./alarm1.mp3")
+					audio.play()
+					this.audioPlaying = true
+				}
 				if (this.login.timer_choice === "countdown") {
 					this.$emit('parentCountdownDone')
 				}
@@ -411,14 +416,14 @@ export default {
 		},
 		overTime() {
 			var tzoffset = (new Date()).getTimezoneOffset() * 60000;
-			var tomorrow = new Date(new Date(this.timeLogs[0].startTime.substring(0,19)) - tzoffset);
+			var tomorrow = new Date(new Date(this.timeLogs[0].start_time.substring(0,19)) - tzoffset);
 			tomorrow.setDate(tomorrow.getDate()+1);
 			var tomorrowISO = tomorrow.toISOString().substring(0,19)
 			
 			var duration = 23 + ":" + 59 + ":" + 59;
 			var isActive = false
 
-			this.updateTimeLog({ id: this.timeLogs[0].id, endTime: tomorrowISO, duration: duration, active: isActive });
+			this.updateTimeLog({ id: this.timeLogs[0].id, end_time: tomorrowISO, duration: duration, active: isActive });
 			this.resetTimer();
 		},
 		parentDisableTimer() {

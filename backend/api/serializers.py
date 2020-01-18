@@ -37,7 +37,7 @@ class TimeLogSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TimeLog
-        fields = ('id', 'beforeNote', 'afterNote', 'nextNote', 'startTime', 'endTime', 'duration', 'owner', 'associated_file', 'active', 'file_name',)
+        fields = ('id', 'before_note', 'after_note', 'next_note', 'start_time', 'end_time', 'duration', 'owner', 'associated_file', 'active', 'file_name',)
 
 
 class UserDetailsSerializer(UserDetailsSerializer):

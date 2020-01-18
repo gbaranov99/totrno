@@ -245,10 +245,10 @@ export default {
 					endTime.setHours(endTime.getHours() + hours);
 					var endTimeISO = endTime.toISOString().substring(0,19)
 
-					this.addTimeLog({beforeNote: this.beforeNote, startTime: this.currentTime, endTime: endTimeISO, duration: this.login.countdown_duration, associated_file: this.associated_file, active: true, file_name: this.file_name})
+					this.addTimeLog({before_note: this.beforeNote, start_time: this.currentTime, end_time: endTimeISO, duration: this.login.countdown_duration, associated_file: this.associated_file, active: true, file_name: this.file_name})
 				}
 				else {
-					this.addTimeLog({beforeNote: this.beforeNote, startTime: this.currentTime, endTime: this.currentTime, associated_file: this.associated_file, active: this.isActive, file_name: this.file_name})
+					this.addTimeLog({before_note: this.beforeNote, start_time: this.currentTime, end_time: this.currentTime, associated_file: this.associated_file, active: this.isActive, file_name: this.file_name})
 				}
 			}
 		},
@@ -286,7 +286,7 @@ export default {
 					//console.log(duration)
 				}
 				this.parentTimerPressed();
-				this.addTimeLog({beforeNote: this.beforeNote, afterNote: this.afterNote, nextNote: this.nextNote, startTime: startTime, endTime: endTime, duration: duration, associated_file: this.associated_file, active: false, file_name: this.file_name});
+				this.addTimeLog({before_note: this.beforeNote, after_note: this.afterNote, next_note: this.nextNote, start_time: startTime, end_time: endTime, duration: duration, associated_file: this.associated_file, active: false, file_name: this.file_name});
 			}
 		},
 		parentTimerPressed() {

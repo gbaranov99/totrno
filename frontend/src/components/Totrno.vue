@@ -166,19 +166,19 @@
 					:key="item.id"
 					>
 						{{ 'Start time:' }}
-						{{ item.startTime }}
+						{{ item.start_time }}
 						<br />
 						{{ 'Duration:' }}
 						{{ item.duration }}
 						<br />
 						{{ 'Before Note:' }}
-						{{ item.beforeNote }}
+						{{ item.before_note }}
 						<br />
 						{{ 'After Note:' }}
-						{{ item.afterNote }}
+						{{ item.after_note }}
 						<br />
 						{{ 'Next Note:' }}
-						{{ item.nextNote }}
+						{{ item.next_note }}
 						<br />
 						{{ '--------------' }}
 						<br />
@@ -377,19 +377,19 @@
 					:key="item.id"
 					>
 						{{ 'Start time:' }}
-						{{ item.startTime }}
+						{{ item.start_time }}
 						<br />
 						{{ 'Duration:' }}
 						{{ item.duration }}
 						<br />
 						{{ 'Before Note:' }}
-						{{ item.beforeNote }}
+						{{ item.before_note }}
 						<br />
 						{{ 'After Note:' }}
-						{{ item.afterNote }}
+						{{ item.after_note }}
 						<br />
 						{{ 'Next Note:' }}
-						{{ item.nextNote }}
+						{{ item.next_note }}
 						<br />
 						{{ '--------------' }}
 						<br />

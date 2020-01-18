@@ -521,6 +521,7 @@ export default {
 		return {
 		offsetTop: 0,
 		appTitle: 'Totrno',
+		/*
 		content: [
 			{
 				title: "Introduction",
@@ -549,6 +550,7 @@ export default {
 				],
 			},
 		]
+		*/
 		}
 	},
 	methods: {

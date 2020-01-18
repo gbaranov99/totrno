@@ -1,6 +1,7 @@
 <template>
 	<v-container>
 		<SideNav></SideNav>	
+		{{ 'Calendar is in progress' }}
 	</v-container>
 </template>
 

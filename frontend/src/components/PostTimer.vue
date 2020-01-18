@@ -72,14 +72,14 @@ export default {
 	methods: {
 		postUpdate() {
 			if (this.isCountdown) {
-				this.updateTimeLog({ id: this.timeLogs[0].id, afterNote: this.afterNote, nextNote: this.nextNote, active: false });
+				this.updateTimeLog({ id: this.timeLogs[0].id, after_note: this.afterNote, next_note: this.nextNote, active: false });
 				this.parentTimerPressed();
 				this.parentStopTimer();
 			}
 			else {
 				var cur = Date.now();
 
-				var old = new Date(this.timeLogs[0].startTime.substring(0,19));
+				var old = new Date(this.timeLogs[0].start_time.substring(0,19));
 				var duration = cur - old;
 
 				var ms = duration % 1000;
@@ -95,7 +95,7 @@ export default {
 				this.parentStopTimer();
 				this.getTime();
 
-				this.updateTimeLog({ id: this.timeLogs[0].id, afterNote: this.afterNote, nextNote: this.nextNote, endTime: this.currentTime, duration: stringDuration, active: false });
+				this.updateTimeLog({ id: this.timeLogs[0].id, after_note: this.afterNote, next_note: this.nextNote, end_time: this.currentTime, duration: stringDuration, active: false });
 			}
 		},
 		toggleChildren() {

@@ -1,5 +1,6 @@
 <template>
 	<v-container>
+	<div class="d-none d-sm-block">
 		<v-app-bar app color="green lighten-4">
 			<v-toolbar-title
 			style="padding-right:10px;">
@@ -100,6 +101,118 @@
 			</v-list>
 		</v-menu>
 		</v-app-bar>
+	</div>
+
+	<div class="d-sm-none">
+		<v-app-bar app color="green lighten-4">
+			<v-btn dark color="green darken-4"
+				icon
+				style="margin-top:0px;"
+				type="submit"
+				@click="parentExpandSideNav()"
+				><v-icon>dehaze</v-icon>
+			</v-btn>
+			<v-toolbar-title
+			style="padding-right:10px;">
+				Path:
+			</v-toolbar-title>
+				
+			<template v-if="title_path.length > 0" >
+				<template v-for="(item, index) in title_path" 
+				>
+					<v-card	outlined tile
+						color="grey lighten-4"
+						style="height:40px;"
+						:key="item.id"
+						@click="parentSwitchFileSet(item)">
+						<v-card-text class="pt-2"> 
+							<p class="body-1 text--primary">
+								{{ item }}
+							</p>
+						</v-card-text>
+					</v-card>
+					<template v-if="index != title_path.length - 1">
+						-
+					</template>
+					<template v-else>
+						<v-toolbar-title :key="item.id">
+							{{ "-" }}
+							{{ curTitle }}
+						</v-toolbar-title>
+					</template>
+				</template>
+			</template>
+			<template v-slot:extension v-if="timeLogs.length > 0">
+			<v-spacer/>
+			<v-toolbar-title>
+				<span style="padding-right:25px;" v-if="!showTimer">
+				{{ timeLogs[0].file_name }}
+				</span>
+				<span v-else>
+				{{ timeLogs[0].file_name }}
+				</span>
+				<span v-if="showTimer">
+				--
+				<span style="padding-right:25px;">
+				{{ hours }}
+				{{ ':' }}
+				{{ minutes }}
+				{{ ':' }}
+				{{ seconds }}
+				</span>
+				<span style="padding-right:25px;" v-if="pomodoroShortBreakRunning">
+				{{ '(Short Break)' }}
+				</span>
+				<span style="padding-right:25px;" v-if="pomodoroLongBreakRunning">
+				{{ '(Long Break)' }}
+				</span>
+				</span>
+			</v-toolbar-title>
+		<v-menu 
+			v-if="timeLogs.length > 0"
+			transition="slide-y-transition"
+			bottom
+			offset-y
+		>
+			<template v-slot:activator="{ on }">
+				<v-btn
+					class="purple"
+					color="green darken-4"
+					tile dark
+					v-on="on">
+					<v-icon>expand_more</v-icon>
+				</v-btn>
+			</template>
+			<v-list>
+			<!--
+				<v-list-item
+					v-for="(item, i) in items"
+					:key="i"
+					@click=""
+				>
+				-->
+					<v-list-item
+					@click='parentDisableTimer()'
+					>
+						<v-list-item-title>{{ 'Stop Timer' }}</v-list-item-title>
+					</v-list-item>
+					<v-list-item
+					v-if="showTimer"
+					@click='changeTimerVisibility'
+					>
+						<v-list-item-title>{{ 'Hide countdown time' }}</v-list-item-title>
+					</v-list-item>
+					<v-list-item
+					v-else
+					@click='changeTimerVisibility'
+					>
+						<v-list-item-title>{{ 'Show countdown time' }}</v-list-item-title>
+					</v-list-item>
+			</v-list>
+		</v-menu>
+		</template>
+		</v-app-bar>
+	</div>
 	</v-container>
 </template>
 
@@ -155,6 +268,10 @@ export default {
 	methods: {
 		changeTimerVisibility() {
 			this.showTimer = !this.showTimer;
+		},
+		parentExpandSideNav() {
+			this.$emit('parentExpandSideNav')
+			//console.log('hm')
 		},
 		startTimer() {
 			//console.log('TimebarStartTimer');

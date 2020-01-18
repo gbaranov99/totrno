@@ -1,5 +1,6 @@
 <template>
 	<v-container>
+	<div class="d-none d-sm-block">
 		<v-app-bar app color="green lighten-4">
 			<v-tabs
 				align-with-title
@@ -25,6 +26,46 @@
 		<!--
 		{{ login }}
 		-->
+	</div>
+
+	<div class="d-sm-none">
+		<v-app-bar app color="green lighten-4">
+			<v-btn dark color="green darken-4"
+				icon
+				style="margin-top:0px;"
+				type="submit"
+				@click="expandSideNav()"
+				><v-icon>dehaze</v-icon>
+			</v-btn>
+				<v-btn
+					text
+					type="submit"
+					@click="changeSettingsPage('Account Info');drawer=null;"
+					><v-icon>account_circle</v-icon>
+				</v-btn>
+				<v-btn
+					text
+					type="submit"
+					@click="changeSettingsPage('Timer Settings');drawer=null;"
+					><v-icon>timer</v-icon>
+				</v-btn>
+			<v-spacer />
+			<v-toolbar-items>
+				<v-btn
+					text
+					type="submit"
+					@click="logoutUser({})"
+					><v-icon>logout</v-icon>
+				</v-btn>
+			</v-toolbar-items>
+		</v-app-bar>
+		<SideNav 
+			ref="sideNavRef"
+		></SideNav>
+		<!--
+		{{ login }}
+		-->
+	</div>
 		<v-container justify-center v-if="selectedPage==='Account Info'">
 			<v-row no-gutters>
 				<!--
@@ -511,12 +552,17 @@ export default {
 			countdownDuration: false,
 			countdownVal: null,
 			errorCountdown: '',
+
+			drawer: null,
 		};
 	},
 	computed: mapState({
 		login: state => state.login.login
 	}),
 	methods: {
+		expandSideNav() {
+			this.$refs.sideNavRef.switchDrawer()
+		},
 		fixDurationValue() {
 			var durationHours = Number(this.login.pomodoro_duration.substring(0, 2))
 			var durationMinutes = Number(this.login.pomodoro_duration.substring(3, 5))

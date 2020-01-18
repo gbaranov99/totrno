@@ -83,6 +83,7 @@
 						v-model="nextNote"
 						>
 						</v-text-field>
+						<div class="d-none d-sm-block">
 						<v-row>
 							<v-col>
 								<h1 class="headline" style="text-align:center;">
@@ -95,7 +96,6 @@
 								</h1>
 							</v-col>
 						</v-row>
-					</v-card-text>
 						<v-row justify="space-around">
 							<v-date-picker 
 								v-model="startDate" 
@@ -116,6 +116,44 @@
 								color="green darken-4"
 							></v-time-picker>
 						</v-row>
+						</div>
+						<div class="d-sm-none">
+						<v-row>
+								<h1 class="headline" style="text-align:center;">
+									{{ " Start time " }}
+								</h1>
+						</v-row>
+						<v-row justify="space-around">
+							<v-date-picker 
+								v-model="startDate" 
+								color="green darken-4"
+							></v-date-picker>
+						</v-row>
+						<v-row justify="space-around">
+							<v-time-picker 
+								v-model="startTime" 
+								color="green darken-4"
+							></v-time-picker>
+						</v-row>
+						<v-row>
+								<h1 class="headline" style="text-align:center;">
+									{{ " End time " }}
+								</h1>
+						</v-row>
+						<v-row justify="space-around">
+								<v-date-picker 
+									v-model="endDate" 
+									color="green darken-4"
+								></v-date-picker>
+						</v-row>
+						<v-row justify="space-around">
+							<v-time-picker 
+								v-model="endTime" 
+								color="green darken-4"
+							></v-time-picker>
+						</v-row>
+						</div>
+					</v-card-text>
 						<v-row v-if="errorMessage !== ''"
 							style="padding-top: 20px;"
 						>
@@ -236,11 +274,15 @@ export default {
 				var yesterday = new Date(startDate);
 				yesterday.setDate(yesterday.getDate()-1);
 				if (yesterday < startDate) {
-					duration = endDate - startDate
-					duration /= 60000
-					var hours = Math.floor(duration / 60)
-					var minutes = duration % 60
-					duration = hours + ':' + minutes + ':00'
+					var newDuration = endDate - startDate
+					newDuration /= 60000
+					// Less than 24 hours between start and end times
+					//console.log(newDuration)
+					if (newDuration < 1440) {
+						var hours = Math.floor(newDuration / 60)
+						var minutes = newDuration % 60
+						duration = hours + ':' + minutes + ':00'
+					}
 					//console.log(duration)
 				}
 				this.parentTimerPressed();

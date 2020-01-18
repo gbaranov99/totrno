@@ -2,7 +2,6 @@
 	<v-container>
 	<div class="d-none d-sm-block">
 		<TopNav></TopNav>
-		{{ 'big' }}
 		<v-layout wrap>
 			<v-flex xs8>
 				<v-img
@@ -39,7 +38,7 @@
 							required
 						></v-text-field>
 						<v-row v-if="errorMessage !== ''"
-						 style="padding-top: 20px;"
+							style="padding-top: 20px;"
 						>
 							<v-btn dark color="green darken-4"
 								style="margin-top: 15px;"
@@ -109,7 +108,7 @@
 							required
 						></v-text-field>
 						<v-row v-if="errorMessage !== ''"
-						 style="padding-top: 20px;"
+							style="padding-top: 20px;"
 						>
 							<v-btn dark color="green darken-4"
 								style="margin-top: 15px;"

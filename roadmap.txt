@@ -1,0 +1,172 @@
+Mobile layout plan:
+	Top left has a button to open up the left side nav menu
+	Left hand list is full width and length
+	Clicking on a file opens up the editing panel below instead of to the right
+	Less indentation
+
+		Avoid mutating a prop directly since the value will be overwritten whenever the parent component re-renders. Instead, use a data or computed property based on the prop's value. Prop being mutated: "drawer"
+			Appears when u click out of side nav menu gg
+
+----------------------------------------------------------------
+
+Standardize variable naming scheme (camelCase vs under_scores)
+Rename function calls / remove everything that isn't necessary
+Standardize quotes in function calls, and function calls in general ('' on outside, "" on inside, always in js)
+Delete all random commented code
+Update pictures in about page, especially cropping out whitespace and nav bar in one of them
+Make account page / timer selection look nicer depending on laptop vs phone (not super important rn)
+
+
+Make sure python changes are reflected in vue
+Backend naming (python)
+	lowercase_underscore for functions and variables
+	UpperCase for classes
+Frontend naming (js)
+	lowerUpperCase for variables and functions
+	replace tabs with 2 spaces
+
+Upgrade all python packages to latest version
+Remove python packages I am not using
+
+Make sure migration works:
+	check if "onclick not a function" errors are still present
+	Make sure pomodoro works
+	Make sure mobile version works
+		And that no errors were created while I made mobile and laptop be different
+	Check if I get any console errors in general
+
+Errors I have had:
+	Deleting files sometimes doesn't work
+	Glitched out when submitting form after ending timer data?
+	
+------------------------------------------------------------------------
+
+After I post it to social media:
+
+	Change file structure
+		Allow custom sorting of items
+		Add tags
+		Sorting options
+			Manual
+			By name
+			By due date
+
+	An archive option / mark off (in content section)
+		Keeps file, but doesn't show it
+		Allows time tracked data to persist and be attached to a file
+
+	Todo date
+		Date and time selector
+		Calendar that shows todos by date
+
+	A useful right banner, with file shortcuts
+		Powerful search function
+		Frequently used / most used
+		Most recently used
+		Top level file names
+
+	Other
+		Allow timer data to be deleted/modified from time data view
+		Limit path depth at 5
+			Remove from the start of the list (top level)
+		Limit path length to some amount of characters
+		Limit tracked title to some amount of characters
+
+	Publicize the app
+		Reddit/vue
+		ShowHN
+		Reach out to vuetify to see if they want to showcase it
+		Reddit/productivity
+		Reddit/time tracking
+		Show friends
+		Mostly ask for honest feedback, and for how to make the app better
+
+Until end of break (after new Years):
+	An undo button for most actions
+		Eventually could have a list of all changes ever, like in totrno
+
+	Data visualization for usage
+		Show time tracked data and completed file data
+		Very customizable outputs
+
+	Make add file draggable to a location
+		May not be necessary if open file on double click works as well as I hope
+
+	Add tiptap for content editing
+		Make it so the note taking aspect can be more serious
+		Maybe an expand left option on the content editing
+
+	See how it functions at scale on digital ocean
+
+	Optimzations for snappy preformance even with many items
+
+	Multiple item select
+		Possible uses: drag, delete, date
+
+	View user data
+		Get user analytics, likely through logs stored
+		How often are they on
+		How many tasks do they have
+
+	Add notifications, especially for phones
+
+	Preventative measures
+		Don't allow users to have more than 500 tasks
+
+
+	Things to consider
+		Maybe keep Time logs open on switching files, instead of changing to file info every time new file is selected?
+		Update headers to say which font to use in nginx
+		Write tests
+		Maybe use hashed data instead of increasing numbers for file numbers
+			Harder to predict user numbers and gives less exploitable data
+			Also makes it much harder to keep track of user info
+		See how people like current font size, I use app on 110% scaling
+		Make content section hover at top of screen in case user tree goes really far down
+		Default src : self in csp header makes something not work on production server, but right now it seems to have no effect on the website
+			See if it actually is messing with something, and how to fix that if I have to
+		jwt user authentication, not just token based
+		Data extraction in json form
+			Likely as text file (or whatever form json uses)
+			Both todos and time data
+		Allow dragging to be subfile even if the file is closed
+		Add a pausing feature to timers (if users seem to want it)
+			Pausing in general makes the app more difficult
+			Will need to keep track of total paused time
+			And for current pause period, I will need to
+			Keep track of start time, until when it ends
+			But if the user is pausing
+			They should probably be stopping the timer
+			Unless they are using them in a completely different way than I envisioned
+			Which is kinda the point
+			I think I can add a pausing feature later
+		Allow longer duration of timers, especially for intervals?
+		Eventually allow multiple timers, possible as a dropdown menu of timers
+		When timer is running show it up top, in the browser tab?
+		Allow user to quickly check the current pre timer note in drop down?
+		Make button flip in menu for timer
+		Timezone changes?
+		Handle network timeouts and the fallacies of distributed computing
+		Break up totrno component into subcomponents
+		Eventually password reset and email verification
+		Adds some comments to js code
+		24 hours vs 12 hour option for calendar / todo view
+		Repeat renders should be done in list (buttons in contact me)
+		Allow user to disable or enable any of the pre, post and next timer notes
+		Range options (start of range be current time, end of range be  current time, certain amount of time ahead??)
+		And allow user to decide after 4 breaks to continue to next break
+		Add functionality for timer to go ahead or not automatically (between pomodoro timers)
+		Error message if notes are longer than 300 characters
+		Use clock for set time in pomodoro choosing?
+		More tooltips on hovering over things?
+		Change some dialog formatting to be done better in totrno (?)
+			So dialog is not being shown using v-if, instead use a button, how it is supposed to be
+		Handle extreme cases
+			Limit depth
+				Esp on mobile
+			Limit path up top
+			Limit file name lenght
+				Especially up top in path and in timer data
+		Path traversal in path bar stops when first item with matching title is reached
+			If two items are named "asdf" the one deeper will always be stopped at first
+			Traverse by key, basically

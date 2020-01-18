@@ -1,5 +1,6 @@
 <template>
 	<v-container fluid>
+	<div class="d-none d-sm-block">
 		<SideNav></SideNav>
 		<TimeBar 
 			ref="TimeBar"
@@ -213,6 +214,228 @@
 		v-if="showPreTimer"
 		fluid
 		></PreTimer>
+	</div>
+
+	<div class="d-sm-none">
+		<SideNav 
+			ref="sideNavRef"
+		></SideNav>
+		<TimeBar 
+			ref="TimeBar"
+			:id_path=file_set_path_id
+			:title_path=file_set_path_title
+			:curTitle=curTitle
+			@parentSwitchFileSet="switchFileSet"
+			@parentDisableTimer="disableTimer"
+			@parentCountdownDone="countDownDone"
+			@parentExpandSideNav="expandSideNav"
+		></TimeBar>
+		<v-form>
+			<v-row no-gutters>
+			<v-col>
+				<v-card class="pa-0" outlined tile
+					style="height:39px;"
+				>
+					<v-text-field 
+						class="pa-0 ma-0"
+						solo
+						loader-height="2"
+						v-model="title"
+						label="File title"
+						required
+					>
+					</v-text-field>
+				</v-card>
+			</v-col>
+				<v-btn dark color="green darken-4"
+					style="margin-top:2px;"
+					type="submit"
+					large
+					tile
+					@click="createFile()"
+					><v-icon>add</v-icon>
+				</v-btn>
+			</v-row>
+		</v-form>
+		<v-row v-if="errorMessage !== ''"
+			style="padding-top: 20px;"
+		>
+			<v-spacer> </v-spacer>
+			<v-btn dark color="green darken-4"
+				style="margin-top: 15px;"
+				type="submit"
+				small
+				text
+				@click="errorMessage = ''"
+				><v-icon>close</v-icon>
+			</v-btn>
+			<h1 class="headline" style="padding-top:10px;padding-right:10px;">
+				{{ errorMessage }}
+			</h1>
+		</v-row>
+		<br>
+
+		<v-container fluid v-if="content_open">
+			<v-row no-gutters xs12>
+					<!--
+					<v-row no-gutters xs12 class="justify-start align-end">
+					</v-row>
+					-->
+				<v-col>
+					<v-row no-gutters xs12 class="justify-start align-end">
+						<v-tooltip bottom>
+							<template v-slot:activator="{ on }">
+								<v-btn
+									color="green darken-4"
+									icon dark
+									type="submit"
+									v-on="on"
+									@click="preTimerPressed()"
+									><v-icon>timer</v-icon>
+								</v-btn>	
+							</template>
+							<span>Start a time tracking</span>
+						</v-tooltip>
+						<v-tooltip bottom>
+							<template v-slot:activator="{ on }">
+								<v-btn
+									color="green darken-4"
+									icon dark
+									type="submit"
+									v-on="on"
+									@click="removeFile()"
+									><v-icon>delete</v-icon>
+								</v-btn>	
+							</template>
+							<span>Delete file</span>
+						</v-tooltip>
+						<v-tooltip bottom>
+							<template v-slot:activator="{ on }">
+								<v-btn
+									color="green darken-4"
+									icon dark
+									type="submit"
+									v-on="on"
+									@click="viewTimeData(); getFileLogs(current_file.id);"
+									><v-icon>access_time</v-icon>
+								</v-btn>	
+							</template>
+							<span>View previous time track data</span>
+						</v-tooltip>
+						<v-tooltip bottom>
+							<template v-slot:activator="{ on }">
+								<v-btn
+									color="green darken-4"
+									icon dark
+									type="submit"
+									v-on="on"
+									@click="updateFile({ title: current_file.title, content: current_file.content, parent: current_file.parent, id: current_file.id, closed: current_file.closed}); restoreContent();"
+									><v-icon>close</v-icon>
+								</v-btn>	
+							</template>
+							<span>Close file</span>
+						</v-tooltip>
+						<v-tooltip bottom>
+							<template v-slot:activator="{ on }">
+								<v-btn
+									color="green darken-4"
+									icon dark
+									type="submit"
+									v-on="on"
+									@click="updateFile({ title: current_file.title, content: current_file.content, parent: current_file.parent, id: current_file.id, closed: current_file.closed});"
+									><v-icon>save</v-icon>
+								</v-btn>	
+							</template>
+							<span>Save changes</span>
+						</v-tooltip>
+					</v-row>
+					<v-row>
+						<v-col>
+						<v-card class="pa-0" outlined tile
+							style="height:50px;"
+						>
+							<v-text-field 
+								class="pa-0 ma-0"
+								solo
+								loader-height="2"
+								v-model="current_file.title"
+							>
+							</v-text-field>
+						</v-card>
+						</v-col>
+					</v-row>
+					<v-row no-gutters xs12 v-if="!view_time_data">
+							<v-textarea
+								filled
+								auto-grow
+								color="black"
+								v-model="current_file.content"
+							></v-textarea>
+					</v-row>
+					<v-row no-gutters xs12 v-else
+					v-for="item in fileLogs"
+					:key="item.id"
+					>
+						{{ 'Start time:' }}
+						{{ item.startTime }}
+						<br />
+						{{ 'Duration:' }}
+						{{ item.duration }}
+						<br />
+						{{ 'Before Note:' }}
+						{{ item.beforeNote }}
+						<br />
+						{{ 'After Note:' }}
+						{{ item.afterNote }}
+						<br />
+						{{ 'Next Note:' }}
+						{{ item.nextNote }}
+						<br />
+						{{ '--------------' }}
+						<br />
+					</v-row>
+				</v-col>
+			</v-row>
+			<tree-menu 
+				:file_set="file_set"
+				:parent_file=null
+				:parent_title=parent_title
+				:parent_path=[]
+				@parentToggleContent="toggleContent"
+				@parentChangeFileSet="changeFileSet"
+				fluid
+			></tree-menu>
+		</v-container>
+		<v-container fluid v-else>
+			<tree-menu 
+				:file_set="file_set"
+				:parent_file=null
+				:parent_title=parent_title
+				:parent_path=[]
+				@parentToggleContent="toggleContent"
+				@parentChangeFileSet="changeFileSet"
+				fluid
+			></tree-menu>
+		</v-container>
+		<PostTimer
+		pa-0
+		:isCountdown=isCountdown
+		@parentTimerPressed="postTimerPressed"
+		@parentStopTimer="stopTimer"
+		v-if="showPostTimer"
+		fluid
+		></PostTimer>
+		<PreTimer
+		pa-0
+		:associated_file=current_file.id
+		:file_name=current_file.title
+		@parentTimerPressed="preTimerPressed"
+		@parentStartPressed="startTimer"
+		v-if="showPreTimer"
+		fluid
+		></PreTimer>
+
+	</div>
 	</v-container>
 </template>
 
@@ -258,6 +481,8 @@ export default {
 			isCountdown: false,
 
 			errorMessage: "",
+
+			drawer: null,
 		};
 	},
 	computed: {
@@ -276,6 +501,11 @@ export default {
 			this.deleteFile(this.current_file);
 			this.file_set = this.file_set.filter(obj => obj.id !== this.current_file.id)
 			this.content_open = !this.content_open;
+		},
+		expandSideNav() {
+			//console.log('wowzers')
+			//this.drawer = !this.drawer
+			this.$refs.sideNavRef.switchDrawer()
 		},
 		viewTimeData() {
 			this.view_time_data = !this.view_time_data;

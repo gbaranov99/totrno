@@ -1,8 +1,8 @@
 <template>
 	<v-container fluid 
-		class="fill-height"
 		style="background: linear-gradient(to bottom, #fafafa, #c9ead2, #95c9a4);"
 	>
+	<div class="d-none d-sm-block">
 		<TopNav></TopNav>
 		<v-layout justify-center align-start
 		style="height:4800px;"
@@ -133,6 +133,10 @@
 					<p class="headline text--primary"
 					>
 						- Pre, post and next timer notes encourage the user to reflect on how effective the session was
+					</p>
+					<p class="headline text--primary"
+					>
+						- Customizable timer functionality: countup, interval, countdown and pomodoro timers included
 					</p>
 				</v-card-text>
 			</v-card>
@@ -266,51 +270,242 @@
 			</v-card>
 			</v-slide-x-reverse-transition>
 			</v-flex>
-<!--
-
+		</v-layout>
+	</div>
+	<div class="d-sm-none">
+		<TopNav></TopNav>
+		<v-layout justify-center align-start
+		>
+			<v-flex xs12>
 				<v-img
-					v-if="offsetTop > 1000"
-					transition="scale-transition"
-					:src="require('../assets/TotrnoExample.png')"
-					class="ma-10 pa-4"
+					:src="require('../assets/About.png')"
+					class="my-3"
+					contain
+					height="100"
+				></v-img>
+					<p class="headline" style="text-align:center;">
+						There are many 'life organization' apps already out there.
+					</p>
+					<p class="display-1 text--primary" style="text-align:center;padding-top:20px;">
+						What makes Totrno different?
+					</p>
+			<v-card
+					style="margin-top:50px;"
+					color="rgb(255, 0, 0, 0)"
+					outlined
+			>
+				<v-card-text>
+					<p class="headline text--primary"
+					>
+						Robust feature set, and powerful integration between components.
+					</p>
+					<p class="body-1 text--primary"
+					text-left
+					>
+						- Todos, Time Tracked data and Notes are all linked in one cohesive format
+					</p>
+					<p class="body-1 text--primary"
+					>
+						- Totrno only contains 'Files', a combination of folders and tasks into one
+					</p>
+					<p class="body-1 text--primary"
+					>
+						- Every File has subfiles, a place to take notes, and time tracking data attached to it
+					</p>
+				</v-card-text>
+			</v-card>
+
+			<v-card
+					style="margin-top:0px;"
+					color="rgb(255, 0, 0, 0)"
+					outlined
+			>
+				<v-card-text>
+					<p class="headline text--primary"
+					style="text-align:center;"
+					>
+						Totrno can be as simple...
+					</p>
+				</v-card-text>
+				<v-img
+					:src="require('../assets/SimpleExample.png')"
+					class="my-3"
 					contain
 				></v-img>
+			</v-card>
+
+			<v-card
+					style="margin-top:20px;"
+					color="rgb(255, 0, 0, 0)"
+					outlined
+			>
+				<v-card-text>
+					<p class="headline text--primary"
+					style="text-align:center;"
+					>
+						Or as complex as you want.
+					</p>
+				</v-card-text>
+				<v-img
+					:src="require('../assets/ComplexExample.png')"
+					class="my-3"
+					contain
+				></v-img>
+			</v-card>
+
+			<v-card
+					style="margin-top:20px;"
+					color="rgb(255, 0, 0, 0)"
+					outlined
+			>
+				<v-card-text>
+					<p class="headline text--primary"
+					style="text-align:center;"
+					>
+						Advanced features include...
+					</p>
+				</v-card-text>
+				<v-card-text>
+					<p class="body-1 text--primary"
+					>
+						- Drag files around to create subfiles. Subfiles can be opened or closed on the left
+					</p>
+					<p class="body-1 text--primary"
+					>
+						- Clicking on a file will open access to the notes section, as well as to timer buttons
+					</p>
+					<p class="body-1 text--primary"
+					>
+						- The timer button starts a new timer, while the clock shows previously tracked time
+					</p>
+					<p class="body-1 text--primary"
+					>
+						- Pre, post and next timer notes encourage the user to reflect on how effective the session was
+					</p>
+					<p class="body-1 text--primary"
+					>
+						- Customizable timer functionality: countup, interval, countdown and pomodoro timers included
+					</p>
+				</v-card-text>
+			</v-card>
 
 
-				<v-card class="d-inline-block mx-auto">
-    <v-container>
-      <v-row justify="space-between">
-        <v-col cols="auto">
-          <v-img
-            height="200"
-            width="200"
-            src="https://cdn.vuetifyjs.com/images/cards/store.jpg"
-          ></v-img>
-        </v-col>
+			<v-card
+					style="margin-top:20px;"
+					color="rgb(255, 0, 0, 0)"
+					outlined
+			>
+				<v-card-text>
+					<p class="headline text--primary"
+					style="text-align:center;"
+					>
+						Right clicking (long press on mobile) on a file will show its subfiles exclusively, with the path above allowing traversal back up to higher files
+					</p>
+					<p class="body-1 text--primary"
+					style="text-align:center;"
+					>
+						Below is what happens if you right click on 'Bacon' in the main File list
+					</p>
+				</v-card-text>
+				<v-img
+					:src="require('../assets/PathExample.png')"
+					class="my-3"
+					contain
+				></v-img>
+			</v-card>
 
-			<v-list>
-				<v-list-group
-					v-for="item in content"
-					color="green darken-4"
-					:key="item.title"
-					background_color="grey"
-				>
-					<template v-slot:activator>
-						<v-list-item-title> 
-						<h1 class="headline"> {{ item.title }}</h1>
-						</v-list-item-title>
-					</template>
-					<v-list-item-content>
-					<template v-for="subitem in item.content" >
-						<h1 class="headline" style="padding-top:10px;"> {{ subitem }}</h1>
-						<br>
-					</template>
-					</v-list-item-content>
-				</v-list-group>
-			</v-list>
-			-->
+			<v-card
+					style="margin-top:20px;"
+					color="rgb(255, 0, 0, 0)"
+					outlined
+			>
+				<v-card-text>
+					<p class="headline text--primary"
+					style="text-align:center;"
+					>
+						There are many more features planned for the future, including:
+					</p>
+					<p class="body-1 text--primary"
+					>
+						- Powerful search functionality
+					</p>
+					<p class="body-1 text--primary"
+					>
+						- Visualising your tracked time over weeks and months
+					</p>
+					<p class="body-1 text--primary"
+					>
+						- Integration with services such as Slack and Google Calendar
+					</p>
+					<p class="body-1 text--primary"
+					>
+						- Full andriod /ios integration with reminders and notifications
+					</p>
+					<p class="body-1 text--primary"
+					>
+						- And way more!
+					</p>
+				</v-card-text>
+			</v-card>
 
+
+			<v-card
+					style="margin-top:20px;"
+					color="rgb(255, 0, 0, 0)"
+					outlined
+			>
+				<v-card-text>
+					<p class="display-1 text--primary"
+					style="text-align:center;"
+					>
+						Feel free to try out the app by signing up above!
+					</p>
+					<p class="body-1 text--primary"
+					style="text-align:center;padding-top:30px;"
+					>
+						You can find me, the developer (Greg Baranov), at the social links below
+					</p>
+					<p class="body-1 text--primary"
+					style="text-align:center;"
+					>
+						Please reach out to me with any comments or questions you might have about the website.
+					</p>
+					<p class="body-1 text--primary"
+					style="text-align:center;padding-bottom:30px;"
+					>
+						:)
+					</p>
+				</v-card-text>
+				<v-row style="padding-bottom:50px;text-align:center;">
+					<v-flex>
+						<v-btn
+							color="green darken-4" 
+							href="https://github.com/gbaranov99" target="_blank"
+							fab dark>
+							<v-icon>mdi-github-circle</v-icon>
+						</v-btn>
+					</v-flex>
+					<v-flex>
+						<v-btn
+							color="green darken-4" 
+							href="https://www.linkedin.com/in/gbaranov99/" target="_blank"
+							fab dark>
+							<v-icon>mdi-linkedin-box</v-icon>
+						</v-btn>
+					</v-flex>
+					<v-flex>
+						<v-btn
+							color="green darken-4" 
+							href="mailto: gbaranov99@gmail.com"
+							fab dark>
+							<v-icon>mail</v-icon>
+						</v-btn>
+					</v-flex>
+				</v-row>
+			</v-card>
+			</v-flex>
 		</v-layout>
+	</div>
 	</v-container>
 </template>
 
@@ -358,11 +553,13 @@ export default {
 	},
 	methods: {
 		onScroll () {
-			//console.log(e.target.scrollTop)
 			this.offsetTop = window.pageYOffset || document.documentElement.scrollTop
 		}
 	}
 };
-
-//		style="background: linear-gradient(to bottom, #EEEEEE, #95c9a4, #00461f);"
+/*
+		class="fill-height"
+		style="height:4800px;"
+		v-scroll="onScroll"
+*/
 </script>

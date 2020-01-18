@@ -1,6 +1,8 @@
 <template>
 	<v-container>
+	<div class="d-none d-sm-block">
 		<TopNav></TopNav>
+		{{ 'big' }}
 		<v-layout wrap>
 			<v-flex xs8>
 				<v-img
@@ -55,6 +57,7 @@
 						</v-row>
 						<v-btn dark color="green darken-4"
 							type="submit"
+							tile
 							@click="tryLogin()"
 						>Login</v-btn>
 					</v-form>
@@ -67,6 +70,78 @@
 			</v-flex>
 
 		</v-layout>
+	</div>
+
+	<div class="d-sm-none">
+		<TopNav></TopNav>
+		<v-layout wrap>
+			<v-flex xs12>
+				<v-img
+					:src="require('../assets/totrnoLanding.png')"
+					class="my-3"
+					contain
+					height="250"
+				></v-img>
+			</v-flex>
+
+			<v-flex xs12 >
+				<v-container>
+					<v-form v-on:submit.prevent="onSubmit">
+						<h1 class="display-1" style="padding-top: 0px;">
+							Login
+						</h1>
+						<v-text-field
+							name="username"
+							label="Username"
+							id="username"
+							type="username"
+							color="green darken-4"
+							v-model="username"
+							required
+						></v-text-field>
+						<v-text-field
+							name="password"
+							label="Password"
+							id="password"
+							type="password"
+							color="green darken-4"
+							v-model="password"
+							required
+						></v-text-field>
+						<v-row v-if="errorMessage !== ''"
+						 style="padding-top: 20px;"
+						>
+							<v-btn dark color="green darken-4"
+								style="margin-top: 15px;"
+								type="submit"
+								tile
+								small
+								text
+								@click="errorMessage = ''"
+								><v-icon>close</v-icon>
+							</v-btn>
+							<v-col>
+							<h1 class="headline">
+								{{ errorMessage }}
+							</h1>
+							</v-col>
+						</v-row>
+						<v-btn dark color="green darken-4"
+							type="submit"
+							tile
+							@click="tryLogin()"
+						>Login</v-btn>
+					</v-form>
+				</v-container>
+			</v-flex>
+
+			<v-flex xs12 mt-12 text-center>
+				<h1 class="headline ">Everything you need to organize your life,</h1>
+				<h1 class="headline ">All in one place.</h1>
+			</v-flex>
+
+		</v-layout>
+	</div>
 	</v-container>
 </template>
 

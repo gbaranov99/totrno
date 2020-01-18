@@ -22,7 +22,9 @@
 			</v-toolbar-items>
 		</v-app-bar>
 		<SideNav></SideNav>
+		<!--
 		{{ login }}
+		-->
 		<v-container justify-center v-if="selectedPage==='Account Info'">
 			<v-row no-gutters>
 				<!--

@@ -91,4 +91,4 @@ class FileLogViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         #return TimeLog.objects.filter(owner=user, associated_file=6)
-        return TimeLog.objects.filter(owner=user).order_by('-startTime')
+        return TimeLog.objects.filter(owner=user).order_by('-start_time')

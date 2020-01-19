@@ -272,6 +272,7 @@
 			</v-flex>
 		</v-layout>
 	</div>
+
 	<div class="d-sm-none">
 		<TopNav></TopNav>
 		<v-layout justify-center align-start
@@ -521,36 +522,6 @@ export default {
 		return {
 		offsetTop: 0,
 		appTitle: 'Totrno',
-		/*
-		content: [
-			{
-				title: "Introduction",
-				content: [
-					"There are plenty of time tracking and planning tools out there already. Many of them work very well for a lot of people.",
-					"So why make another one?",
-					"Part of it was that I wanted to create a web app, and this was my only real idea. So yeah, that was definitely a factor.",
-					"However, I do believe Totrno is a useful application in its own right. It does not impose any particular framework on the user. It merely provides tools that the user can use as they please.",
-					"Although I did design the framework with a specific implementation in mind, it can likely be used in a number of ways I did not envision. I will use it primarily for planning out personal projects and documenting their progress. But it can just as easily be used as a place to store recipies for food, or create detailed journal entries.",
-					"On this page, I will provide a basic introduction into the layout of Totrno in the Features section. In the My Implementation section I will go a bit more into how I plan on using this web app going forward. I will also include a list of Upcoming Features: things I will work into the platform.",
-				],
-			},
-			{
-				title: "Features",
-				content: [
-				],
-			},
-			{
-				title: "My implementation",
-				content: [
-				],
-			},
-			{
-				title: "Upcoming features",
-				content: [
-				],
-			},
-		]
-		*/
 		}
 	},
 	methods: {
@@ -559,9 +530,4 @@ export default {
 		}
 	}
 };
-/*
-		class="fill-height"
-		style="height:4800px;"
-		v-scroll="onScroll"
-*/
 </script>

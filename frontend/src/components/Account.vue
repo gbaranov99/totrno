@@ -517,7 +517,6 @@
 </template>
 
 <script>
-require('howler');
 
 import { mapState, mapActions } from 'vuex'
 import SideNav from './SideNav'
@@ -661,16 +660,6 @@ export default {
 		this.$store.dispatch('login/getUser')
 			.then(() => {
 				this.fixDurationValue()
-				//const sound = ( new Audio( require('../assets/alarm1.mp3') )).play();
-				//var audio = new Audio(src="../assets/alarm1.mp3")
-				//this.audio = new Howl({
-					//src: "http://www.noiseaddicts.com/samples_1w72b820/3720.mp3",
-					//src: require('../assets/alarm1.mp3'),
-					//src: "https://freesound.org/people/kwahmah_02/sounds/250629/download/250629__kwahmah-02__alarm1.mp3",
-					//volume: 1.0,
-				//});
-				//console.log(this.audio)
-				//this.audio.play();
 				})
 	}
 };

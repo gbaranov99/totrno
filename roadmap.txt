@@ -47,7 +47,7 @@ Timer bugs
 	Alarm sounded weird
 	Doesn't sound sometimes if not on screen
 	Doesn't go to long break
-
+	Stop timer once post timer is done
 
 ------------------------------------------------------------------------
 

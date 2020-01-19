@@ -1,7 +1,5 @@
 <template>
 	<v-container fluid>
-	<div class="d-none d-sm-block">
-		<SideNav></SideNav>
 		<TimeBar 
 			ref="TimeBar"
 			:id_path=file_set_path_id
@@ -10,7 +8,12 @@
 			@parentSwitchFileSet="switchFileSet"
 			@parentDisableTimer="disableTimer"
 			@parentCountdownDone="countDownDone"
+			@parentExpandSideNav="expandSideNav"
 		></TimeBar>
+		<SideNav 
+			ref="sideNavRef"
+		></SideNav>
+	<div class="d-none d-sm-block">
 		<v-form>
 			<v-row no-gutters>
 			<v-col>
@@ -217,19 +220,6 @@
 	</div>
 
 	<div class="d-sm-none">
-		<SideNav 
-			ref="sideNavRef"
-		></SideNav>
-		<TimeBar 
-			ref="TimeBar"
-			:id_path=file_set_path_id
-			:title_path=file_set_path_title
-			:curTitle=curTitle
-			@parentSwitchFileSet="switchFileSet"
-			@parentDisableTimer="disableTimer"
-			@parentCountdownDone="countDownDone"
-			@parentExpandSideNav="expandSideNav"
-		></TimeBar>
 		<v-form>
 			<v-row no-gutters>
 			<v-col>

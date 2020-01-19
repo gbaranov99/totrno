@@ -239,10 +239,10 @@ export default {
 					var tzoffset = (new Date()).getTimezoneOffset() * 60000;
 					var endTime = new Date(new Date(this.currentTime) - tzoffset);
 
-					var hours = Number(this.login.countdown_duration.substring(0, 2))
-					var minutes = Number(this.login.countdown_duration.substring(3, 5))
-					endTime.setMinutes(endTime.getMinutes() + minutes);
-					endTime.setHours(endTime.getHours() + hours);
+					var hoursDuration = Number(this.login.countdown_duration.substring(0, 2))
+					var minutesDuration = Number(this.login.countdown_duration.substring(3, 5))
+					endTime.setMinutes(endTime.getMinutes() + minutesDuration);
+					endTime.setHours(endTime.getHours() + hoursDuration);
 					var endTimeISO = endTime.toISOString().substring(0,19)
 
 					this.addTimeLog({before_note: this.beforeNote, start_time: this.currentTime, end_time: endTimeISO, duration: this.login.countdown_duration, associated_file: this.associated_file, active: true, file_name: this.file_name})
@@ -279,9 +279,9 @@ export default {
 					// Less than 24 hours between start and end times
 					//console.log(newDuration)
 					if (newDuration < 1440) {
-						var hours = Math.floor(newDuration / 60)
-						var minutes = newDuration % 60
-						duration = hours + ':' + minutes + ':00'
+						var hoursDuration = Math.floor(newDuration / 60)
+						var minutesDuration = newDuration % 60
+						duration = hoursDuration + ':' + minutesDuration + ':00'
 					}
 					//console.log(duration)
 				}

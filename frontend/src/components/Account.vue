@@ -585,13 +585,13 @@ export default {
 		updateTimerDuration() {
 			if (this.durationVal >= 0 && this.durationVal <= 1440) {
 				this.pomodoroTimerDuration = false
-				var hours = Math.floor(this.durationVal / 60)
-				var minutes = Math.floor(this.durationVal % 60)
-				this.durationVal = hours * 60 + minutes
-				if (hours == 0) {
-					hours = '00'
+				var hoursDuration = Math.floor(this.durationVal / 60)
+				var minutesDuration = Math.floor(this.durationVal % 60)
+				this.durationVal = hoursDuration * 60 + minutesDuration
+				if (hoursDuration == 0) {
+					hoursDuration = '00'
 				}
-				var duration = hours + ":" + minutes + ":00"
+				var duration = hoursDuration + ":" + minutesDuration + ":00"
 				this.postUser({ username: this.login.username,  pomodoro_duration: duration })
 				this.login.pomodoro_duration = duration
 				this.errorDuration = ''

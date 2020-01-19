@@ -9,7 +9,3 @@ Totrno is primarily geared towards people working on personal projects and track
 Planning and spending personal time wisely is a key goal of totrno
 
 #### You may feel high, or feel quite low, but your time is safe with totrno :)
-
-sudo docker-compose run backend python manage.py makemigrations api
-	May need to be run when first creating database
-

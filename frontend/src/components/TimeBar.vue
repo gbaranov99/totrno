@@ -35,33 +35,27 @@
 			<v-spacer/>
 			<v-toolbar-title v-if="timeLogs.length > 0">
 				Running Timers:
-				<!--
 				<span style="padding-right:25px;" v-if="!showTimer">
 				{{ timeLogs[0].file_name }}
 				</span>
 				<span v-else>
 				{{ timeLogs[0].file_name }}
 				</span>
-				-->
-				--
 				<span v-if="showTimer">
+				--
 				<span style="padding-right:25px;">
 				{{ hours }}
 				{{ ':' }}
 				{{ minutes }}
 				{{ ':' }}
 				{{ seconds }}
-				{{ timeCounter }}
-				{{ timer }}
 				</span>
-				<!--
 				<span style="padding-right:25px;" v-if="pomodoroShortBreakRunning">
 				{{ '(Short Break)' }}
 				</span>
 				<span style="padding-right:25px;" v-if="pomodoroLongBreakRunning">
 				{{ '(Long Break)' }}
 				</span>
-				-->
 				</span>
 			</v-toolbar-title>
 		<v-menu 
@@ -247,7 +241,6 @@ export default {
 			pomodoroLongDuration: 0,
 			pomodoroShortCount: 0,
 
-
 			audioPlaying: false,
 		}
 	},
@@ -271,7 +264,6 @@ export default {
 		},
 		seconds: function() {
 			const seconds = this.timeCounter - (this.hours * 3600) - (this.minutes * 60);
-			console.log(seconds)
 			return this.padTime(seconds);
 		}
 	},
@@ -283,22 +275,9 @@ export default {
 			this.$emit('parentExpandSideNav')
 			//console.log('hm')
 		},
-		updateTime() {
-			this.hours = Math.floor(this.timeCounter / 3600)
-			//console.log('test100')
-			//return this.padTime(hours);
-			this.minutes = Math.floor((this.timeCounter - (this.hours * 3600))/60)
-			//return this.padTime(minutes);
-			this.seconds = this.timeCounter - (this.hours * 3600) - (this.minutes * 60)
-			//return this.padTime(seconds);
-			console.log('works')
-			console.log(this.seconds)
-		},
 		startTimer() {
 			//console.log('TimebarStartTimer');
 			var cur = Date.now();
-			console.log('hm')
-			this.timer = null
 			if (this.login.timer_choice === "countup") {
 				if (this.timeLogs.length > 0) {
 					var old = new Date(this.timeLogs[0].start_time.substring(0,19));
@@ -306,7 +285,6 @@ export default {
 
 					this.timeCounter = Math.floor(duration / 1000);
 				}
-				this.timeCounter = 0;
 				this.timer = setInterval(() => this.countup(), 1000);
 			}
 			else if (this.login.timer_choice === "countdown") {
@@ -318,11 +296,8 @@ export default {
 					var hoursCountdown = Number(this.login.countdown_duration.substring(0, 2)) * 3600
 					var minutesCountdown = Number(this.login.countdown_duration.substring(3, 5)) * 60
 					this.timeCounter = hoursCountdown + minutesCountdown
-					console.log(this.timeCounter)
 				}
 				this.timer = setInterval(() => this.countdown(), 1000);
-				console.log(typeof this.timer)
-				console.log('test300')
 			}
 			else if (this.login.timer_choice === "pomodoro") {
 				var hoursPomodoro = Number(this.login.pomodoro_duration.substring(0, 2)) * 3600
@@ -386,43 +361,34 @@ export default {
 						}
 					}
 					//console.log(this.pomodoroCounter)
-					console.log('test16')
 				}
 				else {
+					//console.log(this.timeCounter)
 					this.timeCounter = this.pomodoroDuration
 					this.pomodoroShortBreakRunning = false
 					this.pomodoroLongBreakRunning = false
 					this.pomodoroCounter = 1
-					console.log(this.timeCounter)
-					console.log('test17')
 				}
 				this.timer = setInterval(() => this.countdown(), 1000);
-				console.log(this.timer)
-				console.log('test1')
 			}
 		},
 		stopTimer() {
-			this.timeCounter = 0;
-			clearInterval(this.timer)
+			clearInterval(this.timer);
 			this.timer = null;
-			//this.updateTime()
 		},
 		resetTimer() {
 			//console.log('resetTimer');
-			clearInterval(this.timer)
 			this.timeCounter = 0;
+			clearInterval(this.timer);
 			this.timer = null;
-			//this.updateTime()
 		},
 		padTime: function(time) {
 			return (time < 10 ? '0' : '') + time;
 		},
 		countdown: function() {
-			console.log('Countdown');
-			console.log(this.timeCounter)
+			//console.log('Countdown');
 			if (this.timeCounter > 0) {
 				this.timeCounter--;
-				//this.updateTime();
 			} else {
 				this.timeCounter = 0;
 				this.resetTimer()
@@ -440,9 +406,7 @@ export default {
 			}
 		},
 		countup: function() {
-			console.log('countup');
-			console.log(this.timeCounter)
-			console.log(this.timer)
+			//console.log('countup');
 			if (this.timeCounter <= 86400) {
 				this.timeCounter++;
 			} else{
@@ -464,7 +428,6 @@ export default {
 		},
 		parentDisableTimer() {
 			this.$emit('parentDisableTimer');
-			this.resetTimer();
 		},
 		parentSwitchFileSet(item) {
 			var i, j;
@@ -531,9 +494,10 @@ export default {
 			.then(() => {
 			this.$store.dispatch('timeLogs/getActiveTimeLogs')
 				.then(() => {
-					console.log(this.timeLogs.length);
+					//console.log(this.timeLogs.length);
 					if (this.timeLogs.length > 0) {
 						this.resetTimer()
+
 						this.startTimer();
 					}
 				})

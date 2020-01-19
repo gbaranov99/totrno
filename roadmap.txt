@@ -16,6 +16,9 @@ Backend naming (python)
 	lowercase_underscore for functions and variables
 	UpperCase for classes
 
+Timer bugs 
+	Pomodoro timer didn't start immediately from reboot
+	Stop timer once post timer is done
 ----------------------------------------------------------------
 
 
@@ -24,6 +27,10 @@ Standardize quotes in function calls, and function calls in general ('' on outsi
 Delete all random commented code
 Update pictures in about page, especially cropping out whitespace and nav bar in one of them
 Make account page / timer selection look nicer depending on laptop vs phone (not super important rn)
+Don't allow changing timer types until current timer is stopped
+Generally better formatting on mobile
+	Pomodoro timer goes off screen
+
 
 Frontend naming (js)
 	lowerUpperCase for variables and functions
@@ -42,12 +49,9 @@ Errors I have had:
 	Deleting files sometimes doesn't work
 	Glitched out when submitting form after ending timer data?
 	
-Timer bugs 
-	Pomodoro timer didn't start immediately from reboot
-	Alarm sounded weird
-	Doesn't sound sometimes if not on screen
-	Doesn't go to long break
-	Stop timer once post timer is done
+Alarm sounded weird
+Doesn't sound sometimes if not on screen
+Doesn't go to long break
 
 ------------------------------------------------------------------------
 

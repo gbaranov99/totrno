@@ -517,6 +517,7 @@
 </template>
 
 <script>
+require('howler');
 
 import { mapState, mapActions } from 'vuex'
 import SideNav from './SideNav'
@@ -585,13 +586,13 @@ export default {
 		updateTimerDuration() {
 			if (this.durationVal >= 0 && this.durationVal <= 1440) {
 				this.pomodoroTimerDuration = false
-				var hoursDuration = Math.floor(this.durationVal / 60)
-				var minutesDuration = Math.floor(this.durationVal % 60)
-				this.durationVal = hoursDuration * 60 + minutesDuration
-				if (hoursDuration == 0) {
-					hoursDuration = '00'
+				var hours = Math.floor(this.durationVal / 60)
+				var minutes = Math.floor(this.durationVal % 60)
+				this.durationVal = hours * 60 + minutes
+				if (hours == 0) {
+					hours = '00'
 				}
-				var duration = hoursDuration + ":" + minutesDuration + ":00"
+				var duration = hours + ":" + minutes + ":00"
 				this.postUser({ username: this.login.username,  pomodoro_duration: duration })
 				this.login.pomodoro_duration = duration
 				this.errorDuration = ''
@@ -660,6 +661,16 @@ export default {
 		this.$store.dispatch('login/getUser')
 			.then(() => {
 				this.fixDurationValue()
+				//const sound = ( new Audio( require('../assets/alarm1.mp3') )).play();
+				//var audio = new Audio(src="../assets/alarm1.mp3")
+				//this.audio = new Howl({
+					//src: "http://www.noiseaddicts.com/samples_1w72b820/3720.mp3",
+					//src: require('../assets/alarm1.mp3'),
+					//src: "https://freesound.org/people/kwahmah_02/sounds/250629/download/250629__kwahmah-02__alarm1.mp3",
+					//volume: 1.0,
+				//});
+				//console.log(this.audio)
+				//this.audio.play();
 				})
 	}
 };

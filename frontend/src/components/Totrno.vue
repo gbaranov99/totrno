@@ -572,7 +572,7 @@ export default {
 					this.fileSetPathTitle.push(pathTitle[i]);
 				}
 			}
-			this.fileSet = file.fileSet;
+			this.fileSet = file.file_set;
 			this.parent = file.id;
 			this.curTitle = file.title;
 		},
@@ -595,7 +595,7 @@ export default {
 					for (j = 0; j < curFileSet.length; j++) {
 						curFile = curFileSet[j];
 						if (curFile.id == item) {
-							this.fileSet = curFile.fileSet;
+							this.fileSet = curFile.file_set;
 							this.parent = curFile.id;
 							this.curTitle = curFile.title;
 							done = i;
@@ -604,7 +604,7 @@ export default {
 							break;
 						}
 						else if (curFile.id == this.fileSetPathId[i + 1]) {
-							curFileSet = curFile.fileSet;
+							curFileSet = curFile.file_set;
 							break;
 						}
 					}

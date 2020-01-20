@@ -43,7 +43,6 @@ Errors I have had:
 	Make add file draggable to a location
 		May not be necessary if open file on double click works as well as I hope
 
-~~
 
 Make sure migration works:
 	check if "onclick not a function" errors are still present

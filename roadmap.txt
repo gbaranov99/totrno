@@ -1,3 +1,9 @@
+------------------------------------------------------------------------
+
+Version 2 changes (completed)
+
+------------------------------------------------------------------------
+
 Mobile layout plan:
 	Top left has a button to open up the left side nav menu
 	Left hand list is full width and length
@@ -33,8 +39,11 @@ Doesn't go to long break
 Errors I have had:
 	Deleting files sometimes doesn't work
 	Glitched out when submitting form after ending timer data?
-----------------------------------------------------------------
 
+	Make add file draggable to a location
+		May not be necessary if open file on double click works as well as I hope
+
+~~
 
 Make sure migration works:
 	check if "onclick not a function" errors are still present
@@ -47,7 +56,11 @@ Make sure migration works:
 	
 ------------------------------------------------------------------------
 
-After I post it to social media:
+Version 3 Changes (in Progress)
+Ideally, finish everything in here by start of March
+Be done with this by April 1st
+
+------------------------------------------------------------------------
 
 	Change file structure
 		Allow custom sorting of items
@@ -65,20 +78,27 @@ After I post it to social media:
 		Date and time selector
 		Calendar that shows todos by date
 
-	A useful right banner, with file shortcuts
+	A useful left banner, with file shortcuts
 		Powerful search function
 		Frequently used / most used
 		Most recently used
 		Top level file names
 
-	Other
+	Add limits to lengths, so things don't go way off screen
 		Allow timer data to be deleted/modified from time data view
 		Limit path depth at 5
 			Remove from the start of the list (top level)
 		Limit path length to some amount of characters
 		Limit tracked title to some amount of characters
 
-	Publicize the app
+	An undo button for most actions
+		Eventually could have a list of all changes ever, like in TickTick
+
+	Data visualization for usage
+		Show time tracked data and completed file data
+		Very customizable outputs
+
+	Publicize the app more
 		Reddit/vue
 		ShowHN
 		Reach out to vuetify to see if they want to showcase it
@@ -87,16 +107,14 @@ After I post it to social media:
 		Show friends
 		Mostly ask for honest feedback, and for how to make the app better
 
-Until end of break (after new Years):
-	An undo button for most actions
-		Eventually could have a list of all changes ever, like in totrno
+------------------------------------------------------------------------
 
-	Data visualization for usage
-		Show time tracked data and completed file data
-		Very customizable outputs
+Version 4 Changes (Future)
+Get all features added by end of spring semester, May 15th
+Product should be fully functional by then
 
-	Make add file draggable to a location
-		May not be necessary if open file on double click works as well as I hope
+------------------------------------------------------------------------
+
 
 	Add tiptap for content editing
 		Make it so the note taking aspect can be more serious

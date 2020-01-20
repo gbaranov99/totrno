@@ -162,11 +162,6 @@ REST_FRAMEWORK = {
 #    )
 }
 
-#
-#REST_AUTH_SERIALIZERS = {
-#    'USER_DETAILS_SERIALIZER': '../api/',
-#}
-
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'api.serializers.UserDetailsSerializer',
 }

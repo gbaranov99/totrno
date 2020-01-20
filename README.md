@@ -1,11 +1,9 @@
-# Totrno stands for TOdos, Time TRacking and NOtes
+# Totrno is my take on a minimalistic, self-contained productivity suite.
 
-Totrno's primary function is being a clean and functional way to manage how one spends their free time
+### Check it out at www.totrno.com
 
-Starting a timer or creating a todo is simple and clear, but under the easy to understand interface lies advanced data visualization technology
+Totrno is a vue and django REST api based application that integrates TOdos, TRacking time and NOtes into one platform.
 
-Totrno is primarily geared towards people working on personal projects and tracking progress on hobbies, less so on tracking work
+The current app is far from what the finished product will be. A layout of some of the upcoming features can be found in roadmap.txt
 
-Planning and spending personal time wisely is a key goal of totrno
-
-#### You may feel high, or feel quite low, but your time is safe with totrno :)
+Feel free to reach out to me with any comments or questions.

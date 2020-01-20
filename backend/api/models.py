@@ -1,27 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.postgres.fields import ArrayField
-#from mptt.models import MPTTModel, TreeForeignKey
-
-
-#class UserSettings(models.Model):
-#    countup = 'countup'
-#    countdown = 'countdown'
-#    interval = 'interval'
-#    pomodoro = 'pomodoro'
-#
-#    timer_option_choices = [
-#        (countup, 'countup'),
-#        (countdown, 'countdown'),
-#        (interval, 'interval'),
-#        (pomodoro, 'pomodoro'),
-#    ]
-#    timer_choice = models.CharField( max_length=9, choices=timer_option_choices, default=countup)
-#
-#    pomodoro_duration = models.TimeField(null=True, blank=True)
-#    pomodoro_small_break_count = models.IntegerField(null=True)
-#    pomodoro_small_break_duration = models.TimeField(null=True, blank=True)
-#    pomodoro_big_break_duration = models.TimeField(null=True, blank=True)
 
 
 class CustomUser(AbstractUser):

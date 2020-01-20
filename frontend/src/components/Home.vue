@@ -175,7 +175,6 @@ export default {
 		tryLogin() {
 			this.loginUser({ username: this.username,  password: this.password })
 				.then(errors => {
-					//console.log(errors)
 					if (!errors) {
 						this.isLoggedIn = !this.isLoggedIn;
 					}
@@ -185,23 +184,6 @@ export default {
 					}
 				})
 		},
-		//refreshAppVue() {
-		//	this.$store.dispatch('login/getUser')
-		//		.then(errors => {
-		//			console.log(errors)
-		//			if (!errors) {
-		//				this.isLoggedIn = !this.isLoggedIn;
-		//			}
-		//			else {
-		//				this.errorMessage = "Please enter a valid login";
-		//				this.isLoggedIn = false;
-		//				this.loginFailed = true;
-		//			}
-		//		})
-		//},
 	},
-	//created() {
-	//	this.refreshAppVue();
-	//}
 };
 </script>

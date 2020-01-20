@@ -19,22 +19,21 @@ Backend naming (python)
 Timer bugs 
 	Pomodoro timer didn't start immediately from reboot
 	Stop timer once post timer is done
-----------------------------------------------------------------
-
-
-Rename function calls / remove everything that isn't necessary
-Standardize quotes in function calls, and function calls in general ('' on outside, "" on inside, always in js)
 Delete all random commented code
-Update pictures in about page, especially cropping out whitespace and nav bar in one of them
-Make account page / timer selection look nicer depending on laptop vs phone (not super important rn)
-Don't allow changing timer types until current timer is stopped
-Generally better formatting on mobile
-	Pomodoro timer goes off screen
-
 
 Frontend naming (js)
 	lowerUpperCase for variables and functions
 	replace tabs with 2 spaces
+
+Alarm sounded weird
+Doesn't sound sometimes if not on screen
+Doesn't go to long break
+
+
+Errors I have had:
+	Deleting files sometimes doesn't work
+	Glitched out when submitting form after ending timer data?
+----------------------------------------------------------------
 
 
 Make sure migration works:
@@ -45,14 +44,7 @@ Make sure migration works:
 	Check if I get any console errors in general
 	Make sure I didn't mess anything up with function renaming
 
-Errors I have had:
-	Deleting files sometimes doesn't work
-	Glitched out when submitting form after ending timer data?
 	
-Alarm sounded weird
-Doesn't sound sometimes if not on screen
-Doesn't go to long break
-
 ------------------------------------------------------------------------
 
 After I post it to social media:
@@ -186,3 +178,14 @@ Until end of break (after new Years):
 		Path traversal in path bar stops when first item with matching title is reached
 			If two items are named "asdf" the one deeper will always be stopped at first
 			Traverse by key, basically
+		Generally better formatting on mobile
+			Pomodoro timer goes off screen
+		Don't allow changing timer types until current timer is stopped
+		Make account page / timer selection look nicer depending on laptop vs phone
+		Lower amount of code
+			Use v-for for about page and account page
+			Make sure all functions are required
+		Standardize quotes in function calls, and function calls in general ('' on outside, "" on inside, always in js)
+		Update pictures in about page, as I keep adding features
+		More advanced countdown and pomodoro time data 
+			Allow seconds and minutes

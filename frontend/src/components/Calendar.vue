@@ -6,8 +6,6 @@
 </template>
 
 <script>
-require('howler');
-
 import { mapState, mapActions } from 'vuex'
 import SideNav from './SideNav'
 export default {

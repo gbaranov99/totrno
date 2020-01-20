@@ -2,7 +2,6 @@ import vue from 'vue'
 import router from 'vue-router'
 import home from '@/components/Home'
 import about from '@/components/About'
-import contact from '@/components/Contact'
 import signup from '@/components/SignUp'
 import totrno from '@/components/Totrno'
 import account from '@/components/Account'
@@ -39,18 +38,6 @@ export default new router({
 			path: '/about',
 			name: 'about',
 			component: about,
-			beforeEnter: (to, from, next) => {
-				store.dispatch('login/getUser')
-					.then(errors => {
-						if (!errors) next('/totrno')
-						else next()
-					})
-			}
-		},
-		{
-			path: '/contact',
-			name: 'contact',
-			component: contact,
 			beforeEnter: (to, from, next) => {
 				store.dispatch('login/getUser')
 					.then(errors => {

@@ -196,7 +196,7 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
 	name: 'PreTimer',
-	props: [ 'associated_file', 'file_name'],
+	props: [ 'associatedFile', 'fileName'],
 	data() {
 		return {
 			showChildren: false,
@@ -245,10 +245,10 @@ export default {
 					endTime.setHours(endTime.getHours() + hours);
 					var endTimeISO = endTime.toISOString().substring(0,19)
 
-					this.addTimeLog({before_note: this.beforeNote, start_time: this.currentTime, end_time: endTimeISO, duration: this.login.countdown_duration, associated_file: this.associated_file, active: true, file_name: this.file_name})
+					this.addTimeLog({before_note: this.beforeNote, start_time: this.currentTime, end_time: endTimeISO, duration: this.login.countdown_duration, associated_file: this.associatedFile, active: true, file_name: this.fileName})
 				}
 				else {
-					this.addTimeLog({before_note: this.beforeNote, start_time: this.currentTime, end_time: this.currentTime, associated_file: this.associated_file, active: this.isActive, file_name: this.file_name})
+					this.addTimeLog({before_note: this.beforeNote, start_time: this.currentTime, end_time: this.currentTime, associated_file: this.associatedFile, active: this.isActive, file_name: this.fileName})
 				}
 			}
 		},
@@ -260,11 +260,7 @@ export default {
 			var startDate = new Date(startTime);
 			var endDate = new Date(endTime);
 
-			//console.log(startDate)
-			//console.log(endDate)
-
 			if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
-				//console.log('date1')
 				this.errorMessage = "Please enter a valid start and end date and time"
 			}
 			else if (startDate > endDate) {
@@ -276,17 +272,16 @@ export default {
 				if (yesterday < startDate) {
 					var newDuration = endDate - startDate
 					newDuration /= 60000
+
 					// Less than 24 hours between start and end times
-					//console.log(newDuration)
 					if (newDuration < 1440) {
 						var hours = Math.floor(newDuration / 60)
 						var minutes = newDuration % 60
 						duration = hours + ':' + minutes + ':00'
 					}
-					//console.log(duration)
 				}
 				this.parentTimerPressed();
-				this.addTimeLog({before_note: this.beforeNote, after_note: this.afterNote, next_note: this.nextNote, start_time: startTime, end_time: endTime, duration: duration, associated_file: this.associated_file, active: false, file_name: this.file_name});
+				this.addTimeLog({before_note: this.beforeNote, after_note: this.afterNote, next_note: this.nextNote, start_time: startTime, end_time: endTime, duration: duration, associated_file: this.associatedFile, active: false, file_name: this.fileName});
 			}
 		},
 		parentTimerPressed() {

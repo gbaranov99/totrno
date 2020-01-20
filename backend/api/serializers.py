@@ -25,13 +25,6 @@ class SingleFileSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'content', 'owner', 'due_date', 'closed', 'completed', 'archived', 'parent')
 
 
-#class UserSerializer(serializers.ModelSerializer):
-#
-#    class Meta:
-#        model = CustomUser
-#        fields = ('id', 'email', 'username', 'timer_choice', 'pomodoro_duration', 'pomodoro_small_break_count', 'pomodoro_small_break_duration', 'pomodoro_big_break_duration',)
-#
-
 class TimeLogSerializer(serializers.ModelSerializer):
     owner = serializers.HiddenField(default=serializers.CurrentUserDefault())
 

@@ -7,17 +7,6 @@
 				</router-link>
 			</v-toolbar-title>
 			<v-spacer></v-spacer>
-			<!--
-			<v-toolbar-items v-if="login.username === ''">
-				<v-btn
-					text
-					v-for="item in loggedOut"
-					:key="item.title"
-					:to="item.path">
-					{{ item.title }}
-				</v-btn>
-			</v-toolbar-items>
-			-->
 			<v-toolbar-items>
 				<v-btn
 					text
@@ -43,14 +32,8 @@ export default {
 		appTitle: 'Totrno',
 		loggedOut: [
 			{ title: 'About', path: '/about' },
-			//{ title: 'Contact', path: '/contact' },
 			{ title: 'Sign Up', path: '/signup' },
 		],
-		loggedIn: [
-			{ title: 'About', path: '/about' },
-			//{ title: 'Contact', path: '/contact' },
-			{ title: 'Logout', path: '/logout' },
-		]
 		}
 	},
 	computed: mapState({

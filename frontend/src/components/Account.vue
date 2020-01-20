@@ -1,5 +1,8 @@
 <template>
 	<v-container>
+		<SideNav 
+			ref="sideNavRef"
+		></SideNav>
 	<div class="d-none d-sm-block">
 		<v-app-bar app color="green lighten-4">
 			<v-tabs
@@ -22,7 +25,6 @@
 				</v-btn>
 			</v-toolbar-items>
 		</v-app-bar>
-		<SideNav></SideNav>
 		<!--
 		{{ login }}
 		-->
@@ -59,9 +61,6 @@
 				</v-btn>
 			</v-toolbar-items>
 		</v-app-bar>
-		<SideNav 
-			ref="sideNavRef"
-		></SideNav>
 		<!--
 		{{ login }}
 		-->
@@ -517,7 +516,6 @@
 </template>
 
 <script>
-require('howler');
 
 import { mapState, mapActions } from 'vuex'
 import SideNav from './SideNav'
@@ -563,6 +561,9 @@ export default {
 		expandSideNav() {
 			this.$refs.sideNavRef.switchDrawer()
 		},
+		padTime: function(time) {
+			return (time < 10 ? '0' : '') + time;
+		},
 		fixDurationValue() {
 			var durationHours = Number(this.login.pomodoro_duration.substring(0, 2))
 			var durationMinutes = Number(this.login.pomodoro_duration.substring(3, 5))
@@ -578,8 +579,6 @@ export default {
 			this.selectedPage = newPage;
 		},
 		changeTimerOption(newTimer) {
-			//console.log(newTimer);
-			//console.log(this.login.username)
 			this.postUser({ username: this.login.username,  timer_choice: newTimer })
 			this.login.timer_choice = newTimer
 		},
@@ -589,10 +588,7 @@ export default {
 				var hours = Math.floor(this.durationVal / 60)
 				var minutes = Math.floor(this.durationVal % 60)
 				this.durationVal = hours * 60 + minutes
-				if (hours == 0) {
-					hours = '00'
-				}
-				var duration = hours + ":" + minutes + ":00"
+				var duration = this.padTime(hours) + ":" + this.padTime(minutes) + ":00"
 				this.postUser({ username: this.login.username,  pomodoro_duration: duration })
 				this.login.pomodoro_duration = duration
 				this.errorDuration = ''
@@ -603,7 +599,7 @@ export default {
 		},
 		updateShortDuration() {
 			if (this.shortDurationVal >= 1 && this.shortDurationVal <= 60) {
-				var duration = "00:" + this.shortDurationVal + ":00"
+				var duration = "00:" + this.padTime(this.shortDurationVal) + ":00"
 				this.postUser({ username: this.login.username, pomodoro_short_break_duration: duration })
 				this.login.pomodoro_short_break_duration = duration
 				this.pomodoroShortDuration = false
@@ -615,7 +611,7 @@ export default {
 		},
 		updateLongDuration() {
 			if (this.longDurationVal >= 1 && this.longDurationVal <= 60) {
-				var duration = "00:" + this.longDurationVal + ":00"
+				var duration = "00:" + this.padTime(this.longDurationVal) + ":00"
 				this.postUser({ username: this.login.username, pomodoro_long_break_duration: duration })
 				this.login.pomodoro_long_break_duration = duration
 				this.pomodoroLongDuration = false
@@ -637,16 +633,14 @@ export default {
 			}
 		},
 		updateCountdown() {
-			//console.log(this.countdownVal)
 			if ( !(this.countdownVal)){
 				this.errorCountdown = "Please enter a valid number of hours and minutes"
-				//console.log('wow')
 			}
 			else {
 				this.countdownDuration = false
-				var full_time = this.countdownVal + ":00"
-				this.postUser({ username: this.login.username,  countdown_duration: full_time })
-				this.login.countdown_duration = full_time
+				var fullTime = this.countdownVal + ":00"
+				this.postUser({ username: this.login.username,  countdown_duration: fullTime })
+				this.login.countdown_duration = fullTime
 				this.errorCountdown = ''
 			}
 		},
@@ -661,16 +655,6 @@ export default {
 		this.$store.dispatch('login/getUser')
 			.then(() => {
 				this.fixDurationValue()
-				//const sound = ( new Audio( require('../assets/alarm1.mp3') )).play();
-				//var audio = new Audio(src="../assets/alarm1.mp3")
-				//this.audio = new Howl({
-					//src: "http://www.noiseaddicts.com/samples_1w72b820/3720.mp3",
-					//src: require('../assets/alarm1.mp3'),
-					//src: "https://freesound.org/people/kwahmah_02/sounds/250629/download/250629__kwahmah-02__alarm1.mp3",
-					//volume: 1.0,
-				//});
-				//console.log(this.audio)
-				//this.audio.play();
 				})
 	}
 };

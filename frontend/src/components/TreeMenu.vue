@@ -4,11 +4,11 @@
 	fluid
 	>
 		<draggable 
-		:list="file_set" 
+		:list="fileSet" 
 		handle=".handle" 
 		@change="onChange"
 		:group="{ name:'g1'}">	
-			<template v-for="file in file_set">
+			<template v-for="file in fileSet">
 				<span :key="file.id">
 					<v-container 
 					class="pt-0 pr-0 pb-0"
@@ -65,9 +65,9 @@
 								v-if="file.closed"
 								@parentToggleContent="parentToggleContent"
 								@parentChangeFileSet="parentChangeFileSet"
-								:file_set="file.file_set"
-								:parent_file="file.id"
-								:parent_title="file.title"
+								:fileSet="file.file_set"
+								:parentFile="file.id"
+								:parentTitle="file.title"
 								>
 							</tree-menu>
 						</v-row>
@@ -80,23 +80,19 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import PreTimer from './PreTimer'
 import draggable from 'vuedraggable'
 
 export default {
 	name: 'tree-menu',
 	components: {
-		'PreTimer': PreTimer,
 		draggable
 	},
-	props: [ 'file_set', 'parent_file', 'parent_title',],
+	props: [ 'fileSet', 'parentFile', 'parentTitle',],
 	data() {
 		return {
 			parent: null,
 			showChildren: false,
 			showTimerForm: false,
-			associated_file: null,
-			file_name: "",
 		}
 	},
 	computed: {
@@ -115,32 +111,30 @@ export default {
 		},
 		removeFile(file) {
 			this.deleteFile(file);
-			this.file_set = this.file_set.filter(obj => obj.id !== file.id)
+			this.fileSet = this.fileSet.filter(obj => obj.id !== file.id)
 		},
-		parentChangeFileSet(file, path_id, path_title) {
-			if ( (this.parent_file === null) && (typeof path_id !== 'object')) {
-				path_id = ['root',]
-				path_title = ['root',]
+		parentChangeFileSet(file, pathId, pathTitle) {
+			if ( (this.parentFile === null) && (typeof pathId !== 'object')) {
+				pathId = ['root',]
+				pathTitle = ['root',]
 			}
-			else if (typeof path_id === 'number') {
-				path_id = [ this.parent_file ]
-				path_title = [this.parent_title]
+			else if (typeof pathId === 'number') {
+				pathId = [ this.parentFile ]
+				pathTitle = [this.parentTitle]
 			}
 			else {
-				if (this.parent_file === null) {
-					path_id.unshift('root')
-					path_title.unshift('root')
+				if (this.parentFile === null) {
+					pathId.unshift('root')
+					pathTitle.unshift('root')
 				}
 				else {
-					path_id.unshift(this.parent_file);
-					path_title.unshift(this.parent_title);
+					pathId.unshift(this.parentFile);
+					pathTitle.unshift(this.parentTitle);
 				}
 			}
-			this.$emit('parentChangeFileSet', file, path_id, path_title);
+			this.$emit('parentChangeFileSet', file, pathId, pathTitle);
 		},
 		toggleChildren(file) {
-			//console.log('wtf?')
-			//console.log(file)
 			file.closed = !file.closed;
 		},
 		...mapActions('timeLogs', [
@@ -154,10 +148,10 @@ export default {
 		]),
 		onChange(evt) {
 			if (evt.added) {
-				if (this.parent_file !== evt.added.element.parent) {
+				if (this.parentFile !== evt.added.element.parent) {
 					//console.log('wow')
 					var newElement = evt.added.element;
-					newElement.parent = this.parent_file;
+					newElement.parent = this.parentFile;
 					this.updateFile(newElement);
 				}
 			}
